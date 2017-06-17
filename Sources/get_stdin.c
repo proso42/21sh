@@ -1,0 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_stdin.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/16 15:37:25 by proso             #+#    #+#             */
+/*   Updated: 2017/06/16 15:37:28 by proso            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../Includes/shell.h"
+
+void	choice_alt(t_data *info, char *key)
+{
+	if (key[3] == 67 && !key[4])
+		move_next_word(info);
+	else if (key[3] == 68 && !key[4])
+		move_prev_word(info);
+}
+
+int		get_stdin(t_data *info)
+{
+	char	key[6];
+
+	ft_bzero(key, 6);
+	read(0, key, 6);
+	if (key[0] >= ' ' && key[0] <= '~' && !key[1])
+		add_to_buf(info, key);
+	else if (key[0] == 27 && key[1] == 91 && (key[2] == 68 || key[2] == 67)
+																	&& !key[3])
+		line_edition(info, key);
+	else if (key[0] == 27 && key[1] == 91 && key[2] == 72 && !key[3])
+		home(info, 1);
+	else if (key[0] == 27 && key[1] == 91 && key[2] == 70 && !key[3])
+		end(info);
+	else if (key[0] == 27 && key[1] == 27 && key[2] == 91 && key[3])
+		choice_alt(info, key);
+	else if (key[0] == 10 && !key[1])
+		cut_cmd(info);
+	return (0);
+}

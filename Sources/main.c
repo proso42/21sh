@@ -19,11 +19,12 @@ void		print_prompt(t_data *info)
 	ft_bzero(str, 1024);
 	getcwd(str, 1024);
 	ft_printf("{blue}{bold}%s $> {res}", str);
-	if (ft_strlen(str) + 4 >= info->sz.ws_col)
-		info->curs_x = (ft_strlen(str) + 4) - info->sz.ws_col;
+	info->prompt_size = ft_strlen(str) + 4;
+	if (info->prompt_size >= info->sz.ws_col)
+		info->curs_x = (info->prompt_size - info->sz.ws_col);
 	else
-		info->curs_x = ft_strlen(str) + 4;
-	info->curs_y = (ft_strlen(str) + 4) / info->sz.ws_col;
+		info->curs_x = info->prompt_size;
+	info->curs_y = info->prompt_size / info->sz.ws_col;
 }
 
 static void	print_entry(t_data *info)
@@ -43,5 +44,9 @@ int			main(void)
 
 	init_terminal(&info);
 	print_entry(&info);
+	while (1)
+	{
+		get_stdin(&info);
+	}
 	return (0);
 }

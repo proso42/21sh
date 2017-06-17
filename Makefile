@@ -12,21 +12,15 @@
 
 NAME = 21_sh
 
-SRC = Sources/main.c \
-      Sources/terminal.c \
-	  Sources/error.c \
-	  Sources/term_action.c
-
-
-	#Sources/add_to_buf.c \
-	  Sources/edit_buf.c \
-      Sources/env.c \
-       \
+SRC = Sources/add_to_buf.c \
+	  Sources/cut_cmd.c \
 	  Sources/get_stdin.c \
-	  Sources/line_edition.c \#
-
-	  # \
-	  #
+	  Sources/line_edition.c \
+	  Sources/main.c\
+	  Sources/print_error.c \
+	  Sources/spc_move_curs.c \
+	  Sources/switch_terminal.c \
+	  Sources/term_action.c
 
 CC = gcc
 

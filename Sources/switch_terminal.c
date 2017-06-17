@@ -15,26 +15,30 @@
 int		default_terminal(t_data *info, int mode)
 {
 	if ((tcsetattr(0, TCSADRAIN, &info->df_term)) == -1)
-		return (error(2));
+		return (print_error(2));
 	if (mode < 0)
-		exit (-1);
+		exit(-1);
 	return (1);
 }
 
 int		init_terminal(t_data *info)
 {
+	if (!(tgetent(NULL, "xterm-256color")))
+		return (print_error(3));
 	if ((tcgetattr(0, &info->sh_term)) == -1)
-		return (error(1));
+		return (print_error(1));
 	if ((tcgetattr(0, &info->df_term)) == -1)
-		return (error(1));
+		return (print_error(1));
 	info->sh_term.c_lflag &= ~(ICANON);
 	info->sh_term.c_lflag &= ~(ECHO);
 	info->sh_term.c_cc[VMIN] = 1;
 	info->sh_term.c_cc[VTIME] = 0;
 	info->buf_i = 0;
+	info->curs_x = 0;
+	info->curs_y = 0;
 	ioctl(0, TIOCGWINSZ, &info->sz);
 	ft_bzero(info->buf_cmd, 1024);
 	if ((tcsetattr(0, TCSADRAIN, &info->sh_term)) == -1)
-		return (error(2));
+		return (print_error(2));
 	return (1);
 }
