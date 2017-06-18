@@ -19,21 +19,21 @@ int		ft_push_back(t_list **begin_list, void *str)
 
 	current = NULL;
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
-		return (0);
-	if (!*begin_list)
 	{
-		*begin_list = new;
-		new->prev = NULL;
+		ft_putstr_color("Fail to allocate memory with malloc function...\n"
+																	, C_RED);
+		exit(-1);
 	}
+	if (!*begin_list)
+		*begin_list = new;
 	else
 	{
 		current = *begin_list;
 		while (current->next)
 			current = current->next;
 		current->next = new;
-		new->prev = current;
 	}
-	new->data = ft_strdup(str);
+	new->data = str;
 	new->size = ft_strlen(str);
 	new->next = NULL;
 	return (1);

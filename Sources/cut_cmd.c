@@ -18,7 +18,7 @@ static void	pass_space(char *str, int *i)
 		(*i)++;
 }
 
-static void pick_part(t_data *info, int *i, int *j)
+static void	pick_part(t_data *info, int *i, int *j)
 {
 	int		sg_quote;
 	int		db_quote;
@@ -43,7 +43,7 @@ static void pick_part(t_data *info, int *i, int *j)
 	}
 }
 
-void		cut_cmd(t_data *info)
+int			cut_cmd(t_data *info)
 {
 	int		i;
 	int		j;
@@ -60,8 +60,9 @@ void		cut_cmd(t_data *info)
 	j = 0;
 	while (info->av[j][0])
 	{
-		ft_dprintf(0, "\n{yellow}{bold}%s{res}\n", info->av[j]);
+		if (ft_strchr(info->av[j], '$'))
+			replace_dollard(info, info->av[j]);
 		j++;
 	}
-	exit(0);
+	return (0);
 }

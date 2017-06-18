@@ -41,12 +41,31 @@ static void	print_entry(t_data *info)
 int			main(void)
 {
 	t_data	info;
+	int		ret;
 
 	init_terminal(&info);
+	info.env_list = init_env_list();
 	print_entry(&info);
 	while (1)
 	{
-		get_stdin(&info);
+		if (!(ret = get_stdin(&info)))
+		{
+			if (!(ft_strcmp(info.av[0], "exit")) && ((!info.av[1][0]) || (!info.av[2][0])))
+			{
+				default_terminal(&info, 0);
+				if (info.av[1][0])
+					exit(ft_atoi(info.av[1]));
+				else
+					exit(0);
+			}
+			term_action(&info, "do");
+			print_prompt(&info);
+			add_cmd_to_history(&info);
+			ft_bzero(info.buf_cmd, 1024);
+			info.buf_i = 0;
+		}
+		if (ret != 2)
+			info.num_history = -1;
 	}
 	return (0);
 }

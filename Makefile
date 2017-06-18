@@ -13,11 +13,16 @@
 NAME = 21_sh
 
 SRC = Sources/add_to_buf.c \
+	  Sources/clear_sc.c \
 	  Sources/cut_cmd.c \
+	  Sources/delete.c \
+	  Sources/env.c \
+	  Sources/get_history.c \
 	  Sources/get_stdin.c \
 	  Sources/line_edition.c \
 	  Sources/main.c\
 	  Sources/print_error.c \
+	  Sources/replace_dollard.c \
 	  Sources/spc_move_curs.c \
 	  Sources/switch_terminal.c \
 	  Sources/term_action.c

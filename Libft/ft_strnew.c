@@ -17,7 +17,11 @@ char	*ft_strnew(size_t size)
 	char	*str;
 
 	if (!(str = (char*)malloc(sizeof(char) * size + 1)))
-		return (NULL);
+	{
+		ft_putstr_color("Fail to allocate memory with malloc function...\n"
+																	, C_RED);
+		exit(-1);
+	}
 	ft_memset(str, 0, size + 1);
 	return (str);
 }

@@ -12,7 +12,7 @@
 
 #include "../Includes/shell.h"
 
-int		default_terminal(t_data *info, int mode)
+int			default_terminal(t_data *info, int mode)
 {
 	if ((tcsetattr(0, TCSADRAIN, &info->df_term)) == -1)
 		return (print_error(2));
@@ -21,14 +21,8 @@ int		default_terminal(t_data *info, int mode)
 	return (1);
 }
 
-int		init_terminal(t_data *info)
+static void	set_var(t_data *info)
 {
-	if (!(tgetent(NULL, "xterm-256color")))
-		return (print_error(3));
-	if ((tcgetattr(0, &info->sh_term)) == -1)
-		return (print_error(1));
-	if ((tcgetattr(0, &info->df_term)) == -1)
-		return (print_error(1));
 	info->sh_term.c_lflag &= ~(ICANON);
 	info->sh_term.c_lflag &= ~(ECHO);
 	info->sh_term.c_cc[VMIN] = 1;
@@ -36,8 +30,23 @@ int		init_terminal(t_data *info)
 	info->buf_i = 0;
 	info->curs_x = 0;
 	info->curs_y = 0;
+	info->env_list = NULL;
+	info->history_list = NULL;
+	info->num_history = -1;
 	ioctl(0, TIOCGWINSZ, &info->sz);
 	ft_bzero(info->buf_cmd, 1024);
+	ft_bzero(info->tmp_buf, 1024);
+}
+
+int			init_terminal(t_data *info)
+{
+	if (!(tgetent(NULL, "xterm-256color")))
+		return (print_error(3));
+	if ((tcgetattr(0, &info->sh_term)) == -1)
+		return (print_error(1));
+	if ((tcgetattr(0, &info->df_term)) == -1)
+		return (print_error(1));
+	set_var(info);
 	if ((tcsetattr(0, TCSADRAIN, &info->sh_term)) == -1)
 		return (print_error(2));
 	return (1);

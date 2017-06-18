@@ -41,6 +41,9 @@ typedef struct	s_cmd
 typedef struct	s_data
 {
 	t_list			*env_list;
+	t_list			*history_list;
+	char			tmp_buf[1024];
+	int				num_history;
 	char			*cmd_line;
 	struct termios	sh_term;
 	struct termios	df_term;
@@ -56,7 +59,9 @@ typedef struct	s_data
 int				init_terminal(t_data *info);
 int				default_terminal(t_data *info, int mode);
 int				print_error(int err);
+void			print_prompt(t_data *info);
 t_list			*init_env_list(void);
+void			builtin_env(t_data *info);
 int				get_stdin(t_data *info);
 void			term_action(t_data *info, char *action);
 int				add_to_buf(t_data *info, char *key);
@@ -69,6 +74,15 @@ void			move_next_word(t_data *info);
 void			move_prev_word(t_data *info);
 void			move_left(t_data *info);
 void			move_right(t_data *info);
-void			cut_cmd(t_data *info);
+int				cut_cmd(t_data *info);
+char			*get_env_var(t_data *info, char *str);
+void			replace_dollard(t_data *info, char str[]);
+void			write_buf(t_data *info);
+void			del_line(t_data *info);
+void			delete_left(t_data *info);
+void			delete_right(t_data *info);
+int				get_history(t_data *info, char *key);
+void			add_cmd_to_history(t_data *info);
+void			clear_sc(t_data *info);
 
 #endif

@@ -12,7 +12,7 @@
 
 #include "../Includes/shell.h"
 
-static void	write_buf(t_data *info)
+void	write_buf(t_data *info)
 {
 	int		i;
 
@@ -32,7 +32,7 @@ static void	write_buf(t_data *info)
 	}
 }
 
-int			edit_buf(t_data *info, char *key)
+int		edit_buf(t_data *info, char *key)
 {
 	char	tmp[1024];
 
@@ -50,7 +50,7 @@ int			edit_buf(t_data *info, char *key)
 	return (1);
 }
 
-int			add_to_buf(t_data *info, char *key)
+int		add_to_buf(t_data *info, char *key)
 {
 	if (info->buf_i != (int)ft_strlen(info->buf_cmd))
 		return (edit_buf(info, key));

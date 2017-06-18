@@ -12,7 +12,7 @@
 
 #include "../Includes/shell.h"
 
-void	choice_alt(t_data *info, char *key)
+void		choice_alt(t_data *info, char *key)
 {
 	if (key[3] == 67 && !key[4])
 		move_next_word(info);
@@ -20,7 +20,16 @@ void	choice_alt(t_data *info, char *key)
 		move_prev_word(info);
 }
 
-int		get_stdin(t_data *info)
+static void	suite(t_data *info, char *key)
+{
+	if (key[0] == 27 && key[1] == 91 && key[2] == 51 && key[3] == 126
+																	&& !key[4])
+		delete_right(info);
+	else if (key[0] == 12 && !key[1])
+		clear_sc(info);
+}
+
+int			get_stdin(t_data *info)
 {
 	char	key[6];
 
@@ -31,6 +40,9 @@ int		get_stdin(t_data *info)
 	else if (key[0] == 27 && key[1] == 91 && (key[2] == 68 || key[2] == 67)
 																	&& !key[3])
 		line_edition(info, key);
+	else if (key[0] == 27 && key[1] == 91 && (key[2] == 65 || key[2] == 66)
+																	&& !key[3])
+		return (get_history(info, key));
 	else if (key[0] == 27 && key[1] == 91 && key[2] == 72 && !key[3])
 		home(info, 1);
 	else if (key[0] == 27 && key[1] == 91 && key[2] == 70 && !key[3])
@@ -38,6 +50,10 @@ int		get_stdin(t_data *info)
 	else if (key[0] == 27 && key[1] == 27 && key[2] == 91 && key[3])
 		choice_alt(info, key);
 	else if (key[0] == 10 && !key[1])
-		cut_cmd(info);
-	return (0);
+		return (cut_cmd(info));
+	else if (key[0] == 127 && !key[1])
+		delete_left(info);
+	else
+		suite(info, key);
+	return (1);
 }
