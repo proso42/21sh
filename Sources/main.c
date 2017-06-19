@@ -17,9 +17,13 @@ void		print_prompt(t_data *info)
 	char	str[1024];
 
 	ft_bzero(str, 1024);
-	getcwd(str, 1024);
-	ft_printf("{blue}{bold}%s $> {res}", str);
-	info->prompt_size = ft_strlen(str) + 4;
+	if (!info->quote)
+		ft_printf("{blue}{bold}%s{res}", ft_strcat(getcwd(str, 1024), " $> "));
+	else if (info->quote == 1)
+		ft_printf("%s", ft_strcpy(str, "quote> "));
+	else if (info->quote == 2)
+		ft_printf("%s", ft_strcpy(str, "dquote> "));
+	info->prompt_size = ft_strlen(str);
 	if (info->prompt_size >= info->sz.ws_col)
 		info->curs_x = (info->prompt_size - info->sz.ws_col);
 	else

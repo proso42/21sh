@@ -23,7 +23,7 @@ char	*ft_str_remove_c(char *str, char c)
 	if (!str)
 		return (NULL);
 	tmp = ft_strnew(ft_strlen(str));
-	if (c > 0)
+	if (c != 0)
 	{
 		while (str[i])
 		{

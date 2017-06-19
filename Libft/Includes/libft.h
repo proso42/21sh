@@ -17,6 +17,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 # include <sys/ioctl.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
@@ -67,6 +68,7 @@ int						ft_isalpha(int c);
 int						ft_isascii(int c);
 int						ft_isdigit(int c);
 int						ft_isprint(int c);
+void					ft_init(int x, int nb, ...);
 int						ft_is_whitespace(char c);
 int						ft_recursive_factorial(int nb);
 int						ft_recursive_power(int nb, int power);

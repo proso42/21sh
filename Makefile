@@ -17,6 +17,7 @@ SRC = Sources/add_to_buf.c \
 	  Sources/cut_cmd.c \
 	  Sources/delete.c \
 	  Sources/env.c \
+	  Sources/eval_quote.c \
 	  Sources/get_history.c \
 	  Sources/get_stdin.c \
 	  Sources/line_edition.c \

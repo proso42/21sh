@@ -27,6 +27,7 @@ SRC = btree_apply_infix.c \
 	  ft_isascii.c \
 	  ft_isdigit.c \
 	  ft_isprint.c \
+	  ft_init.c \
 	  ft_is_whitespace.c \
 	  ft_recursive_factorial.c \
 	  ft_recursive_power.c \

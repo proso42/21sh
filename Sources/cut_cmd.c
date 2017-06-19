@@ -25,9 +25,7 @@ static void	pick_part(t_data *info, int *i, int *j)
 	int		k;
 	char	*str;
 
-	sg_quote = 0;
-	db_quote = 0;
-	k = 0;
+	ft_init(0, 3 ,&k, &sg_quote, &db_quote);
 	str = info->buf_cmd;
 	ft_bzero(info->av[*j], 100);
 	while ((str[*i] != ' ' || (str[*i] == ' ' && (sg_quote || db_quote)))
@@ -57,6 +55,12 @@ int			cut_cmd(t_data *info)
 		j++;
 	}
 	ft_bzero(info->av[j], 100);
+	j = 0;
+	while (info->av[j][0])
+		j++;
+	if (j > 0)
+		j--;
+	eval_quote(info, j);
 	j = 0;
 	while (info->av[j][0])
 	{

@@ -27,9 +27,7 @@ static void	set_var(t_data *info)
 	info->sh_term.c_lflag &= ~(ECHO);
 	info->sh_term.c_cc[VMIN] = 1;
 	info->sh_term.c_cc[VTIME] = 0;
-	info->buf_i = 0;
-	info->curs_x = 0;
-	info->curs_y = 0;
+	ft_init(0, 4, &info->buf_i, &info->curs_x, &info->curs_y, &info->quote);
 	info->env_list = NULL;
 	info->history_list = NULL;
 	info->num_history = -1;

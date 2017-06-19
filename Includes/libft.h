@@ -6,7 +6,7 @@
 /*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/06/03 17:25:07 by proso            ###   ########.fr       */
+/*   Updated: 2017/06/19 13:58:30 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 # include <sys/ioctl.h>
 # include "get_next_line.h"
 # include "ft_printf.h"
@@ -71,6 +72,7 @@ int						ft_is_whitespace(char c);
 int						ft_recursive_factorial(int nb);
 int						ft_recursive_power(int nb, int power);
 char					*ft_replace(char *str, char old, char new);
+void					ft_init(int x, int nb, ...);
 char					*ft_itoa(long n);
 char					*ft_itoa_base(int value, int base);
 char					*ft_ltoa(long long n);

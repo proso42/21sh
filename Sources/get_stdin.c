@@ -20,13 +20,16 @@ void		choice_alt(t_data *info, char *key)
 		move_prev_word(info);
 }
 
-static void	suite(t_data *info, char *key)
+static int	suite(t_data *info, char *key)
 {
 	if (key[0] == 27 && key[1] == 91 && key[2] == 51 && key[3] == 126
 																	&& !key[4])
 		delete_right(info);
 	else if (key[0] == 12 && !key[1])
 		clear_sc(info);
+	else if (key[0] == 10 && !key[1] && info->quote)
+		return (18);
+	return (1);
 }
 
 int			get_stdin(t_data *info)
@@ -41,7 +44,7 @@ int			get_stdin(t_data *info)
 																	&& !key[3])
 		line_edition(info, key);
 	else if (key[0] == 27 && key[1] == 91 && (key[2] == 65 || key[2] == 66)
-																	&& !key[3])
+													&& !key[3] && !info->quote)
 		return (get_history(info, key));
 	else if (key[0] == 27 && key[1] == 91 && key[2] == 72 && !key[3])
 		home(info, 1);
@@ -49,11 +52,11 @@ int			get_stdin(t_data *info)
 		end(info);
 	else if (key[0] == 27 && key[1] == 27 && key[2] == 91 && key[3])
 		choice_alt(info, key);
-	else if (key[0] == 10 && !key[1])
+	else if (key[0] == 10 && !key[1] && !info->quote)
 		return (cut_cmd(info));
 	else if (key[0] == 127 && !key[1])
 		delete_left(info);
 	else
-		suite(info, key);
+		return (suite(info, key));
 	return (1);
 }

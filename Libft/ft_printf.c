@@ -23,11 +23,11 @@ int		show_buff(t_print *p)
 	while (p->buff[i])
 	{
 		if (p->buff[i] == -1)
-			write(1, &c, 1);
+			write(p->fd, &c, 1);
 		else if (p->buff[i] == '\x1b')
 			i = apply_style(&(p->buff[i]), p, i);
 		else
-			write(1, &(p->buff[i]), 1);
+			write(p->fd, &(p->buff[i]), 1);
 		(p->ret)++;
 		i++;
 	}
@@ -73,6 +73,7 @@ int		ft_printf(const char *format, ...)
 	p.ret = 0;
 	p.format = ft_strdup(format);
 	p.buff = ft_strnew(0);
+	p.fd = 1;
 	va_start(p.ap, format);
 	while (p.format[i])
 	{

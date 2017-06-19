@@ -44,7 +44,6 @@ typedef struct	s_data
 	t_list			*history_list;
 	char			tmp_buf[1024];
 	int				num_history;
-	char			*cmd_line;
 	struct termios	sh_term;
 	struct termios	df_term;
 	struct winsize	sz;
@@ -54,6 +53,8 @@ typedef struct	s_data
 	int				curs_x;
 	int				curs_y;
 	int				prompt_size;
+	int				quote;
+	int				j;
 }					t_data;
 
 int				init_terminal(t_data *info);
@@ -84,5 +85,6 @@ void			delete_right(t_data *info);
 int				get_history(t_data *info, char *key);
 void			add_cmd_to_history(t_data *info);
 void			clear_sc(t_data *info);
+void			eval_quote(t_data *info, int j);
 
 #endif
