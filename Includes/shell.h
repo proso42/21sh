@@ -86,5 +86,6 @@ int				get_history(t_data *info, char *key);
 void			add_cmd_to_history(t_data *info);
 void			clear_sc(t_data *info);
 void			eval_quote(t_data *info, int j);
+int				is_operand(char *c);
 
 #endif

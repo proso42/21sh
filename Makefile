@@ -20,6 +20,7 @@ SRC = Sources/add_to_buf.c \
 	  Sources/eval_quote.c \
 	  Sources/get_history.c \
 	  Sources/get_stdin.c \
+	  Sources/lexer.c \
 	  Sources/line_edition.c \
 	  Sources/main.c\
 	  Sources/print_error.c \

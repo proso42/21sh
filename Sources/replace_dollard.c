@@ -58,11 +58,13 @@ static char	*analyse_dollard(t_data *info, char *arg, int *i)
 static void	loop(char str[], char tmp[], int *i, t_data *info)
 {
 	char	*env_var;
+	int		sg_quote;
+	int		db_quote;
 
-	env_var = NULL;
+	ft_init(0, 2, &sg_quote, &db_quote);
 	while (str[*i])
 	{
-		if (str[*i] == '$')
+		if (str[*i] == '$' && !sg_quote)
 		{
 			env_var = analyse_dollard(info, str, i);
 			if (env_var)
@@ -71,15 +73,14 @@ static void	loop(char str[], char tmp[], int *i, t_data *info)
 				ft_strdel(&env_var);
 			}
 		}
-		else if (str[*i] == '\'')
+		else
 		{
-			tmp[ft_strlen(tmp)] = str[(*i)++];
-			while (str[*i] != '\'' && str[*i])
-				tmp[ft_strlen(tmp)] = str[(*i)++];
+			if (str[*i] == '\'' && !db_quote)
+				sg_quote = (sg_quote) ? 0 : 1;
+			else if (str[*i] == '\"' && !sg_quote)
+				db_quote = (db_quote) ? 0 : 1;
 			tmp[ft_strlen(tmp)] = str[(*i)++];
 		}
-		else
-			tmp[ft_strlen(tmp)] = str[(*i)++];
 	}
 }
 
