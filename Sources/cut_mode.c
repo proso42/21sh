@@ -87,8 +87,11 @@ int				cut_mode(t_data *info)
 {
 	if ((info->cpy != NULL))
 		ft_strdel(&info->cpy);
-	ft_printf("{bold}{red}%c{res}", info->buf_cmd[info->buf_i]);
-	replace_curs(info);
+	if (info->buf_cmd[info->buf_i])
+	{
+		ft_printf("{bold}{red}%c{res}", info->buf_cmd[info->buf_i]);
+		replace_curs(info);
+	}
 	get_arrow(info);
 	end(info);
 	del_line(info);
