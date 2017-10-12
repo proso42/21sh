@@ -18,6 +18,10 @@ void		choice_alt(t_data *info, char *key)
 		move_next_word(info);
 	else if (key[3] == 68 && !key[4])
 		move_prev_word(info);
+	else if (key[3] == 65 && !key[4])
+		move_up(info);
+	else if (key[3] == 66 && !key[4])
+		move_down(info);
 }
 
 static int	suite(t_data *info, char *key)
@@ -29,6 +33,12 @@ static int	suite(t_data *info, char *key)
 		clear_sc(info);
 	else if (key[0] == 10 && !key[1] && info->quote)
 		return (18);
+	else if (key[0] == -61 && key[1] == -89 && !key[2])
+		cpy_mode(info);
+	else if (key[0] == -30 && key[1] == -119 && key[2] == -120 && !key[3])
+		cut_mode(info);
+	else if (key[0] == -30 && key[1] == -120 && key[2] == -102 && !key[3])
+		past_mode(info);
 	return (1);
 }
 
@@ -38,6 +48,7 @@ int			get_stdin(t_data *info)
 
 	ft_bzero(key, 6);
 	read(0, key, 6);
+//	ft_printf("{bold}{green}%d | %d | %d | %d | %d | %d", key[0], key[1], key[2], key[3], key[4], key[5]);
 	if (key[0] >= ' ' && key[0] <= '~' && !key[1])
 		add_to_buf(info, key);
 	else if (key[0] == 27 && key[1] == 91 && (key[2] == 68 || key[2] == 67)

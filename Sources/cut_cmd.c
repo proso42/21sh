@@ -27,8 +27,8 @@ static void	pick_part(t_data *info, int *i, int *j)
 
 	ft_init(0, 3, &k, &sg_quote, &db_quote);
 	str = info->buf_cmd;
-	while (!(is_operand(&str[*i])) || ((is_operand(&str[*i]))
-										&& (sg_quote || db_quote) && str[*i]))
+	while (str[*i] != ' ' && str[*i] && (!(is_operand(&str[*i])) ||
+						(((is_operand(&str[*i])) && (sg_quote || db_quote)))))
 	{
 		if (str[*i] == '\"' && !sg_quote)
 			db_quote = (db_quote) ? 0 : 1;
@@ -39,11 +39,15 @@ static void	pick_part(t_data *info, int *i, int *j)
 			info->av[*j][k++] = str[*i];
 		(*i)++;
 	}
-	if (is_operand(&str[*i]) && str[*i] != ' ')
+	if (str[*i] && is_operand(&str[*i]) && str[*i] != ' ')
 	{
-		info->av[++(*j)][0] = str[(*i)++];
+		if (info->av[*j][0])
+			(*j)++;
+		ft_bzero(info->av[*j], 100);
+		info->av[*j][0] = str[(*i)++];
 		info->av[*j][1] = ((is_operand(&str[*i]) && str[*i] != ' '))
-																? str[*i] : 0;
+														? str[*i] : '\0';
+		(*i)++;
 	}
 }
 
@@ -103,6 +107,8 @@ int			cut_cmd(t_data *info)
 
 	i = 0;
 	j = 0;
+	if (!info->buf_cmd[0])
+		return (0);
 	while (info->buf_cmd[i])
 	{
 		pass_space(info->buf_cmd, &i);
@@ -118,5 +124,10 @@ int			cut_cmd(t_data *info)
 		j--;
 	eval_quote(info, j);
 	clean_cmd(info);
+	//term_action(info, "do");
+	//default_terminal(info, 0);
+	//lexer_parser(info);
+	if ((init_line_edition(info)) < 0)
+		exit(-1);
 	return (0);
 }

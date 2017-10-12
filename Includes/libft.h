@@ -6,7 +6,7 @@
 /*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/06/19 13:58:30 by proso            ###   ########.fr       */
+/*   Updated: 2017/09/13 13:56:43 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int						ft_isalpha(int c);
 int						ft_isascii(int c);
 int						ft_isdigit(int c);
 int						ft_isprint(int c);
+void					ft_init(int x, int nb, ...);
 int						ft_is_whitespace(char c);
 int						ft_recursive_factorial(int nb);
 int						ft_recursive_power(int nb, int power);
 char					*ft_replace(char *str, char old, char new);
-void					ft_init(int x, int nb, ...);
 char					*ft_itoa(long n);
 char					*ft_itoa_base(int value, int base);
 char					*ft_ltoa(long long n);
@@ -94,9 +94,10 @@ void					ft_print_list(t_list *begin_list);
 void					ft_print_list_space(t_list *begin_list);
 t_list					*ft_list_find(t_list *begin_list, char *str);
 int						ft_list_size(t_list *begin_list);
-char					**ft_list_to_tab(t_list *begin_list, char *first);
+char					**ft_list_to_tab(t_list *begin_list);
 char					*ft_get_elem(t_list *begin_list, int i);
 t_list					*ft_get_p_elem(t_list *begin_list, int i);
+int						ft_get_num_elem(t_list *begin_list, char *str);
 t_list					**ft_get_addr_elem(t_list **begin_list, int i);
 int						get_width_win(void);
 void					*ft_memalloc(size_t size);

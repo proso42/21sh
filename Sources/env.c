@@ -12,7 +12,7 @@
 
 #include "../Includes/shell.h"
 
-char	*get_env_var(t_data *info, char *str)
+char			*get_env_var(t_data *info, char *str)
 {
 	t_list	*current;
 
@@ -25,20 +25,28 @@ char	*get_env_var(t_data *info, char *str)
 	}
 	return (NULL);
 }
-
-void	builtin_env(t_data *info)
+static void		create_min_env_var(t_data *info)
 {
-	t_list	*current;
+	int		i;
+	int		shlvl;
+	char	*new_shlvl;
+	char	str[1024];
 
-	current = info->env_list;
-	while (current)
+	if ((i = check_var(info->env_list, "SHLVL")) < 0)
+		builtin_setenv(info, "SHLVL", "1");
+	else
 	{
-		ft_putendl(((t_env*)(current->data))->env_complete);
-		current = current->next;
+		shlvl = ft_atoi(((t_env*)(ft_get_p_elem(info->env_list, i)))->env_value);
+		new_shlvl = ft_itoa(shlvl + 1);
+		builtin_setenv(info, "SHLVL", new_shlvl);
+		ft_strdel(&new_shlvl);
 	}
+	if ((i = check_var(info->env_list, "PWD")) < 0)
+		builtin_setenv(info, "PWD", getcwd(str, 1024));
 }
 
-t_list	*init_env_list(void)
+
+t_list			*init_env_list(t_data * info)
 {
 	extern char	**environ;
 	t_list		*list;
@@ -57,5 +65,6 @@ t_list	*init_env_list(void)
 		ft_push_back(&list, var);
 		i++;
 	}
+	create_min_env_var(info);
 	return (list);
 }

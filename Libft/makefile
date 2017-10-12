@@ -6,7 +6,7 @@
 #    By: proso <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/25 14:56:04 by proso             #+#    #+#              #
-#    Updated: 2017/06/04 18:37:11 by proso            ###   ########.fr        #
+#    Updated: 2017/09/13 13:57:15 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 NAME = libft.a
@@ -54,6 +54,7 @@ SRC = btree_apply_infix.c \
 	  ft_list_size.c \
 	  ft_list_to_tab.c \
 	  ft_get_p_elem.c \
+	  ft_get_num_elem.c \
 	  ft_get_addr_elem.c \
 	  ft_get_elem.c \
 	  ft_get_width_win.c \

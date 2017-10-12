@@ -48,7 +48,7 @@ int			main(void)
 	int		ret;
 
 	init_terminal(&info);
-	info.env_list = init_env_list();
+	info.env_list = init_env_list(&info);
 	print_entry(&info);
 	while (1)
 	{
@@ -62,6 +62,8 @@ int			main(void)
 				else
 					exit(0);
 			}
+			tmp_action(&info);
+			end(&info);
 			term_action(&info, "do");
 			print_prompt(&info);
 			add_cmd_to_history(&info);
