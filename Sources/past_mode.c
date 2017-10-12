@@ -17,7 +17,7 @@ int		past_mode(t_data *info)
 	int		i;
 	char	tmp[1024];
 
-	if (!info->cpy)
+	if (!info->cpy || !info->cpy[0])
 		return (0);
 	i = 0;
 	ft_bzero(tmp, 1024);

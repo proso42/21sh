@@ -48,6 +48,9 @@ static void		update_cmd(int min, int max, t_data *info)
 			new_cmd[j++] = info->buf_cmd[i];
 		i++;
 	}
+	end(info);
+	del_line(info);
+	home(info, 1);
 	info->cpy = ft_strnew(1024);
 	ft_strcpy(info->cpy, tmp);
 	ft_bzero(info->buf_cmd, 1024);
@@ -93,9 +96,6 @@ int				cut_mode(t_data *info)
 		replace_curs(info);
 	}
 	get_arrow(info);
-	end(info);
-	del_line(info);
-	home(info, 1);
 	info->curs_y = 0;
 	info->curs_x = info->prompt_size;
 	write_buf(info);
