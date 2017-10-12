@@ -48,7 +48,8 @@ int			main(void)
 	int		ret;
 
 	init_terminal(&info);
-	info.env_list = init_env_list(&info);
+	info.env_list = init_env_list();
+	create_min_env_var(&info);
 	print_entry(&info);
 	while (1)
 	{

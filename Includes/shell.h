@@ -100,7 +100,7 @@ int				get_history(t_data *info, char *key);
 int				get_stdin(t_data *info);
 void			go_good_place(t_data *info);
 void			home(t_data *info, int mode);
-t_list			*init_env_list(t_data *info);
+t_list			*init_env_list(void);
 int				init_line_edition(t_data *info);
 int				init_terminal(t_data *info);
 int				is_operand(char *c);
@@ -122,5 +122,6 @@ void			term_action(t_data *info, char *action);
 void			write_buf(t_data *info);
 void			tmp_action(t_data *info);
 int				check_var(t_list *env_list, char *env);
+void			create_min_env_var(t_data *info);
 
 #endif
