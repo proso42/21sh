@@ -20,6 +20,7 @@ static int		term_error(int err)
 		ft_putstr_color("Fatal error with tcsetattr function...\n", C_RED);
 	else if (err == 3)
 		ft_putstr_color("Fatal error with tgetent function...\n", C_RED);
+	exit(-1);
 	return (-1);
 }
 

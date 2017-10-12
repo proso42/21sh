@@ -68,6 +68,8 @@ int			main(void)
 			term_action(&info, "do");
 			print_prompt(&info);
 			add_cmd_to_history(&info);
+			ft_printf("{bold}{magenta}%s\n{res}", info.buf_cmd);
+			print_prompt(&info);
 			ft_bzero(info.buf_cmd, 1024);
 			info.buf_i = 0;
 		}
