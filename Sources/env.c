@@ -12,7 +12,7 @@
 
 #include "../Includes/shell.h"
 
-char			*get_env_var(t_data *info, char *str)
+char		*get_env_var(t_data *info, char *str)
 {
 	t_list	*current;
 
@@ -38,7 +38,8 @@ void		create_min_env_var(t_data *info)
 	{
 		shlvl = ft_atoi(((t_env*)
 						(ft_get_p_elem(info->env_list, i))->data)->env_value);
-		new_shlvl = ft_itoa(shlvl + 1);
+		new_shlvl = (shlvl < -1 || shlvl == 2147483647) ?
+											ft_strdup("0") : ft_itoa(shlvl + 1);
 		builtin_setenv(info, "SHLVL", new_shlvl);
 		ft_strdel(&new_shlvl);
 	}
@@ -47,7 +48,7 @@ void		create_min_env_var(t_data *info)
 }
 
 
-t_list			*init_env_list(void)
+t_list		*init_env_list(void)
 {
 	extern char	**environ;
 	t_list		*list;

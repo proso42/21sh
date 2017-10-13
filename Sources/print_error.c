@@ -28,6 +28,10 @@ static int		env_error(int err)
 {
 	if (err == 5)
 		ft_putstr_color("\nUnknow env variable...", C_RED);
+	else if (err == 6)
+		ft_putstr_color("\nMissing HOME env variable...", C_RED);
+	else if (err == 7)
+		ft_putstr_color("\nMissing OLDPWD env variable...", C_RED);
 	return (-1);
 }
 
@@ -35,7 +39,7 @@ int				print_error(int err)
 {
 	if (err == 1 || err == 2 || err == 3)
 		return (term_error(err));
-	else if (err == 5)
+	else if (err == 5 || err == 6 || err == 7)
 		return (env_error(err));
 	else if (err == ERR_MALLOC)
 	{

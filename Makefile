@@ -14,8 +14,10 @@ NAME = 21_sh
 
 SRC = Sources/add_lexem.c \
 	  Sources/add_to_buf.c \
+	  Sources/builtin_cd.c \
 	  Sources/builtin_setenv.c \
 	  Sources/builtin_unsetenv.c \
+	  Sources/check_path_error.c \
 	  Sources/clear_sc.c \
 	  Sources/cpy_mode.c\
 	  Sources/cut_cmd.c \

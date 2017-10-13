@@ -78,6 +78,7 @@ typedef struct	s_data
 void			add_cmd_to_history(t_data *info);
 void			add_lexem(char **cmd, int bk, int prty, t_data *info);
 int				add_to_buf(t_data *info, char *key);
+int				builtin_cd(t_data *info);
 void			builtin_echo(char *str);
 void			builtin_env(t_data *info);
 void			builtin_exit(int ret);

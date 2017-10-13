@@ -8,4 +8,6 @@ void	tmp_action(t_data *info)
 		builtin_setenv(info, info->av[1], info->av[2]);
 	else if (!(ft_strcmp(info->av[0], "unsetenv")))
 		builtin_unsetenv(info);
+	else if (!(ft_strcmp(info->av[0], "cd")))
+		builtin_cd(info);
 }
