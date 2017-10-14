@@ -12,31 +12,54 @@
 
 #include "../Includes/shell.h"
 
+static int	check_nb_arg(t_data *info, char *env, char *value)
+{
+	ft_strcpy(info->av[1], env);
+	ft_strcpy(info->av[2], value);
+	if ((!info->av[1][0] || !info->av[2][0]))
+	{
+		print_error(8);
+		ft_bzero(info->av[1], 100);
+		ft_bzero(info->av[2], 100);
+		return (0);
+	}
+	else if (info->av[3][0])
+	{
+		print_error(9);
+		ft_bzero(info->av[1], 100);
+		ft_bzero(info->av[2], 100);
+		return (0);
+	}
+	ft_bzero(info->av[1], 100);
+	ft_bzero(info->av[2], 100);
+	return (1);
+}
+
 void		builtin_setenv(t_data *info, char *env, char *value)
 {
-	t_list	*var;
-	t_env	*new_env_var;
+	t_list	*env_list;
+	t_env	*var;
 
-	new_env_var = NULL;
-	var = ft_get_p_elem(info->env_list, check_var(info->env_list, env));
-	if (!var)
+	if (!check_nb_arg(info, env, value))
+		return;
+	env_list = ft_get_p_elem(info->env_list, check_var(info->env_list, env));
+	if (!env_list)
 	{
-		if (!(new_env_var = (t_env*)malloc(sizeof(t_env))))
+		if (!(var = (t_env*)malloc(sizeof(t_env))))
 			print_error(ERR_MALLOC);
-		new_env_var->env_name = ft_strdup(env);
-		new_env_var->env_value = ft_strdup(value);
-		new_env_var->env_complete = ft_strjoin(env, "=");
-		new_env_var->env_complete = ft_strjoinfree(new_env_var->env_complete,
-																	value, 1);
-		ft_push_back(&info->env_list, new_env_var);
+		var->env_name = ft_strdup(env);
+		var->env_value = ft_strdup(value);
+		var->env_complete = ft_strjoin(env, "=");
+		var->env_complete = ft_strjoinfree(var->env_complete, value, 1);
+		ft_push_back(&info->env_list, var);
 	}
 	else
 	{
-		ft_strdel(&((t_env*)(var->data))->env_value);
-		ft_strdel(&((t_env*)(var->data))->env_complete);
-		((t_env*)(var->data))->env_value = ft_strdup(value);
-		((t_env*)(var->data))->env_complete = ft_strjoin(env, "=");
-		((t_env*)(var->data))->env_complete = ft_strjoinfree(
-								((t_env*)(var->data))->env_complete, value, 1);
+		ft_strdel(&((t_env*)(env_list->data))->env_value);
+		ft_strdel(&((t_env*)(env_list->data))->env_complete);
+		((t_env*)(env_list->data))->env_value = ft_strdup(value);
+		((t_env*)(env_list->data))->env_complete = ft_strjoin(env, "=");
+		((t_env*)(env_list->data))->env_complete = ft_strjoinfree(
+							((t_env*)(env_list->data))->env_complete, value, 1);
 	}
 }

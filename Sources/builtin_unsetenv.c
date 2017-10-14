@@ -27,7 +27,7 @@ static void	del_env_var(t_data *info, char *env)
 	else
 	{
 		ft_clear_elem(&info->env_list, ft_get_p_elem(info->env_list, index));
-		ft_putstr_color("\nEnv varaible successfully deleted.", C_GREEN);
+		ft_putstr_color("\nEnv varaible successfully deleted !", C_GREEN);
 	}
 }
 
@@ -36,6 +36,8 @@ void		builtin_unsetenv(t_data *info)
 	int		i;
 
 	i = 1;
+	if (!info->av[1] || !info->av[1][0])
+		print_error(8);
 	while (info->av[i][0])
 	{
 		del_env_var(info, info->av[i]);
