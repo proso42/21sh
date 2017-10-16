@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 13:04:11 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 03:46:28 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/16 03:49:10 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	builtin_echo(t_data *info)
 {
 	int		i = 1;
 
+	if (info->av[i][0])
+		write(0, "\n", 1);
 	while (info->av[i][0])
 	{
 		ft_printf("%s", info->av[i]);
