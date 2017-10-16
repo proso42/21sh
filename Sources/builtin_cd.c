@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/16 00:07:42 by proso             #+#    #+#             */
+/*   Updated: 2017/10/16 02:34:56 by proso            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Includes/shell.h"
 
 static int	replace_tild(t_data *info)
@@ -32,7 +44,7 @@ static int	replace_minus(t_data *info)
 	return (1);
 }
 
-static void	change_current_dir(t_data *info, char *new_pwd)
+static int	change_current_dir(t_data *info, char *new_pwd)
 {
 	char	old_pwd[126];
 	char	pwd[126];
@@ -41,10 +53,11 @@ static void	change_current_dir(t_data *info, char *new_pwd)
 	builtin_setenv(info, "OLDPWD", old_pwd);
 	chdir(new_pwd);
 	getcwd(pwd, 126);
-	builtin_setenv(info, "PWD", pwd);
+	builtin_setenv(info, "PWD", new_pwd);
+	return (1);
 }
 
-int		builtin_cd(t_data *info)
+int			builtin_cd(t_data *info)
 {
 	if (!info->av[1][0] || info->av[1][0] == '~')
 	{
@@ -52,8 +65,12 @@ int		builtin_cd(t_data *info)
 			return (print_error(6));
 	}
 	else if (!(ft_strcmp(info->av[1], "-")))
+	{
 		if (!replace_minus(info))
 			return (print_error(7));
+	}
+	if ((check_path_error(info->av[1])) < 0)
+		return (-1);
 	change_current_dir(info, info->av[1]);
 	return (1);
 }

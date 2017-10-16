@@ -69,6 +69,7 @@ int			main(void)
 			print_prompt(&info);
 			add_cmd_to_history(&info);
 			ft_bzero(info.buf_cmd, 1024);
+			ft_bzero(info.av, 10000);
 			info.buf_i = 0;
 		}
 		if (ret != 2)

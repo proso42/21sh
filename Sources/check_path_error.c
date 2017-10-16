@@ -1,22 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_path_error.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/15 23:16:26 by proso             #+#    #+#             */
+/*   Updated: 2017/10/16 02:33:38 by proso            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../Includes/shell.h"
 
-/*static int	replace_tild(t_data *info)
+static void		print_path_error(char p_e_d[3], char *path)
 {
-	t_list	*home;
-	char	*tild;
+	if (p_e_d[1] == 'B')
+		ft_printf("\n{bold}{red}cd: No such file or directory: %s{res}", path);
+	else if (p_e_d[2] == 'B')
+		ft_printf("\n{bold}{red}cd: Not a directory: %s{res}", path);
+	else if (p_e_d[0] == 'B')
+		ft_printf("\n{bold}{red}cd: Permission denied: %s{res}", path);
+}
 
-	home = ft_get_p_elem(info->env_list, check_var(info->env_list, "HOME"));
-	if (!home)
-		return (0);
-	tild = ((t_env*)(home->data))->env_value;
-	ft_bzero(info->av[1], 100);
-	ft_strcpy(info->av[1], tild);
+int				check_path_error(char *path)
+{
+	int			i;
+	struct stat	buf;
+	char		p_e_d[3];
+	char		tmp[ft_strlen(path)];
+
+	ft_strcpy(tmp, path);
+	ft_memset(p_e_d, 'A', 3);
+	i = (path[0] == '/') ? 1 : 0;
+	while (path[i])
+	{
+		while (path[i] && path[i] != '/')
+			i++;
+		tmp[i] = '\0';
+		lstat(tmp, &buf);
+		p_e_d[0] = (access(tmp, X_OK) == -1) ? 'B' : 'A';
+		p_e_d[1] = (access(tmp, F_OK) == -1) ? 'B' : 'A';
+		p_e_d[2] = ((buf.st_mode & S_IFMT) != S_IFDIR) ? 'B' : 'A';
+		if (p_e_d[0] == 'B' || p_e_d[1] == 'B' || p_e_d[2] == 'B')
+		{
+			print_path_error(p_e_d, path);
+			return (-1);
+		}
+		tmp[i++] = '/';
+	}
 	return (1);
-}*/
-
-int		check_path_error(t_data *info, char *path)
-{
-	(void)info;
-	(void)path;
-	return (0);
 }

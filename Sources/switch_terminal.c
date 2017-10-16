@@ -37,6 +37,7 @@ static void	set_var(t_data *info)
 	ioctl(0, TIOCGWINSZ, &info->sz);
 	ft_bzero(info->buf_cmd, 1024);
 	ft_bzero(info->tmp_buf, 1024);
+	ft_bzero(info->av, 10000);
 }
 
 int			init_line_edition(t_data *info)

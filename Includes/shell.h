@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   21sh.h                                             :+:      :+:    :+:   */
+/*   shell.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/05/31 11:35:17 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/16 00:28:57 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@
 # include <sys/signal.h>
 # include "libft.h"
 
-# define ERR_TERM	4
-# define ERR_MALLOC 6
-# define COMMAND	20
-# define ARGUMENT	21
-# define OPERAND	22
-# define INEXISTANT	50
-# define PERMISSION	51
-# define NO_PATH	52
-# define AND 		100
-# define OR 		101
-# define SEMICOLON	102
-# define REDIR_L 	103
-# define REDIR_LL	104
-# define REDIR_R	105
-# define REDIR_RR	106
-# define PIPE		107
+# define ERR_TERM		4
+# define ERR_MALLOC 	6
+# define COMMAND		20
+# define ARGUMENT		21
+# define OPERAND		22
+# define ERR_INEXISTANT	50
+# define PERMISSION		51
+# define NO_PATH		52
+# define AND 			100
+# define OR 			101
+# define SEMICOLON		102
+# define REDIR_L 		103
+# define REDIR_LL		104
+# define REDIR_R		105
+# define REDIR_RR		106
+# define PIPE			107
 
 typedef struct	s_lexem
 {
@@ -124,5 +124,6 @@ void			write_buf(t_data *info);
 void			tmp_action(t_data *info);
 int				check_var(t_list *env_list, char *env);
 void			create_min_env_var(t_data *info);
+int				check_path_error(char *path);
 
 #endif

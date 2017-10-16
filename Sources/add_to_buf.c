@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 15:51:38 by proso             #+#    #+#             */
-/*   Updated: 2017/06/16 15:51:40 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/16 02:41:30 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int		edit_buf(t_data *info, char *key)
 
 int		add_to_buf(t_data *info, char *key)
 {
+	if ((int)ft_strlen(info->buf_cmd) == 1023)
+		return (0);
 	if (info->buf_i != (int)ft_strlen(info->buf_cmd))
 		return (edit_buf(info, key));
 	info->buf_cmd[info->buf_i] = key[0];

@@ -60,8 +60,8 @@ int				print_error(int err)
 	}
 	else if (err == ERR_TERM)
 		ft_putstr_color("Fatal error with tgetstr/tputs function...\n", C_RED);
-	else if (err == INEXISTANT)
-		ft_putstr_color("No such file or directory\n", C_RED);
+	else if (err == ERR_INEXISTANT)
+		ft_putstr_color("\nNo such file or directory", C_RED);
 	else if (err == PERMISSION)
 		ft_putstr_color("Permission denied\n", C_RED);
 	return (-1);

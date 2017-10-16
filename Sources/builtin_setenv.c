@@ -14,24 +14,16 @@
 
 static int	check_nb_arg(t_data *info, char *env, char *value)
 {
-	ft_strcpy(info->av[1], env);
-	ft_strcpy(info->av[2], value);
-	if ((!info->av[1][0] || !info->av[2][0]))
+	if (!env[0] || !value[0])
 	{
 		print_error(8);
-		ft_bzero(info->av[1], 100);
-		ft_bzero(info->av[2], 100);
 		return (0);
 	}
-	else if (info->av[3][0])
+	else if (info->av[1][0] && info->av[2][0] && info->av[3][0])
 	{
 		print_error(9);
-		ft_bzero(info->av[1], 100);
-		ft_bzero(info->av[2], 100);
 		return (0);
 	}
-	ft_bzero(info->av[1], 100);
-	ft_bzero(info->av[2], 100);
 	return (1);
 }
 
