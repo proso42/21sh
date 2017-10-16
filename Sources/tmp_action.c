@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:12:25 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 00:12:29 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/16 03:44:30 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,6 @@ void	tmp_action(t_data *info)
 		builtin_unsetenv(info);
 	else if (!(ft_strcmp(info->av[0], "cd")))
 		builtin_cd(info);
+	else if (!(ft_strcmp(info->av[0], "echo")))
+		builtin_echo(info);
 }

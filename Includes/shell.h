@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 00:28:57 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/16 03:44:11 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			add_cmd_to_history(t_data *info);
 void			add_lexem(char **cmd, int bk, int prty, t_data *info);
 int				add_to_buf(t_data *info, char *key);
 int				builtin_cd(t_data *info);
-void			builtin_echo(char *str);
+void			builtin_echo(t_data *info);
 void			builtin_env(t_data *info);
 void			builtin_exit(int ret);
 void			builtin_setenv(t_data *info, char *env, char *value);

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/06/16 12:56:02 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/16 03:43:28 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,17 @@ static void	print_entry(t_data *info)
 	print_prompt(info);
 }
 
+/*static void	print_av(t_data *info)
+{
+	int		i = 0;
+
+	while (info->av[i][0])
+	{
+		ft_printf("\n{bold}{cyan}%s{res}", info->av[i]);
+		i++;
+	}
+}*/
+
 int			main(void)
 {
 	t_data	info;
@@ -64,6 +75,7 @@ int			main(void)
 					exit(0);
 			}
 			tmp_action(&info);
+//			print_av(&info);
 			end(&info);
 			term_action(&info, "do");
 			print_prompt(&info);

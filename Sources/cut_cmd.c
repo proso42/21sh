@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   cut_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/06/17 11:14:25 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/16 03:41:41 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,39 +16,6 @@ static void	pass_space(char *str, int *i)
 {
 	while (str[*i] == ' ' && str[*i])
 		(*i)++;
-}
-
-static void	pick_part(t_data *info, int *i, int *j)
-{
-	int		sg_quote;
-	int		db_quote;
-	int		k;
-	char	*str;
-
-	ft_init(0, 3, &k, &sg_quote, &db_quote);
-	str = info->buf_cmd;
-	while (str[*i] != ' ' && str[*i] && (!(is_operand(&str[*i])) ||
-						(((is_operand(&str[*i])) && (sg_quote || db_quote)))))
-	{
-		if (str[*i] == '\"' && !sg_quote)
-			db_quote = (db_quote) ? 0 : 1;
-		else if (str[*i] == '\'' && !db_quote)
-			sg_quote = (sg_quote) ? 0 : 1;
-		if (!(is_operand(&str[*i])) || (is_operand(&str[*i])
-													&& (sg_quote || db_quote)))
-			info->av[*j][k++] = str[*i];
-		(*i)++;
-	}
-	if (str[*i] && is_operand(&str[*i]) && str[*i] != ' ')
-	{
-		if (info->av[*j][0])
-			(*j)++;
-		ft_bzero(info->av[*j], 100);
-		info->av[*j][0] = str[(*i)++];
-		info->av[*j][1] = ((is_operand(&str[*i]) && str[*i] != ' '))
-														? str[*i] : '\0';
-		(*i)++;
-	}
 }
 
 static void	remove_useless_symbol(t_data *info, int j)
@@ -100,19 +67,42 @@ static void	clean_cmd(t_data *info)
 	}
 }
 
+static void pick_part(t_data *info, int *i, int *j)
+{
+	int		quote;
+	int		db_quote;
+	int		k;
+
+	ft_init(0, 3, &k, &quote, &db_quote);
+	while (info->buf_cmd[*i])
+	{
+		if (info->buf_cmd[*i] == 39 && !db_quote)
+			quote = (quote) ? 0 : 1;
+		else if (info->buf_cmd[*i] == 34 && !quote)
+			db_quote = (db_quote) ? 0 : 1;
+		if ((info->buf_cmd[*i] == ' ' && !db_quote && !quote)
+														|| !info->buf_cmd[*i])
+			return;
+		else
+		{
+			info->av[*j][k++] = info->buf_cmd[*i];
+			(*i)++;
+		}
+	}
+}
+
 int			cut_cmd(t_data *info)
 {
 	int		i;
 	int		j;
 
-	i = 0;
-	j = 0;
+	ft_init(0, 2, &i, &j);
 	if (!info->buf_cmd[0])
 		return (0);
 	while (info->buf_cmd[i])
 	{
 		pass_space(info->buf_cmd, &i);
-		ft_bzero(info->av[j], 100);
+	//	ft_bzero(info->av[j], 100);
 		pick_part(info, &i, &j);
 		j++;
 	}
