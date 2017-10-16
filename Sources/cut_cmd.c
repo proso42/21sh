@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 03:41:41 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/16 04:49:08 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static void	remove_useless_symbol(t_data *info, int j)
 	}
 	tmp = ft_strnew(100);
 	ft_strcpy(tmp, info->av[j]);
-	ft_bzero(info->av[j], 100);
 	tmp = ft_str_remove_c(tmp, 1);
 	ft_strcpy(info->av[j], tmp);
+	ft_strdel(&tmp);
 }
 
 static void	clean_cmd(t_data *info)
