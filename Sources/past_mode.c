@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 00:10:30 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 02:37:38 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/16 03:52:58 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		past_mode(t_data *info)
 	char	tmp[1024];
 
 	if (!info->cpy || !info->cpy[0] || (int)ft_strlen(info->cpy) +
-										(int)ft_strlen(info->buf_cmd) > 1024)
+										(int)ft_strlen(info->buf_cmd) > 1023)
 		return (0);
 	i = 0;
 	ft_bzero(tmp, 1024);
