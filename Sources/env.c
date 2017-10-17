@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 16:14:00 by proso             #+#    #+#             */
-/*   Updated: 2017/06/17 16:14:03 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/18 00:00:12 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char		*get_env_var(t_data *info, char *str)
 	}
 	return (NULL);
 }
+
 void		create_min_env_var(t_data *info)
 {
 	int		i;
@@ -46,7 +47,6 @@ void		create_min_env_var(t_data *info)
 	if ((i = check_var(info->env_list, "PWD")) < 0)
 		builtin_setenv(info, "PWD", getcwd(str, 1024));
 }
-
 
 t_list		*init_env_list(void)
 {

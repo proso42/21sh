@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/01 16:19:42 by proso             #+#    #+#             */
-/*   Updated: 2017/06/21 16:19:43 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/18 00:00:38 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	**get_args(t_data *info)
 	return (args);
 }
 
-void	exec_single(t_data *info)
+void		exec_single(t_data *info)
 {
 	char	**envp;
 	char	**args;

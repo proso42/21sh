@@ -6,7 +6,7 @@
 #    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/10/17 22:48:34 by proso            ###   ########.fr        #
+#    Updated: 2017/10/18 00:07:55 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,9 @@ SRC = Sources/add_lexem.c \
 	  Sources/exec_single.c \
 	  Sources/get_history.c \
 	  Sources/get_stdin.c \
-	  Sources/lexer_parser.c \
 	  Sources/lexer.c \
 	  Sources/line_edition.c \
 	  Sources/main.c\
-	  Sources/parser.c\
 	  Sources/past_mode.c \
 	  Sources/print_error.c \
 	  Sources/replace_dollard.c \

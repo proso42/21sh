@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/09/13 13:56:43 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/18 00:11:47 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@
 
 typedef struct			s_btree
 {
-		struct s_btree	*left;
-		struct s_btree	*right;
-		void			*item;
+	struct s_btree	*left;
+	struct s_btree	*right;
+	void			*item;
 }						t_btree;
 
 typedef	struct			s_list
 {
-		void			*data;
-		int				size;
-		int				slc;
-		struct s_list	*next;
-		struct s_list	*prev;
+	void			*data;
+	int				size;
+	int				slc;
+	struct s_list	*next;
+	struct s_list	*prev;
 }						t_list;
 
 t_btree					*btree_create_node(void *item);
@@ -54,8 +54,8 @@ void					btree_apply_prefix(t_btree *root,
 void					btree_apply_infix(t_btree *root,
 														void (*applyf)(void *));
 void					btree_apply_sufix(t_btree *root,
-	 													void (*applyf)(void *));
-void 					btree_insert_data(t_btree **root,
+														void (*applyf)(void *));
+void					btree_insert_data(t_btree **root,
 										void *item, int (*f)(void *, void *));
 void					*btree_search_item(t_btree *root,
 										void *ref, int (*f)(void *, void *));
@@ -101,7 +101,8 @@ int						ft_get_num_elem(t_list *begin_list, char *str);
 t_list					**ft_get_addr_elem(t_list **begin_list, int i);
 int						get_width_win(void);
 void					*ft_memalloc(size_t size);
-void					*ft_memccpy(void *dst, void const *src, int c, size_t n);
+void					*ft_memccpy(void *dst, void const *src, int c,
+																	size_t n);
 void					*ft_memchr(void const *s, int c, size_t n);
 int						ft_memcmp(void const *s1, void const *s2, size_t n);
 void					*ft_memcpy(void *dst, void const *src, size_t n);
@@ -137,11 +138,13 @@ char					*ft_str_remove_c(char *str, char c);
 void					ft_striter(char *s, void (*f)(char *));
 void					ft_striteri(char *s, void (*f)(unsigned int, char *));
 char					*ft_strjoin(char const *s1, char const *s2);
-char					*ft_strjoinfree(char const *s1, char const *s2, int mode);
+char					*ft_strjoinfree(char const *s1, char const *s2,
+																	int mode);
 size_t					ft_strlcat(char *dst, char const *src, size_t size);
 size_t					ft_strlen(char const *s);
 char					*ft_strmap(char const *s, char (*f)(char));
-char					*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char					*ft_strmapi(char const *s, char (*f)(unsigned int,
+																		char));
 char					*ft_strncat(char *s1, char const *s2, size_t n);
 int						ft_strncmp(char const *s1, char const *s2, size_t n);
 char					*ft_strncpy(char *dst, char const *src, size_t len);
@@ -154,7 +157,8 @@ char					*ft_strrev(char *str);
 char					**ft_strsplit(char const *s, char c);
 char					*ft_strstr(char const *big, char const *little);
 char					*ft_strcsub(char const *s, char c);
-char					*ft_strsub(char const *s, unsigned int start, size_t len);
+char					*ft_strsub(char const *s, unsigned int start,
+																	size_t len);
 char					*ft_strsubfree(char const *s,
 										unsigned int start, size_t len);
 char					*ft_strtrim(char const *s);

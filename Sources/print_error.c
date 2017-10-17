@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 15:27:24 by proso             #+#    #+#             */
-/*   Updated: 2017/06/17 15:27:26 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/18 00:04:52 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static int		args_error(int err)
 	if (err == 8)
 		ft_putstr_color("\nToo few arguments !", C_RED);
 	else if (err == 9)
-	ft_putstr_color("\nToo many arguments !", C_RED);
-		return (-1);
+		ft_putstr_color("\nToo many arguments !", C_RED);
+	return (-1);
 }
 
 int				print_error(int err)
@@ -51,7 +51,7 @@ int				print_error(int err)
 	else if (err == 5 || err == 6 || err == 7)
 		return (env_error(err));
 	else if (err == 8 || err == 9)
-		return(args_error(err));
+		return (args_error(err));
 	else if (err == ERR_MALLOC)
 	{
 		ft_putstr_color("Fail to allocate memory with malloc function\n"

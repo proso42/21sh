@@ -6,17 +6,11 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/10/17 23:50:58 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/18 00:02:11 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
-
-/*static void	pass_space(char *str, int *i)
-{
-	while (str[*i] == ' ' && str[*i])
-		(*i)++;
-}*/
 
 static void	remove_useless_symbol(t_data *info, int j)
 {
@@ -88,7 +82,7 @@ static void	add_operand(t_data *info, int *i, int *j)
 	*i = (info->av[*j][1]) ? (*i) + 2 : (*i) + 1;
 }
 
-static void pick_part(t_data *info, int *i, int *j)
+static void	pick_part(t_data *info, int *i, int *j)
 {
 	int		qu;
 	int		db_qu;
@@ -102,11 +96,11 @@ static void pick_part(t_data *info, int *i, int *j)
 		else if (info->buf_cmd[*i] == 34 && !qu)
 			db_qu = (db_qu) ? 0 : 1;
 		if ((info->buf_cmd[*i] == ' ' && !db_qu && !qu) || !info->buf_cmd[*i])
-			return;
+			return ;
 		else if (!qu && !db_qu && is_operand(&info->buf_cmd[*i]))
 		{
 			add_operand(info, i, j);
-			return;
+			return ;
 		}
 		else
 		{
@@ -126,7 +120,7 @@ int			cut_cmd(t_data *info)
 		return (0);
 	while (info->buf_cmd[i])
 	{
-		while(info->buf_cmd[i] && info->buf_cmd[i] == ' ')
+		while (info->buf_cmd[i] && info->buf_cmd[i] == ' ')
 			i++;
 		pick_part(info, &i, &j);
 		j++;
@@ -139,9 +133,6 @@ int			cut_cmd(t_data *info)
 		j--;
 	eval_quote(info, j);
 	clean_cmd(info);
-	//term_action(info, "do");
-	//default_terminal(info, 0);
-	//lexer_parser(info);
 	if ((init_line_edition(info)) < 0)
 		exit(-1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 14:55:14 by proso             #+#    #+#             */
-/*   Updated: 2017/09/13 14:55:16 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/17 23:58:24 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		builtin_setenv(t_data *info, char *env, char *value)
 	t_env	*var;
 
 	if (!check_nb_arg(info, env, value))
-		return;
+		return ;
 	env_list = ft_get_p_elem(info->env_list, check_var(info->env_list, env));
 	if (!env_list)
 	{

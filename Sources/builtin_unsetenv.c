@@ -6,13 +6,13 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:07:56 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 00:07:58 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/17 23:58:37 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 
-int	check_var(t_list *env_list, char *env)
+int			check_var(t_list *env_list, char *env)
 {
 	t_list	*current;
 	int		i;

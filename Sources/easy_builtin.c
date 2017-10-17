@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 13:04:11 by proso             #+#    #+#             */
-/*   Updated: 2017/10/17 23:11:26 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/17 23:59:27 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	builtin_echo(t_data *info)
 {
-	int		i = 1;
+	int		i;
 
+	i = 1;
 	if (info->av[i][0])
 		write(0, "\n", 1);
 	while (info->av[i][0])
@@ -34,7 +35,7 @@ void	builtin_exit(t_data *info)
 	if (info->av[2][0])
 	{
 		print_error(9);
-		return;
+		return ;
 	}
 	else if (!(info->av[1][0]))
 		ret = 0;
