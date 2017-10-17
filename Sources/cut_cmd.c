@@ -6,17 +6,17 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 04:49:08 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/17 23:50:58 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 
-static void	pass_space(char *str, int *i)
+/*static void	pass_space(char *str, int *i)
 {
 	while (str[*i] == ' ' && str[*i])
 		(*i)++;
-}
+}*/
 
 static void	remove_useless_symbol(t_data *info, int j)
 {
@@ -67,22 +67,47 @@ static void	clean_cmd(t_data *info)
 	}
 }
 
+static void	add_operand(t_data *info, int *i, int *j)
+{
+	char	*c;
+
+	c = &info->buf_cmd[*i];
+	if (info->av[*j][0])
+		(*j)++;
+	if (c[0] == '>' && c[1] == '>')
+		ft_memset(info->av[*j], '>', 2);
+	else if (c[0] == '<' && c[1] == '<')
+		ft_memset(info->av[*j], '<', 2);
+	else if (c[0] == '&' && c[1] == '&')
+		ft_memset(info->av[*j], '&', 2);
+	else if (c[0] == '|' && c[1] == '|')
+		ft_memset(info->av[*j], '|', 2);
+	else if ((c[0] == '<') || c[0] == '>' || c[0] == '|' || c[0] == ';'
+																|| c[0] == '&')
+		info->av[*j][0] = c[0];
+	*i = (info->av[*j][1]) ? (*i) + 2 : (*i) + 1;
+}
+
 static void pick_part(t_data *info, int *i, int *j)
 {
-	int		quote;
-	int		db_quote;
+	int		qu;
+	int		db_qu;
 	int		k;
 
-	ft_init(0, 3, &k, &quote, &db_quote);
+	ft_init(0, 3, &k, &qu, &db_qu);
 	while (info->buf_cmd[*i])
 	{
-		if (info->buf_cmd[*i] == 39 && !db_quote)
-			quote = (quote) ? 0 : 1;
-		else if (info->buf_cmd[*i] == 34 && !quote)
-			db_quote = (db_quote) ? 0 : 1;
-		if ((info->buf_cmd[*i] == ' ' && !db_quote && !quote)
-														|| !info->buf_cmd[*i])
+		if (info->buf_cmd[*i] == 39 && !db_qu)
+			qu = (qu) ? 0 : 1;
+		else if (info->buf_cmd[*i] == 34 && !qu)
+			db_qu = (db_qu) ? 0 : 1;
+		if ((info->buf_cmd[*i] == ' ' && !db_qu && !qu) || !info->buf_cmd[*i])
 			return;
+		else if (!qu && !db_qu && is_operand(&info->buf_cmd[*i]))
+		{
+			add_operand(info, i, j);
+			return;
+		}
 		else
 		{
 			info->av[*j][k++] = info->buf_cmd[*i];
@@ -101,8 +126,8 @@ int			cut_cmd(t_data *info)
 		return (0);
 	while (info->buf_cmd[i])
 	{
-		pass_space(info->buf_cmd, &i);
-	//	ft_bzero(info->av[j], 100);
+		while(info->buf_cmd[i] && info->buf_cmd[i] == ' ')
+			i++;
 		pick_part(info, &i, &j);
 		j++;
 	}
