@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 03:43:28 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/17 23:01:45 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,29 +53,26 @@ static void	print_entry(t_data *info)
 	}
 }*/
 
+static void	init(t_data *info)
+{
+	init_terminal(info);
+	info->env_list = init_env_list();
+	create_min_env_var(info);
+	init_signal(info);
+	print_entry(info);
+}
+
 int			main(void)
 {
 	t_data	info;
 	int		ret;
 
-	init_terminal(&info);
-	info.env_list = init_env_list();
-	create_min_env_var(&info);
-	print_entry(&info);
+	init(&info);
 	while (1)
 	{
 		if (!(ret = get_stdin(&info)))
 		{
-			if (!(ft_strcmp(info.av[0], "exit")) && ((!info.av[1][0]) || (!info.av[2][0])))
-			{
-				default_terminal(&info, 0);
-				if (info.av[1][0])
-					exit(ft_atoi(info.av[1]));
-				else
-					exit(0);
-			}
 			tmp_action(&info);
-//			print_av(&info);
 			end(&info);
 			term_action(&info, "do");
 			print_prompt(&info);

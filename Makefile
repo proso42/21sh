@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: proso <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/07/20 21:23:05 by proso            ###   ########.fr        #
+#    Updated: 2017/10/17 22:48:34 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC = Sources/add_lexem.c \
 	  Sources/past_mode.c \
 	  Sources/print_error.c \
 	  Sources/replace_dollard.c \
+	  Sources/signal.c \
 	  Sources/spc_move_curs.c \
 	  Sources/spc_move_curs2.c \
 	  Sources/switch_terminal.c \

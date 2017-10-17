@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 13:04:11 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 03:49:10 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/17 23:11:26 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,19 @@ void	builtin_echo(t_data *info)
 	}
 }
 
-void	builtin_exit(int ret)
+void	builtin_exit(t_data *info)
 {
+	int		ret;
+
+	if (info->av[2][0])
+	{
+		print_error(9);
+		return;
+	}
+	else if (!(info->av[1][0]))
+		ret = 0;
+	else
+		ret = ft_atoi(info->av[1]);
 	exit(ret);
 }
 
