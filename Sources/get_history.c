@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 15:58:13 by proso             #+#    #+#             */
-/*   Updated: 2017/10/27 21:00:46 by caroleroso       ###   ########.fr       */
+/*   Updated: 2017/10/27 21:08:15 by caroleroso       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	show_history(t_data *info, int max_history_list)
 {
 	char	*str;
 
+	info->buf_i = ft_strlen(info->buf_cmd);
 	str = ft_get_elem(info->history_list, max_history_list - info->num_history);
 	del_line(info);
 	ft_bzero(info->buf_cmd, 1024);
@@ -37,6 +38,7 @@ static void	show_history(t_data *info, int max_history_list)
 
 static void	show_current(t_data *info)
 {
+	info->buf_i = ft_strlen(info->buf_cmd);
 	del_line(info);
 	ft_bzero(info->buf_cmd, 1024);
 	ft_strcpy(info->buf_cmd, info->tmp_buf);
