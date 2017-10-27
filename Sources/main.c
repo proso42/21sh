@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/10/18 00:04:06 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/27 18:19:21 by caroleroso       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,11 @@ int			main(void)
 			ft_bzero(info.av, 10000);
 			info.buf_i = 0;
 		}
-		if (ret != 2)
+		if (ret != 2 && ret != 54)
+		{
 			info.num_history = -1;
+			info.pid = -2;
+		}
 	}
 	return (0);
 }

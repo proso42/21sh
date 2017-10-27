@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 13:44:57 by proso             #+#    #+#             */
-/*   Updated: 2017/06/19 13:44:59 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/27 18:23:34 by caroleroso       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	recursive_quote(t_data *info, int j)
 	info->buf_i = 0;
 	term_action(info, "do");
 	print_prompt(info);
-	while (info->quote)
+	while (info->quote > 0)
 	{
 		if ((ret = get_stdin(info)) == 18)
 		{

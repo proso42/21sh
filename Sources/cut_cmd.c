@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/10/18 00:02:11 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/21 05:57:51 by caroleroso       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,10 @@ int			cut_cmd(t_data *info)
 	clean_cmd(info);
 	if ((init_line_edition(info)) < 0)
 		exit(-1);
+	if (info->pid == -4)
+	{
+		info->pid = 0;
+		return (1);
+	}
 	return (0);
 }

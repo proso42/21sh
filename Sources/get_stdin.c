@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 15:37:25 by proso             #+#    #+#             */
-/*   Updated: 2017/10/18 00:02:44 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/27 18:18:07 by caroleroso       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ int			get_stdin(t_data *info)
 
 	ft_bzero(key, 6);
 	read(0, key, 6);
-	if (key[0] >= ' ' && key[0] <= '~' && !key[1])
+	if (info->pid == -4)
+		return (54);
+	else if (key[0] >= ' ' && key[0] <= '~' && !key[1])
 		add_to_buf(info, key);
 	else if (key[0] == 27 && key[1] == 91 && (key[2] == 68 || key[2] == 67)
 																	&& !key[3])

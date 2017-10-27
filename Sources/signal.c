@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/17 22:40:17 by proso             #+#    #+#             */
-/*   Updated: 2017/10/17 22:59:13 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/27 18:25:36 by caroleroso       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,34 @@ static void		resize_win(int sig)
 	go_good_place(info);
 }
 
+static void		kill_process(int sig)
+{
+	t_data *info;
+
+	(void)sig;
+	info = get_info(NULL);
+	if (info->quote)
+	{
+		ioctl(0, TIOCSTI, "");
+		ft_bzero(info->av, 10000);
+		ft_bzero(info->buf_cmd, 1024);
+		info->buf_i = 0;
+		info->curs_x = 0;
+		info->curs_y = 0;
+		info->pid = -4;
+		info->quote = 0;
+		term_action(info, "do");
+		print_prompt(info);
+	}
+	else
+	{
+		exit(-1);
+	}
+}
+
 void			init_signal(t_data *info)
 {
 	get_info(info);
 	signal(SIGWINCH, resize_win);
+	signal(SIGINT, kill_process);
 }
