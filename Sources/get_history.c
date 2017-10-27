@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 15:58:13 by proso             #+#    #+#             */
-/*   Updated: 2017/06/18 15:58:14 by proso            ###   ########.fr       */
+/*   Updated: 2017/10/27 21:00:46 by caroleroso       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@ void		add_cmd_to_history(t_data *info)
 {
 	char	*str;
 
-	str = ft_strdup(info->buf_cmd);
 	if (info->buf_cmd[0])
+	{
+		str = ft_strdup(info->buf_cmd);
 		ft_push_back(&info->history_list, str);
+	}
 }
 
 static void	show_history(t_data *info, int max_history_list)
