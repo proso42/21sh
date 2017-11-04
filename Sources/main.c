@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/10/27 20:54:14 by caroleroso       ###   ########.fr       */
+/*   Updated: 2017/11/04 23:37:57 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int			main(void)
 			end(&info);
 			term_action(&info, "do");
 			print_prompt(&info);
-			add_cmd_to_history(&info);
+			//add_cmd_to_history(&info);
 			ft_bzero(info.buf_cmd, 1024);
 			ft_bzero(info.av, 10000);
 			info.buf_i = 0;

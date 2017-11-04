@@ -6,11 +6,11 @@
 #    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/10/18 00:07:55 by proso            ###   ########.fr        #
+#    Updated: 2017/11/04 22:51:02 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 21_sh
+NAME = 21sh
 
 SRC = Sources/add_lexem.c \
 	  Sources/add_to_buf.c \

@@ -6,20 +6,45 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 15:58:13 by proso             #+#    #+#             */
-/*   Updated: 2017/10/27 21:08:15 by caroleroso       ###   ########.fr       */
+/*   Updated: 2017/11/05 00:08:48 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 
+static void	push_history(t_data *info)
+{
+	char *str;
+
+	str = ft_strdup(info->buf_cmd);
+	ft_push_back(&info->history_list, str);
+}
+
 void		add_cmd_to_history(t_data *info)
 {
-	char	*str;
+	int		i;
+	int		j;
 
+	ft_init(0, 2, &i, &j);
 	if (info->buf_cmd[0])
+		push_history(info);
+	else if (info->av[0][0])
 	{
-		str = ft_strdup(info->buf_cmd);
-		ft_push_back(&info->history_list, str);
+		while (info->av[i][0] && info->av[i][j] != '\n')
+		{
+			while (info->av[i][j] && info->av[i][j] != '\n')
+				j++;
+			if (!info->av[i][j])
+			{
+				ft_strcat(info->buf_cmd, info->av[i]);
+				info->buf_cmd[ft_strlen(info->buf_cmd)] = ' ';
+			}
+			else
+				ft_strncat(info->buf_cmd, info->av[i], j);
+			i++;
+			j = 0;
+		}
+		push_history(info);
 	}
 }
 

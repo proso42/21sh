@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/10/21 05:57:51 by caroleroso       ###   ########.fr       */
+/*   Updated: 2017/11/05 00:09:25 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	remove_useless_symbol(t_data *info, int j)
 	ft_strdel(&tmp);
 }
 
-static void	clean_cmd(t_data *info)
+static int	clean_cmd(t_data *info)
 {
 	int		j;
 
@@ -59,6 +59,14 @@ static void	clean_cmd(t_data *info)
 			remove_useless_symbol(info, j);
 		j++;
 	}
+	if (info->pid == -4)
+	{
+		info->pid = 0;
+		if ((init_line_edition(info)) < 0)
+			exit(-1);
+		return (1);
+	}
+	return (0);
 }
 
 static void	add_operand(t_data *info, int *i, int *j)
@@ -129,16 +137,12 @@ int			cut_cmd(t_data *info)
 	j = 0;
 	while (info->av[j][0])
 		j++;
-	if (j > 0)
-		j--;
+	j = (j > 0) ? j - 1 : j;
 	eval_quote(info, j);
-	clean_cmd(info);
+	add_cmd_to_history(info);
+	if (clean_cmd(info))
+		return (1);
 	if ((init_line_edition(info)) < 0)
 		exit(-1);
-	if (info->pid == -4)
-	{
-		info->pid = 0;
-		return (1);
-	}
 	return (0);
 }

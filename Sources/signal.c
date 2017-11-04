@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/17 22:40:17 by proso             #+#    #+#             */
-/*   Updated: 2017/10/27 18:25:36 by caroleroso       ###   ########.fr       */
+/*   Updated: 2017/11/04 02:27:34 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void		resize_win(int sig)
 	(void)sig;
 	info = get_info(NULL);
 	clear_sc(info);
+	ioctl(0, TIOCGWINSZ, &info->sz);
 	home(info, 0);
 	go_good_place(info);
 }
@@ -52,9 +53,7 @@ static void		kill_process(int sig)
 		print_prompt(info);
 	}
 	else
-	{
 		exit(-1);
-	}
 }
 
 void			init_signal(t_data *info)

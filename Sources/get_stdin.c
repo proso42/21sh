@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 15:37:25 by proso             #+#    #+#             */
-/*   Updated: 2017/10/27 18:18:07 by caroleroso       ###   ########.fr       */
+/*   Updated: 2017/11/04 02:24:53 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static int	suite(t_data *info, char *key)
 	if (key[0] == 27 && key[1] == 91 && key[2] == 51 && key[3] == 126
 																	&& !key[4])
 		delete_right(info);
+	else if (key[0] == 127 && !key[1])
+		delete_left(info);
 	else if (key[0] == 12 && !key[1])
 		clear_sc(info);
 	else if (key[0] == 10 && !key[1] && info->quote)
@@ -66,8 +68,6 @@ int			get_stdin(t_data *info)
 		choice_alt(info, key);
 	else if (key[0] == 10 && !key[1] && !info->quote)
 		return (cut_cmd(info));
-	else if (key[0] == 127 && !key[1])
-		delete_left(info);
 	else
 		return (suite(info, key));
 	return (1);
