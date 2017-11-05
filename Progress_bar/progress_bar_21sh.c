@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   progress_bar.c                                     :+:      :+:    :+:   */
+/*   progress_bar_21sh.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/07 13:41:27 by proso             #+#    #+#             */
-/*   Updated: 2017/06/05 13:20:25 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/05 01:28:05 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <sys/dir.h>
 #include <termios.h>
 #include <term.h>
+#include <sys/ioctl.h>
 #include "../Includes/libft.h"
 #define CURSE_MOVE(x, y) tputs(tgoto(tgetstr("cm", NULL), x, y), 0, ft_out)
 
@@ -29,10 +30,16 @@ void		open_sources(char *path, int *total, int *nb)
 	while ((buf = readdir(dirp)))
 	{
 		size = (int)ft_strlen(buf->d_name) - 1;
-		if (buf->d_name[size] == 'o' && buf->d_name[size - 1] == '.')
-			(*nb)++;
 		if (buf->d_name[size] == 'c' && buf->d_name[size - 1] == '.')
 			(*total)++;
+	}
+	closedir(dirp);
+	dirp = opendir("OBJ/");
+	while ((buf = readdir(dirp)))
+	{
+		size = (int)ft_strlen(buf->d_name) - 1;
+		if (buf->d_name[size] == 'o' && buf->d_name[size - 1] == '.')
+			(*nb)++;
 	}
 	closedir(dirp);
 }

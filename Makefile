@@ -6,41 +6,41 @@
 #    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/11/04 22:51:02 by proso            ###   ########.fr        #
+#    Updated: 2017/11/05 00:51:16 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 21sh
 
-SRC = Sources/add_lexem.c \
-	  Sources/add_to_buf.c \
-	  Sources/builtin_cd.c \
-	  Sources/builtin_setenv.c \
-	  Sources/builtin_unsetenv.c \
-	  Sources/check_path_error.c \
-	  Sources/clear_sc.c \
-	  Sources/cpy_mode.c\
-	  Sources/cut_cmd.c \
-	  Sources/cut_mode.c \
-	  Sources/delete.c \
-	  Sources/easy_builtin.c \
-	  Sources/env.c \
-	  Sources/eval_quote.c \
-	  Sources/exec_single.c \
-	  Sources/get_history.c \
-	  Sources/get_stdin.c \
-	  Sources/lexer.c \
-	  Sources/line_edition.c \
-	  Sources/main.c\
-	  Sources/past_mode.c \
-	  Sources/print_error.c \
-	  Sources/replace_dollard.c \
-	  Sources/signal.c \
-	  Sources/spc_move_curs.c \
-	  Sources/spc_move_curs2.c \
-	  Sources/switch_terminal.c \
-	  Sources/term_action.c \
-	  Sources/tmp_action.c
+SRC = add_lexem.c \
+	  add_to_buf.c \
+	  builtin_cd.c \
+	  builtin_setenv.c \
+	  builtin_unsetenv.c \
+	  check_path_error.c \
+	  clear_sc.c \
+	  cpy_mode.c\
+	  cut_cmd.c \
+	  cut_mode.c \
+	  delete.c \
+	  easy_builtin.c \
+	  env.c \
+	  eval_quote.c \
+	  exec_single.c \
+	  get_history.c \
+	  get_stdin.c \
+	  lexer.c \
+	  line_edition.c \
+	  main.c\
+	  past_mode.c \
+	  print_error.c \
+	  replace_dollard.c \
+	  signal.c \
+	  spc_move_curs.c \
+	  spc_move_curs2.c \
+	  switch_terminal.c \
+	  term_action.c \
+	  tmp_action.c
 
 CC = gcc
 
@@ -50,11 +50,15 @@ INCLUDE = Includes/shell.h
 
 LIB = Libft/libft.a
 
-OBJ = $(SRC:.c=.o)
+OBJ = $(addprefix $(DIR_OBJ), $(SRC:.c=.o))
+
+DIR_OBJ = ./OBJ/
+
+DIR_SRC = ./Sources/
 
 all: $(NAME)
 
-%.o:%.c $(INCLUDE)
+$(DIR_OBJ)%.o	:	$(DIR_SRC)%.c $(INCLUDE)
 	@$(CC) $(FLAGS) -I./$(INCLUDE) -o $@ -c $<
 	@Progress_bar/p_bar_21sh $<
 	@sleep 0.05

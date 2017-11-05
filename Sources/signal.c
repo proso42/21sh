@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/17 22:40:17 by proso             #+#    #+#             */
-/*   Updated: 2017/11/04 02:27:34 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/05 01:04:27 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static void		resize_win(int sig)
 
 	(void)sig;
 	info = get_info(NULL);
-	clear_sc(info);
 	ioctl(0, TIOCGWINSZ, &info->sz);
+	clear_sc(info);
 	home(info, 0);
 	go_good_place(info);
 }

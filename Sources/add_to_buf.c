@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 15:51:38 by proso             #+#    #+#             */
-/*   Updated: 2017/11/04 22:51:36 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/05 00:52:18 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	write_buf(t_data *info)
 	while (info->buf_cmd[i])
 	{
 		ft_putchar(info->buf_cmd[i]);
+		i++;
 		if (info->curs_x + 1 == info->sz.ws_col)
 		{
 			info->curs_x = 0;
@@ -28,7 +29,6 @@ void	write_buf(t_data *info)
 		}
 		else
 			info->curs_x++;
-		i++;
 	}
 }
 
