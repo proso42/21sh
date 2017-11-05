@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 15:27:24 by proso             #+#    #+#             */
-/*   Updated: 2017/10/27 21:24:35 by caroleroso       ###   ########.fr       */
+/*   Updated: 2017/11/05 02:38:25 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ int				print_error(int err)
 		ft_putstr_color("Permission denied\n", C_RED);
 	else if (err == 10)
 		ft_putstr_color("\nNumeric argument required\n", C_RED);
+	else if (err == 11)
+		ft_putstr_color("\nCommand line cannot start with an operand\n", C_RED);
 	return (-1);
 }

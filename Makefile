@@ -6,14 +6,13 @@
 #    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/11/05 00:51:16 by proso            ###   ########.fr        #
+#    Updated: 2017/11/05 02:56:03 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = 21sh
 
-SRC = add_lexem.c \
-	  add_to_buf.c \
+SRC = add_to_buf.c \
 	  builtin_cd.c \
 	  builtin_setenv.c \
 	  builtin_unsetenv.c \
@@ -26,6 +25,7 @@ SRC = add_lexem.c \
 	  easy_builtin.c \
 	  env.c \
 	  eval_quote.c \
+	  exec_builtin.c \
 	  exec_single.c \
 	  get_history.c \
 	  get_stdin.c \
@@ -39,8 +39,7 @@ SRC = add_lexem.c \
 	  spc_move_curs.c \
 	  spc_move_curs2.c \
 	  switch_terminal.c \
-	  term_action.c \
-	  tmp_action.c
+	  term_action.c
 
 CC = gcc
 

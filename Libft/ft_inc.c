@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init.c                                          :+:      :+:    :+:   */
+/*   ft_inc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/19 13:47:52 by proso             #+#    #+#             */
-/*   Updated: 2017/11/05 02:40:48 by proso            ###   ########.fr       */
+/*   Created: 2017/11/05 02:41:13 by proso             #+#    #+#             */
+/*   Updated: 2017/11/05 02:43:06 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/libft.h"
+#include "../Includes/libft.h"
 
-void	ft_init(int x, int nb, ...)
+void	ft_inc(int inc, int nb, ...)
 {
 	va_list	ap;
 	int		*val;
@@ -21,7 +21,7 @@ void	ft_init(int x, int nb, ...)
 	while (nb > 0)
 	{
 		val = va_arg(ap, int*);
-		*val = x;
+		*val += inc;
 		nb--;
 	}
 	va_end(ap);

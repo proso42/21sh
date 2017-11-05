@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/09/13 13:56:43 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/05 02:43:35 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int						ft_isascii(int c);
 int						ft_isdigit(int c);
 int						ft_isprint(int c);
 void					ft_init(int x, int nb, ...);
+void					ft_inc(int inc, int nb, ...);
 int						ft_is_whitespace(char c);
 int						ft_recursive_factorial(int nb);
 int						ft_recursive_power(int nb, int power);

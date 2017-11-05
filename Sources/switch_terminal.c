@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 13:05:03 by proso             #+#    #+#             */
-/*   Updated: 2017/10/18 00:05:28 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/05 02:34:19 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ static void	set_var(t_data *info)
 	info->sh_term.c_cc[VMIN] = 1;
 	info->sh_term.c_cc[VTIME] = 0;
 	ft_init(0, 4, &info->buf_i, &info->curs_x, &info->curs_y, &info->quote);
-	info->env_list = NULL;
 	info->root = NULL;
+	info->env_list = NULL;
 	info->history_list = NULL;
+	info->lexem_list = NULL;
 	info->cpy = NULL;
 	info->num_history = -1;
 	info->pid = -2;

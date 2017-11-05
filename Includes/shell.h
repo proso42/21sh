@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/04 22:51:16 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/05 02:56:11 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 
 # define ERR_TERM		4
 # define ERR_MALLOC 	6
-# define COMMAND		20
-# define ARGUMENT		21
-# define OPERAND		22
 # define ERR_INEXISTANT	50
 # define PERMISSION		51
 # define NO_PATH		52
@@ -38,13 +35,13 @@
 # define REDIR_R		105
 # define REDIR_RR		106
 # define PIPE			107
+# define AGREG			108
+# define BK				109
 
 typedef struct	s_lexem
 {
-	int			prty;
 	int			op;
-	int			bk;
-	char		**cmd;
+	char		cmd[100][100];
 }				t_lexem;
 
 typedef struct	s_env
@@ -59,6 +56,7 @@ typedef struct	s_data
 	pid_t			pid;
 	t_list			*env_list;
 	t_list			*history_list;
+	t_list			*lexem_list;
 	t_btree			*root;
 	char			tmp_buf[1024];
 	int				num_history;
@@ -76,7 +74,6 @@ typedef struct	s_data
 }				t_data;
 
 void			add_cmd_to_history(t_data *info);
-void			add_lexem(char **cmd, int bk, int prty, t_data *info);
 int				add_to_buf(t_data *info, char *key);
 int				builtin_cd(t_data *info);
 void			builtin_echo(t_data *info);
@@ -95,6 +92,7 @@ void			del_line(t_data *info);
 int				edit_buf(t_data *info, char *key);
 void			end(t_data *info);
 void			eval_quote(t_data *info, int j);
+void			exec_builtin(t_data *info, int i);
 void			exec_single(t_data *info);
 char			*get_env_var(t_data *info, char *str);
 int				get_history(t_data *info, char *key);
@@ -105,7 +103,7 @@ t_list			*init_env_list(void);
 int				init_line_edition(t_data *info);
 int				init_terminal(t_data *info);
 int				is_operand(char *c);
-void			lexer(t_data *info);
+int				lexer(t_data *info);
 void			lexer_parser(t_data *info);
 int				line_edition(t_data *info, char *key);
 void			move_down(t_data *info);
@@ -121,7 +119,6 @@ void			print_prompt(t_data *info);
 void			replace_dollard(t_data *info, char str[]);
 void			term_action(t_data *info, char *action);
 void			write_buf(t_data *info);
-void			tmp_action(t_data *info);
 int				check_var(t_list *env_list, char *env);
 void			create_min_env_var(t_data *info);
 int				check_path_error(char *path);

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/05 00:18:27 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/05 03:08:35 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int			main(void)
 	{
 		if (!(ret = get_stdin(&info)))
 		{
-			tmp_action(&info);
+			lexer(&info);
 	//		print_av(&info);		// À RETIRER
 			end(&info);
 			term_action(&info, "do");
@@ -80,6 +80,7 @@ int			main(void)
 			ft_bzero(info.buf_cmd, 1024);
 			ft_bzero(info.av, 10000);
 			info.buf_i = 0;
+			ft_remove_list(&info.lexem_list);
 		}
 		if (ret != 2 && ret != 54)
 		{
