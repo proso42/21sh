@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/11/05 02:43:35 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/10 02:29:12 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ void					btree_apply_prefix(t_btree *root,
 void					btree_apply_infix(t_btree *root,
 														void (*applyf)(void *));
 void					btree_apply_sufix(t_btree *root,
-	 													void (*applyf)(void *));
+	 											void (*applyf)(void *));
 void 					btree_insert_data(t_btree **root,
 										void *item, int (*f)(void *, void *));
 void					*btree_search_item(t_btree *root,
 										void *ref, int (*f)(void *, void *));
+void					btree_remove_all(t_btree **root, void (*del)(void *));
 int						ft_atoi(char const *str);
 int						ft_btoi(char *str);
 void					ft_bzero(void *s, size_t n);
@@ -111,6 +112,7 @@ void					*ft_memmove(void *dst, void const *src, size_t len);
 void					*ft_memset(void *b, int c, size_t len);
 int						ft_out(int c);
 int						ft_printf(const char *format, ...);
+void					ft_print_array(char **array);
 void					ft_putchar(char c);
 void					ft_putchar_fd(char c, int fd);
 void					ft_putendl(char *s);
@@ -122,6 +124,7 @@ void					ft_putstr(char *s);
 void					ft_putstr_fd(char *s, int fd);
 void					ft_putstr_color(char *str, int color);
 int						ft_round(double x);
+char					**ft_set_array(int nb, ...);
 void					ft_str_down(char *str);
 void					ft_str_up(char *str);
 char					*ft_strcat(char *s1, char const *s2);

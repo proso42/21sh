@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_del_tab.c                                       :+:      :+:    :+:   */
+/*   is_directory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/26 11:20:25 by proso             #+#    #+#             */
-/*   Updated: 2017/11/11 01:36:26 by proso            ###   ########.fr       */
+/*   Created: 2017/11/12 02:38:58 by proso             #+#    #+#             */
+/*   Updated: 2017/11/12 02:40:04 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Includes/libft.h"
+#include "../Includes/shell.h"
 
-void	ft_del_tab(char **args)
+int		is_directory(char *path)
 {
-	int		i;
+	struct stat	buf;
 
-	i = 0;
-	if (args)
+	lstat(path, &buf);
+	if ((buf.st_mode & S_IFMT) == S_IFDIR)
 	{
-		while ((args[i]))
-		{
-			ft_strdel(&(args[i]));
-			i++;
-		}
-		free(args);
-		args = NULL;
+		ft_printf("{bold}{red}21sh: %s is a directory !{res}\n", path);
+		return (1);
 	}
+	return (0);
 }

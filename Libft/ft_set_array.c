@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_del_tab.c                                       :+:      :+:    :+:   */
+/*   ft_set_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/26 11:20:25 by proso             #+#    #+#             */
-/*   Updated: 2017/11/11 01:36:26 by proso            ###   ########.fr       */
+/*   Created: 2017/11/10 00:12:34 by proso             #+#    #+#             */
+/*   Updated: 2017/11/10 01:20:48 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/libft.h"
 
-void	ft_del_tab(char **args)
+char	**ft_set_array(int nb, ...)
 {
+	va_list	ap;
 	int		i;
+	char	*str;
+	char	**array;
 
 	i = 0;
-	if (args)
+	if (nb <= 0)
+		return (NULL);
+	if (!(array = (char**)malloc(sizeof(char*) * (nb + 1))))
+		exit (-1);
+	va_start(ap, nb);
+	while (nb > 0)
 	{
-		while ((args[i]))
-		{
-			ft_strdel(&(args[i]));
-			i++;
-		}
-		free(args);
-		args = NULL;
+		str = va_arg(ap, char *);
+		array[i] = ft_strdup(str);
+		i++;
+		nb--;
 	}
+	va_end(ap);
+	array[i] = NULL;
+	return (array);
 }

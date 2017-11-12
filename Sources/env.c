@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 16:14:00 by proso             #+#    #+#             */
-/*   Updated: 2017/10/18 00:00:12 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/10 00:41:33 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,45 @@ char		*get_env_var(t_data *info, char *str)
 	return (NULL);
 }
 
+static void	update_pwd(t_data *info)
+{
+	int		i;
+	char	str[1024];
+	char	**arg;
+
+	if ((i = check_var(info->env_list, "PWD")) < 0)
+	{
+		arg = ft_set_array(3, "setenv", "PWD", getcwd(str, 1024));
+		builtin_setenv(info, arg);
+		ft_del_tab(arg);
+	}
+}
+
 void		create_min_env_var(t_data *info)
 {
 	int		i;
 	int		shlvl;
 	char	*new_shlvl;
-	char	str[1024];
+	char	**arg;
 
+	arg = NULL;
 	if ((i = check_var(info->env_list, "SHLVL")) < 0)
-		builtin_setenv(info, "SHLVL", "1");
+	{
+		arg = ft_set_array(3, "setenv", "SHLVL", "1");
+		builtin_setenv(info, arg);
+	}
 	else
 	{
 		shlvl = ft_atoi(((t_env*)
 						(ft_get_p_elem(info->env_list, i))->data)->env_value);
 		new_shlvl = (shlvl < -1 || shlvl == 2147483647) ?
 											ft_strdup("0") : ft_itoa(shlvl + 1);
-		builtin_setenv(info, "SHLVL", new_shlvl);
+		arg = ft_set_array(3, "setenv", "SHLVL", new_shlvl);
+		builtin_setenv(info, arg);
 		ft_strdel(&new_shlvl);
 	}
-	if ((i = check_var(info->env_list, "PWD")) < 0)
-		builtin_setenv(info, "PWD", getcwd(str, 1024));
+	update_pwd(info);
+	ft_del_tab(arg);
 }
 
 t_list		*init_env_list(void)

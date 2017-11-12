@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_to_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: proso <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/26 11:12:34 by proso             #+#    #+#             */
-/*   Updated: 2017/07/03 10:46:55 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/10 23:09:01 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	**ft_list_to_tab(t_list *begin_list)
 	i = 0;
 	while (current && current->data)
 	{
-		args[i] = current->data;
+		args[i] = ft_strdup(current->data);
 		current = current->next;
 		i++;
 	}

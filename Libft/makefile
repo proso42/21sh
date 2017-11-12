@@ -18,6 +18,7 @@ SRC = btree_apply_infix.c \
 	  btree_insert_data.c \
 	  btree_level_count.c \
 	  btree_search_item.c \
+	  btree_remove_all.c \
       ft_atoi.c \
 	  ft_btoi.c \
 	  ft_bzero.c \
@@ -68,6 +69,7 @@ SRC = btree_apply_infix.c \
 	  ft_memmove.c \
 	  ft_memset.c \
 	  ft_out.c \
+	  ft_print_array.c \
 	  ft_putchar.c \
 	  ft_putchar_fd.c \
 	  ft_putendl.c \
@@ -79,6 +81,7 @@ SRC = btree_apply_infix.c \
 	  ft_putstr_fd.c \
 	  ft_putstr_color.c \
 	  ft_round.c \
+	  ft_set_array.c \
 	  ft_str_down.c \
 	  ft_str_up.c \
 	  ft_strcat.c \

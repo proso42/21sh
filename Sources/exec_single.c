@@ -6,51 +6,31 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/01 16:19:42 by proso             #+#    #+#             */
-/*   Updated: 2017/10/18 00:00:38 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/12 01:31:22 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 
-static char	**get_args(t_data *info)
-{
-	int		i;
-	char	**args;
-
-	i = 0;
-	while (info->av[i][0])
-		i++;
-	if (!(args = (char**)malloc(sizeof(char*) * i)))
-	{
-		ft_putstr_color("Fail to allocate memory with malloc function\n"
-																	, C_RED);
-		exit(-1);
-	}
-	i = 0;
-	while (info->av[i][0])
-	{
-		args[i] = info->av[i];
-		i++;
-	}
-	args[i] = NULL;
-	return (args);
-}
-
-void		exec_single(t_data *info)
+int		exec_single(t_data *info, t_lexem *lex)
 {
 	char	**envp;
-	char	**args;
+	char	*path;
 	pid_t	child;
 
 	envp = ft_list_to_tab(info->env_list);
-	args = get_args(info);
+	if (!(path = find_cmd(info, lex->cmd[0])))
+		return (0);
 	child = fork();
-	if (!child && info->av[0])
+	info->pid = child;
+	if (!child && lex->cmd[0])
 	{
-		execve(info->av[0], args, envp);
-		free(envp);
+		execve(path, lex->cmd, envp);
+		ft_del_tab(envp);
+		ft_strdel(&path);
 		exit(0);
 	}
-	if (info->av[0][0])
+	if (lex->cmd[0] && lex->cmd[0][0])
 		wait(&child);
+	return (1);
 }

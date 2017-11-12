@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 14:40:35 by proso             #+#    #+#             */
-/*   Updated: 2017/11/05 03:06:18 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/12 01:41:20 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			is_operand(char *c)
 	return (0);
 }
 
-static int			set_operand(char *str)
+static int	set_operand(char *str)
 {
 	if (!ft_strcmp(str, "||"))
 		return (OR);
@@ -65,19 +65,7 @@ static int			set_operand(char *str)
 	return (0);
 }*/
 
-static int	start_with_operand(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i] && !is_operand(&str[i]))
-		i++;
-	if (!str[i])
-		return (0);
-	return (1);
-}
-
-static void	print_all_lexem(t_list *lexem_list)
+/*static void	print_all_lexem(t_list *lexem_list)
 {
 	t_list	*current;
 	int		i;
@@ -87,43 +75,43 @@ static void	print_all_lexem(t_list *lexem_list)
 	while (current)
 	{
 		i = 0;
-		while (((t_lexem*)(current->data))->cmd[i][0])
+		while (((t_lexem*)(current->data))->cmd[i] && ((t_lexem*)(current->data))->cmd[i][0])
 		{
 			ft_printf("{bold}{cyan}%s{res}\n", ((t_lexem*)(current->data))->cmd[i]);
 			i++;
 		}
 		ft_printf("{bold}{green}OPREAND : %d{res}\n", ((t_lexem*)(current->data))->op);
+		if (current->next)
+			i++;
 		current = current->next;
-		if (current)
-			i = (((t_lexem*)(current->data))->cmd[i][0]) ? i + 1 : i;
 	}
-}
+}*/
 
 int			lexer(t_data *info)
 {
 	t_lexem	*lexem;
+	t_list	*tmp_list;
 	int		i;
-	int		j;
 
 	i = 0;
-	if (start_with_operand(info->av[0]))
-		return (print_error(11));
-	while (info->av[i][0])
+	tmp_list = NULL;
+	while (info->av[i] && info->av[i][0])
 	{
-		j = 0;
 		if (!(lexem = (t_lexem*)malloc(sizeof(t_lexem))))
 			print_error(ERR_MALLOC);
 		while (info->av[i][0])
 		{
-			ft_strcpy(lexem->cmd[j], info->av[i]);
+			ft_push_back(&tmp_list, ft_strdup(info->av[i]));
 			if (is_operand(info->av[i]))
-				break;
-			ft_inc(1, 2, &i, &j);
+				break ;
+			i++;
 		}
+		lexem->cmd = ft_list_to_tab(tmp_list);
 		lexem->op = set_operand(info->av[i]);
 		i = (info->av[i][0]) ? i + 1 : i;
+		ft_remove_list(&tmp_list);
 		ft_push_back(&info->lexem_list, lexem);
 	}
-	print_all_lexem(info->lexem_list);
+	parser(info);
 	return (1);
 }

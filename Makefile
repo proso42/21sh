@@ -6,7 +6,7 @@
 #    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/11/05 02:56:03 by proso            ###   ########.fr        #
+#    Updated: 2017/11/12 02:41:20 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC = add_to_buf.c \
 	  builtin_cd.c \
 	  builtin_setenv.c \
 	  builtin_unsetenv.c \
+	  check_local_path.c \
 	  check_path_error.c \
 	  clear_sc.c \
 	  cpy_mode.c\
@@ -27,12 +28,16 @@ SRC = add_to_buf.c \
 	  eval_quote.c \
 	  exec_builtin.c \
 	  exec_single.c \
+	  find_cmd.c \
 	  get_history.c \
 	  get_stdin.c \
+	  is_directory.c \
 	  lexer.c \
 	  line_edition.c \
 	  main.c\
+	  parser.c \
 	  past_mode.c \
+	  pointer_on_func.c \
 	  print_error.c \
 	  replace_dollard.c \
 	  signal.c \
