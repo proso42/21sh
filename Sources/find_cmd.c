@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 23:55:07 by proso             #+#    #+#             */
-/*   Updated: 2017/11/12 20:56:26 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/16 00:42:50 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*check_relative_path(t_data *info, char *path)
 
 	if (!(env_path = get_env_var(info, "PATH")))
 	{
-		print_error(6);
+		ft_printf("{bold}{red}21sh: command not found: %s{res}\n", path);
 		return (NULL);
 	}
 	i = 0;

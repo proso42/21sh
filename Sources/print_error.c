@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 15:27:24 by proso             #+#    #+#             */
-/*   Updated: 2017/11/15 01:14:22 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/16 00:40:46 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int		env_error(int err)
 		ft_putstr_color("21sh: Missing HOME env variable...\n", C_RED);
 	else if (err == 7)
 		ft_putstr_color("21sh: Missing OLDPWD env variable...\n", C_RED);
+	else if (err == 12)
+		ft_putstr_color("21sh: Missing PATH env variable...\n", C_RED);
 	return (-1);
 }
 

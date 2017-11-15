@@ -6,22 +6,34 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 23:38:18 by proso             #+#    #+#             */
-/*   Updated: 2017/11/13 23:42:30 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/16 00:38:37 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/libft.h"
 
-char	*ft_strjoin_var(int nb, ...)
+char		*ft_strjoin_var(int nb, ...)
 {
 	va_list	ap;
-	char	join[1024];
+	char	*join;
 	char	*tmp;
+	int		size;
+	int		i;
 
 	if (nb <= 0)
 		return (NULL);
+	i = nb;
+	size = 0;
 	va_start(ap, nb);
-	ft_bzero(join, 1024);
+	while (i > 0)
+	{
+		tmp = va_arg(ap, char*);
+		size += ft_strlen(tmp);
+		i--;
+	}
+	va_end(ap);
+	va_start(ap, nb);
+	join = ft_strnew(size);
 	while (nb > 0)
 	{
 		tmp = va_arg(ap, char*);
