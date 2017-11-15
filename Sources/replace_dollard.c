@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:04:23 by proso             #+#    #+#             */
-/*   Updated: 2017/06/17 17:04:24 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/15 23:42:30 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,15 @@ static void	loop(char str[], char tmp[], int *i, t_data *info)
 void		replace_dollard(t_data *info, char str[])
 {
 	int		i;
-	char	tmp[100];
+	char	tmp[1024];
 	char	*env_var;
 
 	i = 0;
 	env_var = NULL;
-	ft_bzero(tmp, 100);
+	ft_bzero(tmp, 1024);
 	loop(str, tmp, &i, info);
-	ft_bzero(str, 100);
-	ft_strcpy(str, tmp);
+	ft_bzero(str, 1024);
+	ft_strncpy(str, tmp, 1023);
 	if (!str[0])
 		str[0] = -1;
 }

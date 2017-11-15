@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/01 16:19:42 by proso             #+#    #+#             */
-/*   Updated: 2017/11/14 00:07:39 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/15 23:31:33 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static char	**get_env_tab(t_list *env_list)
 
 	if (!env_list)
 		return (NULL);
-	if (!(env_tab = (char**)malloc(sizeof(char*) * ft_list_size(env_list) + 1)))
+	if (!(env_tab = (char**)malloc(sizeof(char*) *
+												(ft_list_size(env_list) + 1))))
 		return (NULL);
 	current = env_list;
 	i = 0;
