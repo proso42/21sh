@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 13:05:03 by proso             #+#    #+#             */
-/*   Updated: 2017/11/15 00:19:12 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/16 00:53:28 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	set_var(t_data *info)
 	ioctl(0, TIOCGWINSZ, &info->sz);
 	ft_bzero(info->buf_cmd, 1024);
 	ft_bzero(info->tmp_buf, 1024);
-	ft_bzero(info->av, 10000);
+	ft_bzero(info->av, 1048576);
 }
 
 int			init_line_edition(t_data *info)

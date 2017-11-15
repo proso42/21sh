@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/15 00:53:55 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/16 00:52:53 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct	s_data
 	struct termios	df_term;
 	struct winsize	sz;
 	char			buf_cmd[1024];
-	char			av[100][100];
+	char			av[1024][1024];
 	char			*cpy;
 	int				buf_i;
 	int				curs_x;
