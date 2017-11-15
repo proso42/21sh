@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/15 03:26:00 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/16 00:32:19 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int			main(void)
 	{
 		if (!(ret = get_stdin(&info)))
 		{
+			end(&info);
 			term_action(&info, "do");
 			lexer(&info);
 	//		print_av(&info);		// À RETIRER

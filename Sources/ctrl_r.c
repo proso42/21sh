@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:15:19 by proso             #+#    #+#             */
-/*   Updated: 2017/11/16 00:18:07 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/16 00:27:55 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ctrl_r(t_data *info)
 			term_action(info, "te");
 			return (get_stdin(info));
 		}
-		else if (ft_isprint(key[0]))
+		else if (ft_isprint(key[0]) && (int)ft_strlen(search) < 1024 && (int)ft_strlen(search) + 9 < info->sz.ws_col)
 		{
 			ft_strcat(search, key);
 			term_tgoto(info, 0, 0);
