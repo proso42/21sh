@@ -6,13 +6,13 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 13:04:11 by proso             #+#    #+#             */
-/*   Updated: 2017/11/12 01:36:20 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/13 00:30:45 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 
-void	builtin_echo(char **arg)
+int	builtin_echo(char **arg)
 {
 	int		i;
 
@@ -24,9 +24,10 @@ void	builtin_echo(char **arg)
 		if (arg[i] && arg[i][0])
 			write(0, " ", 1);
 	}
+	return (1);
 }
 
-void	builtin_exit(char **arg)
+int	builtin_exit(char **arg)
 {
 	int		ret;
 	int		i;
@@ -35,7 +36,7 @@ void	builtin_exit(char **arg)
 	if (arg[0] && arg[1] && arg[2] && arg[2][0])
 	{
 		print_error(9);
-		return ;
+		return (0);
 	}
 	else if (!(arg[1]))
 		exit(0);
@@ -51,16 +52,17 @@ void	builtin_exit(char **arg)
 		i++;
 	}
 	exit(ret);
+	return (1);
 }
 
-void	builtin_env(t_data *info, char **arg)
+int	builtin_env(t_data *info, char **arg)
 {
 	t_list	*current;
 
 	if (arg[1])
 	{
 		print_error(9);
-		return ;
+		return (0);
 	}
 	current = info->env_list;
 	while (current)
@@ -68,4 +70,5 @@ void	builtin_env(t_data *info, char **arg)
 		ft_putendl(((t_env*)(current->data))->env_complete);
 		current = current->next;
 	}
+	return (1);
 }

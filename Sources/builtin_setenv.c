@@ -6,11 +6,12 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 14:55:14 by proso             #+#    #+#             */
-/*   Updated: 2017/11/11 01:39:41 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/14 00:05:52 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
+#define DATA ((t_env*)(env_list->data))
 
 static int	check_nb_arg(char **arg)
 {
@@ -27,13 +28,13 @@ static int	check_nb_arg(char **arg)
 	return (1);
 }
 
-void		builtin_setenv(t_data *info, char **arg)
+int			builtin_setenv(t_data *info, char **arg)
 {
 	t_list	*env_list;
 	t_env	*var;
 
 	if (!check_nb_arg(arg))
-		return ;
+		return (0);
 	env_list = ft_get_p_elem(info->env_list, check_var(info->env_list, arg[1]));
 	if (!env_list)
 	{
@@ -41,17 +42,14 @@ void		builtin_setenv(t_data *info, char **arg)
 			print_error(ERR_MALLOC);
 		var->env_name = ft_strdup(arg[1]);
 		var->env_value = ft_strdup(arg[2]);
-		var->env_complete = ft_strjoin(arg[1], "=");
-		var->env_complete = ft_strjoinfree(var->env_complete, arg[2], 1);
+		var->env_complete = ft_strjoin_var(3, arg[1], "=", arg[2]);
 		ft_push_back(&info->env_list, var);
 	}
 	else
 	{
-		ft_strdel(&((t_env*)(env_list->data))->env_value);
-		ft_strdel(&((t_env*)(env_list->data))->env_complete);
-		((t_env*)(env_list->data))->env_value = ft_strdup(arg[2]);
-		((t_env*)(env_list->data))->env_complete = ft_strjoin(arg[1], "=");
-		((t_env*)(env_list->data))->env_complete = ft_strjoinfree(
-						((t_env*)(env_list->data))->env_complete, arg[2], 1);
+		ft_strdel_var(2, &DATA->env_value, &DATA->env_complete);
+		DATA->env_value = ft_strdup(arg[2]);
+		DATA->env_complete = ft_strjoin_var(3, arg[1], "=", arg[2]);
 	}
+	return (1);
 }

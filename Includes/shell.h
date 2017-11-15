@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/12 02:41:05 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/15 00:53:55 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define ERR_INEXISTANT	50
 # define PERMISSION		51
 # define ERR_DIRECTORY	52
-# define NO_PATH		53
+# define EMPTY_HIST		53
 # define AND 			100
 # define OR 			101
 # define SEMICOLON		102
@@ -55,6 +55,7 @@ typedef struct	s_env
 typedef struct	s_data
 {
 	pid_t			pid;
+	int				ctrl_r;
 	t_list			*env_list;
 	t_list			*history_list;
 	t_list			*lexem_list;
@@ -77,17 +78,18 @@ typedef struct	s_data
 void			add_cmd_to_history(t_data *info);
 int				add_to_buf(t_data *info, char *key);
 int				builtin_cd(t_data *info, char *path);
-void			builtin_echo(char ** arg);
-void			builtin_env(t_data *info, char** arg);
-void			builtin_exit(char ** arg);
-void			builtin_setenv(t_data *info, char ** arg);
-void			builtin_unsetenv(t_data *info, char ** arg);
+int				builtin_echo(char ** arg);
+int				builtin_env(t_data *info, char** arg);
+int				builtin_exit(char ** arg);
+int				builtin_setenv(t_data *info, char ** arg);
+int				builtin_unsetenv(t_data *info, char ** arg);
 char			*check_local_path(char *path);
 int				check_path_error(char *path, int allow_print, int type);
 void			create_min_env_var(t_data *info);
 int				check_var(t_list *env_list, char *env);
 void			clear_sc(t_data *info);
 int				cpy_mode(t_data *info);
+int				ctrl_r(t_data *info);
 int				cut_cmd(t_data *info);
 int				cut_mode(t_data *info);
 int				default_terminal(t_data *info, int mode);
@@ -98,7 +100,7 @@ void			del_line(t_data *info);
 int				edit_buf(t_data *info, char *key);
 void			end(t_data *info);
 void			eval_quote(t_data *info, int j);
-void			exec_builtin(t_data *info, t_lexem *lex);
+int				exec_builtin(t_data *info, t_lexem *lex);
 int				exec_single(t_data *info, t_lexem *lex);
 int				exectute(t_data *info, t_lexem *lex);
 char			*find_cmd(t_data *info, char *path);
@@ -130,6 +132,7 @@ void			print_prompt(t_data *info);
 void			replace_dollard(t_data *info, char str[]);
 int				start_with_operand(char *str);
 void			term_action(t_data *info, char *action);
+void			term_tgoto(t_data *info, int x, int y);
 void			write_buf(t_data *info);
 
 #endif

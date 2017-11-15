@@ -90,6 +90,7 @@ SRC = btree_apply_infix.c \
 	  ft_strcmp.c \
 	  ft_strcpy.c \
 	  ft_strdel.c \
+	  ft_strdel_var.c \
 	  ft_del_tab.c \
 	  ft_strcdup.c \
 	  ft_strdup.c \
@@ -99,6 +100,7 @@ SRC = btree_apply_infix.c \
 	  ft_striteri.c \
 	  ft_strjoin.c \
 	  ft_strjoinfree.c \
+	  ft_strjoin_var.c \
 	  ft_strlcat.c \
 	  ft_strlen.c \
 	  ft_strmap.c \

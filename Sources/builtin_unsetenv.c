@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:07:56 by proso             #+#    #+#             */
-/*   Updated: 2017/11/11 23:38:14 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/14 00:06:40 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	del_env_var(t_data *info, char *env)
 	}
 }
 
-void		builtin_unsetenv(t_data *info, char **arg)
+int			builtin_unsetenv(t_data *info, char **arg)
 {
 	int		i;
 
@@ -51,11 +51,12 @@ void		builtin_unsetenv(t_data *info, char **arg)
 	if (!arg[1] || !arg[1][0])
 	{
 		print_error(8);
-		return ;
+		return (0);
 	}
 	while (arg[i] && arg[i][0])
 	{
 		del_env_var(info, arg[i]);
 		i++;
 	}
+	return (1);
 }

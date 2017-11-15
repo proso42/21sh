@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 15:37:25 by proso             #+#    #+#             */
-/*   Updated: 2017/11/04 02:24:53 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/15 01:13:52 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	suite(t_data *info, char *key)
 		cut_mode(info);
 	else if (key[0] == -30 && key[1] == -120 && key[2] == -102 && !key[3])
 		past_mode(info);
+	else if (key[0] == 18 && !key[1])
+		return (ctrl_r(info));
 	return (1);
 }
 

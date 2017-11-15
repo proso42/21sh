@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 15:27:24 by proso             #+#    #+#             */
-/*   Updated: 2017/11/12 02:08:33 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/15 01:14:22 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ static int		args_error(int err)
 		ft_putstr_color("21sh: Too few arguments !\n", C_RED);
 	else if (err == 9)
 		ft_putstr_color("21sh: Too many arguments !\n", C_RED);
+	else if (err == EMPTY_HIST)
+	{
+		ft_printf("\n{red}{bold}21sh: Empty hitoric{res}");
+		return (0);
+	}
 	return (-1);
 }
 
@@ -52,7 +57,7 @@ int				print_error(int err)
 		return (term_error(err));
 	else if (err == 5 || err == 6 || err == 7)
 		return (env_error(err));
-	else if (err == 8 || err == 9)
+	else if (err == 8 || err == 9 || err == EMPTY_HIST)
 		return (args_error(err));
 	else if (err == ERR_MALLOC)
 	{
@@ -61,7 +66,8 @@ int				print_error(int err)
 		exit(-1);
 	}
 	else if (err == ERR_TERM)
-		ft_putstr_color("21sh: Fatal error with tgetstr/tputs function...\n", C_RED);
+		ft_putstr_color("21sh: Fatal error with tgetstr/tputs function...\n"
+																	, C_RED);
 	else if (err == ERR_INEXISTANT)
 		ft_putstr_color("21sh: No such file or directory\n", C_RED);
 	else if (err == PERMISSION)
@@ -71,6 +77,7 @@ int				print_error(int err)
 	else if (err == 10)
 		ft_putstr_color("21sh: Numeric argument required\n", C_RED);
 	else if (err == 11)
-		ft_putstr_color("21sh: Command line cannot start with an operand\n", C_RED);
+		ft_putstr_color("21sh: Command line cannot start with an operand\n"
+																	, C_RED);
 	return (-1);
 }

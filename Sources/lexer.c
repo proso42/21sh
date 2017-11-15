@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 14:40:35 by proso             #+#    #+#             */
-/*   Updated: 2017/11/12 01:41:20 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/12 22:37:40 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ int			lexer(t_data *info)
 			print_error(ERR_MALLOC);
 		while (info->av[i][0])
 		{
-			ft_push_back(&tmp_list, ft_strdup(info->av[i]));
 			if (is_operand(info->av[i]))
 				break ;
+			ft_push_back(&tmp_list, ft_strdup(info->av[i]));
 			i++;
 		}
 		lexem->cmd = ft_list_to_tab(tmp_list);

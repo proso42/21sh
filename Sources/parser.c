@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:16:31 by proso             #+#    #+#             */
-/*   Updated: 2017/11/12 01:42:25 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/14 00:09:37 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,25 @@ int			start_with_operand(char *str)
 static void	bt_iter(t_data *info, t_btree *root, int (f)(t_data *, t_lexem *))
 {
 	t_btree	*current;
+	int		op;
+	int		ret;
+	int		pass;
 
+	ft_init(0, 2, &pass, &ret);
 	current = root;
 	if (current)
 	{
+		op = ((t_lexem*)(current->item))->op;
+		if (op == SEMICOLON || op == AND)
+			ret = f(info, current->item);
+		else
+			pass = 0;
 		if (current->left)
 			bt_iter(info, current->left, f);
 		if (current->right)
 			bt_iter(info, current->right, f);
-		f(info, current->item);
+		if (pass != 2 && pass != -2)
+			ret = f(info, current->item);
 	}
 }
 

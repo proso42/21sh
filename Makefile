@@ -6,7 +6,7 @@
 #    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/11/12 02:41:20 by proso            ###   ########.fr        #
+#    Updated: 2017/11/15 00:53:24 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC = add_to_buf.c \
 	  check_path_error.c \
 	  clear_sc.c \
 	  cpy_mode.c\
+	  ctrl_r.c \
 	  cut_cmd.c \
 	  cut_mode.c \
 	  delete.c \

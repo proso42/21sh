@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/11/10 02:28:53 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/13 23:51:49 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void					ft_strclr(char *s);
 int						ft_strcmp(char const *s1, char const *s2);
 char					*ft_strcpy(char *dst, char const *src);
 void					ft_strdel(char **as);
+void					ft_strdel_var(int nb, ...);
 void					ft_del_tab(char **args);
 char					*ft_strcdup(char const *str, char c);
 char					*ft_strdup(char const *s1);
@@ -144,6 +145,7 @@ void					ft_striteri(char *s, void (*f)(unsigned int, char *));
 char					*ft_strjoin(char const *s1, char const *s2);
 char					*ft_strjoinfree(char const *s1, char const *s2,
 																	int mode);
+char					*ft_strjoin_var(int nb, ...);
 size_t					ft_strlcat(char *dst, char const *src, size_t size);
 size_t					ft_strlen(char const *s);
 char					*ft_strmap(char const *s, char (*f)(char));

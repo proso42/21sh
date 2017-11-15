@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   term_action.c                                      :+:      :+:    :+:   */
+/*   ft_strjoin_var.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/16 13:17:32 by proso             #+#    #+#             */
-/*   Updated: 2017/11/15 01:02:46 by proso            ###   ########.fr       */
+/*   Created: 2017/11/13 23:38:18 by proso             #+#    #+#             */
+/*   Updated: 2017/11/13 23:42:30 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Includes/shell.h"
+#include "Includes/libft.h"
 
-void	term_action(t_data *info, char *action)
+char	*ft_strjoin_var(int nb, ...)
 {
-	if ((tputs(tgetstr(action, NULL), 0, ft_out)) < 0)
-	{
-		print_error(ERR_TERM);
-		default_terminal(info, -1);
-	}
-}
+	va_list	ap;
+	char	join[1024];
+	char	*tmp;
 
-void	term_tgoto(t_data *info, int x, int y)
-{
-	if ((tputs(tgoto(tgetstr("cm", NULL), x, y), 0, ft_out)) < 0)
+	if (nb <= 0)
+		return (NULL);
+	va_start(ap, nb);
+	ft_bzero(join, 1024);
+	while (nb > 0)
 	{
-		print_error(ERR_TERM);
-		default_terminal(info, -1);
+		tmp = va_arg(ap, char*);
+		ft_strcat(join, tmp);
+		nb--;
 	}
+	va_end(ap);
+	return (ft_strdup(join));
 }

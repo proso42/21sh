@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/11 23:37:36 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/15 03:26:00 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ void		print_prompt(t_data *info)
 
 	ft_bzero(str, 1024);
 	if (!info->quote)
-		ft_printf("{blue}{bold}%s{res}", ft_strcat(getcwd(str, 1024), " $> "));
+	{
+		getcwd(str, 1024);
+		if (!str[0])
+			ft_strcpy(str, "21sh");
+		ft_printf("{blue}{bold}%s{res}", ft_strcat(str, " $> "));
+	}
 	else if (info->quote == 1)
 		ft_printf("%s", ft_strcpy(str, "quote> "));
 	else if (info->quote == 2)
