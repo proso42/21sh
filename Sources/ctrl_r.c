@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:15:19 by proso             #+#    #+#             */
-/*   Updated: 2017/11/15 23:00:33 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/16 00:18:07 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	ctrl_r(t_data *info)
 			nb_line = print_correct_history(info, search);
 			term_tgoto(info, ft_strlen(search) + 9, 0);
 		}
-		else if (key[0] == 127 && !key[1])
+		else if (key[0] == 127 && !key[1] && search[0])
 		{
 			search[ft_strlen(search) - 1] = '\0';
 			term_tgoto(info, 0, 0);
