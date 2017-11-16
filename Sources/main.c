@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/16 00:32:19 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/16 01:25:11 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ static void	print_entry(t_data *info)
 {
 	ft_putstr_color("+-----------------------+\n", C_GREEN);
 	ft_putstr_color("|                       |\n", C_GREEN);
-	ft_putstr_color("|    Bienvenue dans     |\n", C_GREEN);
-	ft_putstr_color("|       le 21sh         |\n", C_GREEN);
+	ft_putstr_color("|    Welcome connard    |\n", C_GREEN);
+	ft_putstr_color("|       the 21sh        |\n", C_GREEN);
 	ft_putstr_color("|                       |\n", C_GREEN);
 	ft_putstr_color("+-----------------------+\n", C_GREEN);
 	print_prompt(info);
