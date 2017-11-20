@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 00:10:30 by proso             #+#    #+#             */
-/*   Updated: 2017/10/16 03:52:58 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/21 00:41:22 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int		past_mode(t_data *info)
 		tmp[i] = info->buf_cmd[i];
 		i++;
 	}
-	ft_strcpy(&(tmp[i]), info->cpy);
-	ft_strcpy(&(tmp[ft_strlen(tmp)]), &(info->buf_cmd[i]));
+	ft_strlcpy(&(tmp[i]), info->cpy, 1024);
+	ft_strlcpy(&(tmp[ft_strlen(tmp)]), &(info->buf_cmd[i]), 1024);
 	home(info, 1);
 	ft_bzero(info->buf_cmd, 1024);
-	ft_strcpy(info->buf_cmd, tmp);
+	ft_strlcpy(info->buf_cmd, tmp, 1024);
 	write_buf(info);
 	info->buf_i = ft_strlen(info->buf_cmd);
 	return (0);

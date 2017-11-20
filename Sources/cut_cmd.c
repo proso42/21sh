@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/11 22:53:53 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/21 00:37:21 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static void	remove_useless_symbol(t_data *info, int j)
 		}
 		i++;
 	}
-	tmp = ft_strnew(100);
-	ft_strcpy(tmp, info->av[j]);
+	tmp = ft_strnew(1024);
+	ft_strlcpy(tmp, info->av[j], 1024);
 	tmp = ft_str_remove_c(tmp, 1);
-	ft_strcpy(info->av[j], tmp);
+	ft_strlcpy(info->av[j], tmp, 1024);
 	ft_strdel(&tmp);
 }
 
@@ -133,7 +133,7 @@ int			cut_cmd(t_data *info)
 		pick_part(info, &i, &j);
 		j++;
 	}
-	ft_bzero(info->av[j], 100);
+	ft_bzero(info->av[j], 1024);
 	j = 0;
 	while (info->av[j][0])
 		j++;

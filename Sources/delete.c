@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 18:02:58 by proso             #+#    #+#             */
-/*   Updated: 2017/10/27 21:05:58 by caroleroso       ###   ########.fr       */
+/*   Updated: 2017/11/21 00:39:46 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	delete_left(t_data *info)
 		ft_strncpy(tmp, info->buf_cmd, info->buf_i);
 		ft_strcat(tmp, &info->buf_cmd[info->buf_i + 1]);
 		ft_bzero(info->buf_cmd, 1024);
-		ft_strcpy(info->buf_cmd, tmp);
+		ft_strlcpy(info->buf_cmd, tmp, 1024);
 		del_line(info);
 		home(info, 0);
 		write_buf(info);
@@ -59,7 +59,7 @@ void	delete_right(t_data *info)
 		ft_strncpy(tmp, info->buf_cmd, info->buf_i);
 		ft_strcat(tmp, &info->buf_cmd[info->buf_i + 1]);
 		ft_bzero(info->buf_cmd, 1024);
-		ft_strcpy(info->buf_cmd, tmp);
+		ft_strlcpy(info->buf_cmd, tmp, 1024);
 		del_line(info);
 		home(info, 0);
 		write_buf(info);

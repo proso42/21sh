@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:04:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/16 01:38:21 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/21 00:41:56 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	loop(char str[], char tmp[], int *i, t_data *info)
 			env_var = analyse_dollard(info, str, i);
 			if (env_var)
 			{
-				ft_strcpy(&tmp[ft_strlen(tmp)], env_var);
+				ft_strlcpy(&tmp[ft_strlen(tmp)], env_var, 1024);
 				ft_strdel(&env_var);
 			}
 		}

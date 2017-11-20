@@ -1,42 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin_var.c                                   :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/13 23:38:18 by proso             #+#    #+#             */
-/*   Updated: 2017/11/16 01:48:28 by proso            ###   ########.fr       */
+/*   Created: 2017/11/20 23:19:40 by proso             #+#    #+#             */
+/*   Updated: 2017/11/20 23:52:52 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/libft.h"
 
-char		*ft_strjoin_var(int nb, ...)
+size_t	ft_strlcpy(char *dst, char const *src, size_t size)
 {
-	va_list	ap;
-	char	*join;
-	int		size;
-	int		i;
+	char	*dst2;
+	char	*src2;
+	size_t	i;
 
-	if (nb <= 0)
-		return (NULL);
-	i = nb;
-	size = 0;
-	va_start(ap, nb);
-	while (i > 0)
+	dst2 = dst;
+	src2 = (char*)src;
+	i = size;
+	if (i > 1)
 	{
-		size += ft_strlen(va_arg(ap, char*));
-		i--;
+		while (--i)
+		{
+			*dst2 = *src2;
+			dst2++;
+			src2++;
+		}
 	}
-	va_end(ap);
-	va_start(ap, nb);
-	join = ft_strnew(size);
-	while (nb > 0)
+	if (i == 0 || i == 1)
 	{
-		ft_strcat(join, va_arg(ap, char*));
-		nb--;
+		if (size)
+			*dst2 = '\0';
+		while (*src2)
+			src2++;
 	}
-	va_end(ap);
-	return (join);
+	return (src2 - src - 1);
 }

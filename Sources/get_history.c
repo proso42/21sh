@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 15:58:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/05 00:08:48 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/21 00:40:29 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	show_history(t_data *info, int max_history_list)
 	str = ft_get_elem(info->history_list, max_history_list - info->num_history);
 	del_line(info);
 	ft_bzero(info->buf_cmd, 1024);
-	ft_strcpy(info->buf_cmd, str);
+	ft_strlcpy(info->buf_cmd, str, 1024);
 	write_buf(info);
 	info->buf_i = ft_strlen(info->buf_cmd);
 }
@@ -66,7 +66,7 @@ static void	show_current(t_data *info)
 	info->buf_i = ft_strlen(info->buf_cmd);
 	del_line(info);
 	ft_bzero(info->buf_cmd, 1024);
-	ft_strcpy(info->buf_cmd, info->tmp_buf);
+	ft_strlcpy(info->buf_cmd, info->tmp_buf, 1024);
 	write_buf(info);
 	info->buf_i = ft_strlen(info->buf_cmd);
 	ft_bzero(info->tmp_buf, 1024);
@@ -78,7 +78,7 @@ int			get_history(t_data *info, char *key)
 
 	max_history_list = ft_list_size(info->history_list) - 1;
 	if (info->num_history == -1)
-		ft_strcpy(info->tmp_buf, info->buf_cmd);
+		ft_strlcpy(info->tmp_buf, info->buf_cmd, 1024);
 	info->num_history += (key[2] == 65) ? 1 : -1;
 	info->num_history = (key[2] == 66 && info->num_history > max_history_list) ?
 									max_history_list - 1 : info->num_history;

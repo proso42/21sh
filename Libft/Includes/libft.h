@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/11/13 23:51:26 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/20 23:30:05 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ char					*ft_strjoinfree(char const *s1, char const *s2,
 																	int mode);
 char					*ft_strjoin_var(int nb, ...);
 size_t					ft_strlcat(char *dst, char const *src, size_t size);
+size_t					ft_strlcpy(char *dst, char const *src, size_t size);
 size_t					ft_strlen(char const *s);
 char					*ft_strmap(char const *s, char (*f)(char));
 char					*ft_strmapi(char const *s

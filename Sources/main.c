@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/16 01:25:11 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/21 00:40:57 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void		print_prompt(t_data *info)
 	{
 		getcwd(str, 1024);
 		if (!str[0])
-			ft_strcpy(str, "21sh");
+			ft_strlcpy(str, "21sh", 1024);
 		ft_printf("{blue}{bold}%s{res}", ft_strcat(str, " $> "));
 	}
 	else if (info->quote == 1)
-		ft_printf("%s", ft_strcpy(str, "quote> "));
+		ft_printf("%s", ft_strlcpy(str, "quote> ", 1024));
 	else if (info->quote == 2)
-		ft_printf("%s", ft_strcpy(str, "dquote> "));
+		ft_printf("%s", ft_strlcpy(str, "dquote> ", 1024));
 	info->prompt_size = ft_strlen(str);
 	if (info->prompt_size >= info->sz.ws_col)
 		info->curs_x = (info->prompt_size - info->sz.ws_col);

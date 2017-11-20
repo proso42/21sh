@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 12:32:00 by proso             #+#    #+#             */
-/*   Updated: 2017/07/26 12:32:01 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/21 00:37:56 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static void		update_cmd(int min, int max, t_data *info)
 	del_line(info);
 	home(info, 1);
 	info->cpy = ft_strnew(1024);
-	ft_strcpy(info->cpy, tmp);
+	ft_strlcpy(info->cpy, tmp, 1024);
 	ft_bzero(info->buf_cmd, 1024);
-	ft_strcpy(info->buf_cmd, new_cmd);
+	ft_strlcpy(info->buf_cmd, new_cmd, 1024);
 }
 
 static void		get_arrow(t_data *info)

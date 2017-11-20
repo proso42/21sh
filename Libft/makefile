@@ -102,6 +102,7 @@ SRC = btree_apply_infix.c \
 	  ft_strjoinfree.c \
 	  ft_strjoin_var.c \
 	  ft_strlcat.c \
+	  ft_strlcpy.c \
 	  ft_strlen.c \
 	  ft_strmap.c \
 	  ft_strmapi.c \
