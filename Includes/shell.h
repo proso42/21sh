@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/20 23:32:11 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/22 00:24:34 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,19 @@ typedef struct	s_env
 	char		*env_complete;
 }				t_env;
 
+typedef struct	s_hist
+{
+	char		search[1024];
+	char		key[6];
+	int			nb_line;
+	int			pos_list;
+	t_list		*match_list;
+}				t_hist;
+
 typedef struct	s_data
 {
 	pid_t			pid;
-	int				ctrl_r;
+	int				searching;
 	t_list			*env_list;
 	t_list			*history_list;
 	t_list			*lexem_list;
@@ -65,6 +74,7 @@ typedef struct	s_data
 	struct termios	sh_term;
 	struct termios	df_term;
 	struct winsize	sz;
+	t_hist			*hist;
 	char			buf_cmd[1024];
 	char			av[1024][1024];
 	char			*cpy;
@@ -87,9 +97,10 @@ char			*check_local_path(char *path);
 int				check_path_error(char *path, int allow_print, int type);
 void			create_min_env_var(t_data *info);
 int				check_var(t_list *env_list, char *env);
+void			clear_history_lines(t_data *info);
 void			clear_sc(t_data *info);
 int				cpy_mode(t_data *info);
-int				ctrl_r(t_data *info);
+int				history_search(t_data *info);
 int				cut_cmd(t_data *info);
 int				cut_mode(t_data *info);
 int				default_terminal(t_data *info, int mode);
@@ -99,6 +110,11 @@ void			delete_right(t_data *info);
 void			del_line(t_data *info);
 int				edit_buf(t_data *info, char *key);
 void			end(t_data *info);
+void			event_cursor_history(t_data *info);
+void			event_delete_history(t_data *info);
+int				event_enter_history(t_data *info);
+void			event_letter_history(t_data *info);
+void			event_tab_history(t_data *info);
 void			eval_quote(t_data *info, int j);
 int				exec_builtin(t_data *info, t_lexem *lex);
 int				exec_single(t_data *info, t_lexem *lex);
@@ -106,6 +122,7 @@ int				exectute(t_data *info, t_lexem *lex);
 char			*find_cmd(t_data *info, char *path);
 char			*get_env_var(t_data *info, char *str);
 int				get_history(t_data *info, char *key);
+void			get_match_data(t_data *info, char *search);
 int				get_stdin(t_data *info);
 void			go_good_place(t_data *info);
 void			home(t_data *info, int mode);
@@ -127,6 +144,7 @@ void			move_right(t_data *info);
 void			move_up(t_data *info);
 void			parser(t_data *info);
 int				past_mode(t_data *info);
+void			print_correct_history(t_data *info);
 int				print_error(int err);
 void			print_prompt(t_data *info);
 void			replace_dollard(t_data *info, char str[]);

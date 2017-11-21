@@ -6,7 +6,7 @@
 #    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/11/16 00:58:36 by proso            ###   ########.fr        #
+#    Updated: 2017/11/21 23:03:49 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,18 +20,19 @@ SRC = add_to_buf.c \
 	  check_path_error.c \
 	  clear_sc.c \
 	  cpy_mode.c\
-	  ctrl_r.c \
 	  cut_cmd.c \
 	  cut_mode.c \
 	  delete.c \
 	  easy_builtin.c \
 	  env.c \
 	  eval_quote.c \
+	  events_history.c \
 	  exec_builtin.c \
 	  exec_single.c \
 	  find_cmd.c \
 	  get_history.c \
 	  get_stdin.c \
+	  history_search.c \
 	  is_directory.c \
 	  lexer.c \
 	  line_edition.c \

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 00:40:57 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/21 03:10:33 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int			main(void)
 	//		print_av(&info);		// À RETIRER
 			print_prompt(&info);
 			ft_bzero(info.buf_cmd, 1024);
-			ft_bzero(info.av, 10000);
+			ft_bzero(info.av, 1048576);
 			info.buf_i = 0;
 			btree_remove_all(&info.root, del);
 			ft_remove_list(&info.lexem_list);
