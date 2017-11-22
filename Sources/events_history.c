@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 00:54:45 by proso             #+#    #+#             */
-/*   Updated: 2017/11/22 00:22:06 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/22 01:21:44 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	event_tab_history(t_data *info)
 	term_tgoto(info, 0, 0);
 	clear_history_lines(info);
 	term_tgoto(info, 0, 0);
+	get_match_data(info, info->hist->search);
 	print_correct_history(info);
 	term_tgoto(info, 0, 0);
 	ft_printf("{bold}{blue}search : {res}%s", info->hist->search);
-	get_match_data(info, info->hist->search);
 }
 
 int				event_enter_history(t_data *info)
@@ -61,9 +61,9 @@ void			event_letter_history(t_data *info)
 	term_tgoto(info, 0, 0);
 	ft_printf("{bold}{blue}search : {res}%s", info->hist->search);
 	clear_history_lines(info);
+	get_match_data(info, info->hist->search);
 	print_correct_history(info);
 	term_tgoto(info, ft_strlen(info->hist->search) + 9, 0);
-	get_match_data(info, info->hist->search);
 }
 
 void			event_delete_history(t_data *info)
@@ -74,9 +74,9 @@ void			event_delete_history(t_data *info)
 	clear_history_lines(info);
 	term_action(info, "dl");
 	ft_printf("{bold}{blue}search : {res}%s", info->hist->search);
+	get_match_data(info, info->hist->search);
 	print_correct_history(info);
 	term_tgoto(info, ft_strlen(info->hist->search) + 9, 0);
-	get_match_data(info, info->hist->search);
 }
 
 void			event_cursor_history(t_data *info)

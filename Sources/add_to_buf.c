@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 15:51:38 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 00:39:09 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/22 02:39:01 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		edit_buf(t_data *info, char *key)
 	char	tmp[1024];
 
 	ft_bzero(tmp, 1024);
-	ft_strlcpy(tmp, info->buf_cmd, info->buf_i);
+	ft_strncpy(tmp, info->buf_cmd, info->buf_i);
 	tmp[info->buf_i] = key[0];
 	ft_strncpy(&tmp[info->buf_i + 1], &info->buf_cmd[info->buf_i], 1024);
 	ft_bzero(info->buf_cmd, 1024);

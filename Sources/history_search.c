@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:15:19 by proso             #+#    #+#             */
-/*   Updated: 2017/11/22 01:01:45 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/22 01:22:35 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	get_match_data(t_data *info, char *search)
 	current = info->history_list;
 	while (current)
 	{
-		if (ft_strnstr(current->data, search, (int)ft_strlen(search)))
+		if (ft_strnstr(current->data, search, (int)ft_strlen(search)) &&
+						!ft_list_find(info->hist->match_list, current ->data))
 			ft_push_back(&info->hist->match_list, ft_strdup(current->data));
 		current = current->next;
 	}
@@ -33,14 +34,11 @@ void	print_correct_history(t_data *info)
 	info->hist->nb_line = 0;
 	size = (int)ft_strlen(info->hist->search);
 	term_action(info, "do");
-	current = info->history_list;
+	current = info->hist->match_list;
 	while (current)
 	{
-		if (ft_strnstr(current->data, info->hist->search, size))
-		{
-			ft_putendl(current->data);
-			info->hist->nb_line++;
-		}
+		ft_putendl(current->data);
+		info->hist->nb_line++;
 		current = current->next;
 	}
 	term_action(info, "ve");
