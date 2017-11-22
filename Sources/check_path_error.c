@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 23:16:26 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 00:36:27 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/22 02:53:14 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				check_path_error(char *path, int allow_print, int type)
 	char		*tmp;
 
 	tmp = ft_strnew(ft_strlen(path));
-	ft_strlcpy(tmp, path, 1024);
+	ft_strlcpy(tmp, path, ft_strlen(path));
 	ft_memset(p_e_d, 'A', 3);
 	i = (path[0] == '/') ? 1 : 0;
 	while (path[i])
