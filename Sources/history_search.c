@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:15:19 by proso             #+#    #+#             */
-/*   Updated: 2017/11/22 03:01:35 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/22 03:06:25 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	get_entry(t_data *info)
 			event_delete_history(info);
 		else if (info->hist->key[0] == 27 && info->hist->key[1] == 91 &&
 						(info->hist->key[2] == 65 || info->hist->key[2] == 66)
-						 						&& info->hist->pos_list > -1)
+						 						&& info->hist->search[0])
 			event_cursor_history(info);
 		if (info->hist->key[0] != 27 || info->hist->key[1] != 91 ||
 							info->hist->key[2] < 65 || info->hist->key[2] > 66)
