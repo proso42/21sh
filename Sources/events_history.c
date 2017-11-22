@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 00:54:45 by proso             #+#    #+#             */
-/*   Updated: 2017/11/22 01:21:44 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/22 03:13:32 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	event_tab_history(t_data *info)
 {
+	if (info->hist->pos_list < 0)
+		return ;
 	ft_strlcpy(info->hist->search, ft_get_elem(info->hist->match_list,
 												info->hist->pos_list), 1024);
 	term_tgoto(info, 0, 0);
@@ -85,6 +87,11 @@ void			event_cursor_history(t_data *info)
 	int		j;
 
 	current = info->hist->match_list;
+	if (!current)
+	{
+		info->hist->pos_list = -1;
+		return ;
+	}
 	j = 0;
 	if (info->hist->pos_list <= 0 && info->hist->key[2] == 65)
 		info->hist->pos_list = ft_list_size(info->hist->match_list) - 1;
