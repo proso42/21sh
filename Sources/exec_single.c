@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/01 16:19:42 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 05:39:29 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 23:43:25 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ int			exec_single(t_data *info, t_lexem *lex)
 	if (!child && lex->cmd[0])
 	{
 		execve(path, lex->cmd, envp);
-		ft_del_tab(envp);
-		ft_strdel(&path);
 		exit(0);
 	}
 	if (lex->cmd[0] && lex->cmd[0][0])
 		wait(&child);
+	ft_del_tab(envp);
+	ft_strdel(&path);
 	if (WEXITSTATUS(child))
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 15:58:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 04:53:34 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 23:46:12 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,6 @@ int			get_history(t_data *info, char *key)
 		info->num_history = -1;
 	else if (info->num_history > max_history_list)
 		info->num_history = max_history_list;
+	ft_strdel(&info->tmp_buf);
 	return (2);
 }
