@@ -6,11 +6,12 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 15:51:38 by proso             #+#    #+#             */
-/*   Updated: 2017/11/22 02:39:01 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 04:49:38 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
+#include <string.h>
 
 void	write_buf(t_data *info)
 {
@@ -34,19 +35,20 @@ void	write_buf(t_data *info)
 
 int		edit_buf(t_data *info, char *key)
 {
-	char	tmp[1024];
+	int		i;
+	char	*str;
 
-	ft_bzero(tmp, 1024);
-	ft_strncpy(tmp, info->buf_cmd, info->buf_i);
-	tmp[info->buf_i] = key[0];
-	ft_strncpy(&tmp[info->buf_i + 1], &info->buf_cmd[info->buf_i], 1024);
-	ft_bzero(info->buf_cmd, 1024);
-	ft_strlcpy(info->buf_cmd, tmp, 1024);
+	str = ft_strdup(info->buf_cmd);
+	i = info->buf_i;
+	ft_strncpy(&info->buf_cmd[i + 1], &str[i],
+											ft_strlen(info->buf_cmd) - i);
+	info->buf_cmd[i] = key[0];
 	home(info, 0);
 	write_buf(info);
 	info->buf_i++;
 	home(info, 0);
 	go_good_place(info);
+	ft_strdel(&str);
 	return (1);
 }
 

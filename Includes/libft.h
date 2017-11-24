@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/11/20 23:29:37 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 02:06:27 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,11 @@ void					*ft_memcpy(void *dst, void const *src, size_t n);
 void					ft_memdel(void **app);
 void					*ft_memmove(void *dst, void const *src, size_t len);
 void					*ft_memset(void *b, int c, size_t len);
+char					**ft_new_array(int nb);
 int						ft_out(int c);
 int						ft_printf(const char *format, ...);
 void					ft_print_array(char **array);
+void					ft_push_array(char **array, char *str, size_t size);
 void					ft_putchar(char c);
 void					ft_putchar_fd(char c, int fd);
 void					ft_putendl(char *s);

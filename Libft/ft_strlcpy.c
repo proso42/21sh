@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/20 23:19:40 by proso             #+#    #+#             */
-/*   Updated: 2017/11/20 23:52:52 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 03:05:47 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 size_t	ft_strlcpy(char *dst, char const *src, size_t size)
 {
+	/*
 	char	*dst2;
 	char	*src2;
 	size_t	i;
@@ -38,4 +39,8 @@ size_t	ft_strlcpy(char *dst, char const *src, size_t size)
 			src2++;
 	}
 	return (src2 - src - 1);
+	*/
+	ft_strncpy(dst, src, size);
+	dst[size] = '\0';
+	return (ft_strlen(src));
 }

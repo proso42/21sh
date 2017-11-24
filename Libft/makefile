@@ -68,8 +68,10 @@ SRC = btree_apply_infix.c \
 	  ft_memdel.c \
 	  ft_memmove.c \
 	  ft_memset.c \
+	  ft_new_array.c \
 	  ft_out.c \
 	  ft_print_array.c \
+	  ft_push_array.c \
 	  ft_putchar.c \
 	  ft_putchar_fd.c \
 	  ft_putendl.c \

@@ -6,11 +6,12 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 00:37:21 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 05:19:02 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
+#include <string.h>
 
 static void	remove_useless_symbol(t_data *info, int j)
 {
@@ -18,25 +19,25 @@ static void	remove_useless_symbol(t_data *info, int j)
 	int		sg_quote;
 	int		db_quote;
 	int		i;
+	int		k;
 
-	ft_init(0, 3, &i, &sg_quote, &db_quote);
+	ft_init(0, 4, &i, &k, &sg_quote, &db_quote);
+	tmp = ft_strnew(1024);
 	while (info->av[j][i])
 	{
 		if (info->av[j][i] == '\'' && !db_quote)
-		{
 			sg_quote = (sg_quote) ? 0 : 1;
-			info->av[j][i] = 1;
-		}
 		else if (info->av[j][i] == '\"' && !sg_quote)
-		{
 			db_quote = (db_quote) ? 0 : 1;
-			info->av[j][i] = 1;
-		}
+		if (info->av[j][i] == '\'' && db_quote)
+			tmp[k++] = info->av[j][i];
+		else if (info->av[j][i] == '\"' && sg_quote)
+			tmp[k++] = info->av[j][i];
+		else if (info->av[j][i] != '\'' && info->av[j][i] != '\"')
+			tmp[k++] = info->av[j][i];
 		i++;
 	}
-	tmp = ft_strnew(1024);
-	ft_strlcpy(tmp, info->av[j], 1024);
-	tmp = ft_str_remove_c(tmp, 1);
+	ft_bzero(info->av[j], ft_strlen(info->av[j]));
 	ft_strlcpy(info->av[j], tmp, 1024);
 	ft_strdel(&tmp);
 }
@@ -46,14 +47,14 @@ static int	clean_cmd(t_data *info)
 	int		j;
 
 	j = 0;
-	while (info->av[j][0])
+	while (info->av[j] && info->av[j][0])
 	{
 		if (ft_strchr(info->av[j], '$'))
 			replace_dollard(info, info->av[j]);
 		j++;
 	}
 	j = 0;
-	while (info->av[j][0])
+	while (info->av[j] && info->av[j][0])
 	{
 		if (ft_strchr(info->av[j], '\'') || ft_strchr(info->av[j], '\"'))
 			remove_useless_symbol(info, j);
@@ -69,76 +70,75 @@ static int	clean_cmd(t_data *info)
 	return (0);
 }
 
-static void	add_operand(t_data *info, int *i, int *j)
+static void	add_operand(t_data *info, int *i, int k)
 {
-	char	*c;
+	char	str[3];
 
-	c = &info->buf_cmd[*i];
-	if (info->av[*j][0])
-		(*j)++;
-	if (c[0] == '>' && c[1] == '>')
-		ft_memset(info->av[*j], '>', 2);
-	else if (c[0] == '<' && c[1] == '<')
-		ft_memset(info->av[*j], '<', 2);
-	else if (c[0] == '&' && c[1] == '&')
-		ft_memset(info->av[*j], '&', 2);
-	else if (c[0] == '|' && c[1] == '|')
-		ft_memset(info->av[*j], '|', 2);
-	else if ((c[0] == '<') || c[0] == '>' || c[0] == '|' || c[0] == ';'
-																|| c[0] == '&')
-		info->av[*j][0] = c[0];
-	*i = (info->av[*j][1]) ? (*i) + 2 : (*i) + 1;
+	ft_bzero(str, 3);
+	info->tmp_buf = ft_strsub(info->buf_cmd, k, (*i) - k - 1);
+	ft_push_array(info->av, info->tmp_buf, 1024);
+	ft_strdel(&info->tmp_buf);
+	str[0] = info->buf_cmd[*i];
+	str[1] = info->buf_cmd[*i + 1];
+	if (str[0] == '>' && str[1] == '>')
+		ft_push_array(info->av, ">>", 1024);
+	else if (str[0] == '<' && str[1] == '<')
+		ft_push_array(info->av, "<<", 1024);
+	else if (str[0] == '&' && str[1] == '&')
+		ft_push_array(info->av, "&&", 1024);
+	else if (str[0] == '|' && str[1] == '|')
+		ft_push_array(info->av, "||", 1024);
+	else if ((str[0] == '<') || str[0] == '>' || str[0] == '|' || str[0] == ';'
+															|| str[0] == '&')
+	{
+		str[1] = '\0';
+		ft_push_array(info->av, str, 1024);
+	}
+	(*i)++;
 }
 
-static void	pick_part(t_data *info, int *i, int *j)
+static void	pick_part(t_data *info, int *i)
 {
 	int		qu;
 	int		db_qu;
 	int		k;
 
-	ft_init(0, 3, &k, &qu, &db_qu);
-	while (info->buf_cmd[*i])
+	ft_init(0, 2, &qu, &db_qu);
+	k = *i;
+	while (1)
 	{
 		if (info->buf_cmd[*i] == 39 && !db_qu)
 			qu = (qu) ? 0 : 1;
 		else if (info->buf_cmd[*i] == 34 && !qu)
 			db_qu = (db_qu) ? 0 : 1;
 		if ((info->buf_cmd[*i] == ' ' && !db_qu && !qu) || !info->buf_cmd[*i])
+		{
+			info->tmp_buf = ft_strsub(info->buf_cmd, k, (*i) - k);
+			ft_push_array(info->av, info->tmp_buf, 1024);
+			ft_strdel(&info->tmp_buf);
 			return ;
+		}
 		else if (!qu && !db_qu && is_operand(&info->buf_cmd[*i]))
-		{
-			add_operand(info, i, j);
-			return ;
-		}
+			return (add_operand(info, i, k));
 		else
-		{
-			info->av[*j][k++] = info->buf_cmd[*i];
 			(*i)++;
-		}
 	}
 }
 
 int			cut_cmd(t_data *info)
 {
 	int		i;
-	int		j;
 
-	ft_init(0, 2, &i, &j);
+	i = 0;
 	if (!info->buf_cmd[0])
 		return (0);
 	while (info->buf_cmd[i])
 	{
 		while (info->buf_cmd[i] && info->buf_cmd[i] == ' ')
 			i++;
-		pick_part(info, &i, &j);
-		j++;
+		pick_part(info, &i);
 	}
-	ft_bzero(info->av[j], 1024);
-	j = 0;
-	while (info->av[j][0])
-		j++;
-	j = (j > 0) ? j - 1 : j;
-	eval_quote(info, j);
+	eval_quote(info, 0);
 	add_cmd_to_history(info);
 	if (clean_cmd(info))
 		return (1);

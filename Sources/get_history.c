@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 15:58:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 04:42:38 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 04:53:34 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ static void	push_history(t_data *info)
 {
 	char *str;
 
-	str = ft_strdup(info->buf_cmd);
-	ft_push_back(&info->history_list, str);
+	if (info->buf_cmd[0])
+	{
+		str = ft_strdup(info->buf_cmd);
+		ft_push_back(&info->history_list, str);
+	}
 }
 
 void		add_cmd_to_history(t_data *info)
@@ -76,6 +79,8 @@ int			get_history(t_data *info, char *key)
 {
 	int		max_history_list;
 
+	if (!info->tmp_buf)
+		info->tmp_buf = ft_strnew(1024);
 	max_history_list = ft_list_size(info->history_list) - 1;
 	if (info->num_history == -1)
 		ft_strlcpy(info->tmp_buf, info->buf_cmd, 1024);

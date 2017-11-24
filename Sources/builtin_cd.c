@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:07:42 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 00:36:10 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 05:21:42 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ static int	change_to_home(t_data *info)
 	builtin_setenv(info, arg);
 	pwd = ft_get_p_elem(info->env_list, check_var(info->env_list, "HOME"));
 	if (!pwd)
+	{
+		ft_del_tab(arg);
 		return (print_error(6));
+	}
 	home = ((t_env*)(pwd->data))->env_value;
 	chdir(home);
 	ft_del_tab(arg);

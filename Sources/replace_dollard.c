@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:04:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 00:41:56 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 02:33:08 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*analyse_dollard(t_data *info, char *arg, int *i)
 	return ((dol) ? ft_strdup(dol) : NULL);
 }
 
-static void	loop(char str[], char tmp[], int *i, t_data *info)
+static void	loop(char *str, char *tmp, int *i, t_data *info)
 {
 	char	*env_var;
 	int		sg_quote;
@@ -84,18 +84,18 @@ static void	loop(char str[], char tmp[], int *i, t_data *info)
 	}
 }
 
-void		replace_dollard(t_data *info, char str[])
+void		replace_dollard(t_data *info, char *str)
 {
 	int		i;
-	char	tmp[1024];
+	char	*tmp;
 	char	*env_var;
 
 	i = 0;
 	env_var = NULL;
-	ft_bzero(tmp, 1024);
+	tmp = ft_strnew(1024);
 	loop(str, tmp, &i, info);
-	ft_bzero(str, 1024);
-	ft_strncpy(str, tmp, 1023);
+	ft_bzero(str, ft_strlen(str));
+	ft_strlcpy(str, tmp, 1024);
 	if (!str[0])
 		str[0] = -1;
 }

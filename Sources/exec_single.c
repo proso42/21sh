@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/01 16:19:42 by proso             #+#    #+#             */
-/*   Updated: 2017/11/15 23:31:33 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 05:39:29 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ int			exec_single(t_data *info, t_lexem *lex)
 
 	envp = get_env_tab(info->env_list);
 	if (!(path = find_cmd(info, lex->cmd[0])))
+	{
+		ft_del_tab(envp);
 		return (0);
+	}
 	child = fork();
 	info->pid = child;
 	if (!child && lex->cmd[0])

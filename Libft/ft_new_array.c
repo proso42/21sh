@@ -1,40 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_remove_c.c                                  :+:      :+:    :+:   */
+/*   ft_new_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/04/10 11:24:15 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 03:40:20 by proso            ###   ########.fr       */
+/*   Created: 2017/11/23 23:13:36 by proso             #+#    #+#             */
+/*   Updated: 2017/11/24 04:22:56 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Includes/libft.h"
 
-char	*ft_str_remove_c(char *str, char c)
+char	**ft_new_array(int nb)
 {
+	char	**array;
 	int		i;
-	int		j;
-	char	*tmp;
 
-	i = 0;
-	j = 0;
-	if (!str)
+	if (nb <= 0)
 		return (NULL);
-	tmp = ft_strnew(ft_strlen(str));
-	if (c != 0)
+	if (!(array = (char**)malloc(sizeof(char*) * (nb + 1))))
 	{
-		while (str[i])
-		{
-			if (str[i] != c)
-			{
-				tmp[j] = str[i];
-				j++;
-			}
-			i++;
-		}
-		ft_strdel(&str);
+		ft_putstr_color("Fail to allocate memory with malloc function\n",
+																		C_RED);
+		exit (-1);
 	}
-	return (tmp);
+	i = 0;
+	while (i < nb + 1)
+	{
+		array[i] = ft_strnew(1024);
+		i++;
+	}
+	array[i] = NULL;
+	return (array);
 }

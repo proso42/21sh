@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 18:02:58 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 03:26:59 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 00:04:30 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,14 @@ void	del_line(t_data *info)
 
 void	delete_left(t_data *info)
 {
-	char	tmp[1024];
+	int		i;
 
-	if (info->buf_i > 0)
+	i = info->buf_i;
+	if (i > 0)
 	{
-		ft_bzero(tmp, 1024);
 		move_left(info);
-		ft_strncpy(tmp, info->buf_cmd, info->buf_i);
-		ft_strcat(tmp, &info->buf_cmd[info->buf_i + 1]);
-		ft_bzero(info->buf_cmd, 1024);
-		ft_strlcpy(info->buf_cmd, tmp, 1024);
+		ft_strncpy(&info->buf_cmd[i - 1], &info->buf_cmd[i], 1024 - i);
+		info->buf_cmd[ft_strlen(info->buf_cmd)] = '\0';
 		del_line(info);
 		home(info, 0);
 		write_buf(info);
@@ -51,15 +49,12 @@ void	delete_left(t_data *info)
 
 void	delete_right(t_data *info)
 {
-	char	tmp[1024];
+	int		i;
 
-	if (info->buf_i <= (int)ft_strlen(info->buf_cmd))
+	i = info->buf_i;
+	if (i <= (int)ft_strlen(info->buf_cmd))
 	{
-		ft_bzero(tmp, 1024);
-		ft_strncpy(tmp, info->buf_cmd, info->buf_i);
-		ft_strcat(tmp, &info->buf_cmd[info->buf_i + 1]);
-		ft_bzero(info->buf_cmd, 1024);
-		ft_strlcpy(info->buf_cmd, tmp, 1024);
+		ft_strncpy(&info->buf_cmd[i], &info->buf_cmd[i + 1], 1024 - i);
 		del_line(info);
 		home(info, 0);
 		write_buf(info);
