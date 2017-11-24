@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:07:42 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 05:21:42 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 18:54:01 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static int	change_current_dir(t_data *info, char *new_pwd)
 	char	pwd[1024];
 	char	**arg;
 
-	if (!(arg = (char**)malloc(sizeof(char*) * 3)))
-		return (print_error(ERR_MALLOC));
 	getcwd(old_pwd, 1024);
 	arg = ft_set_array(3, "setenv", "OLDPWD", old_pwd);
 	builtin_setenv(info, arg);
@@ -71,8 +69,6 @@ static int	change_to_home(t_data *info)
 	char	*home;
 	char	**arg;
 
-	if (!(arg = (char**)malloc(sizeof(char*) * 3)))
-		return (print_error(ERR_MALLOC));
 	getcwd(old_pwd, 1024);
 	arg = ft_set_array(3, "setenv", "OLDPWD", old_pwd);
 	builtin_setenv(info, arg);

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 13:05:03 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 00:33:49 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 18:23:10 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	set_var(t_data *info)
 	info->searching = 0;
 	ioctl(0, TIOCGWINSZ, &info->sz);
 	info->buf_cmd = ft_strnew(1024);
-	info->tmp_buf = ft_strnew(1024);
+	info->tmp_buf = NULL;
 	info->av = ft_new_array(1024);
 	if (!(info->hist = (t_hist*)malloc(sizeof(t_hist))))
 		print_error(ERR_MALLOC);

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:07:56 by proso             #+#    #+#             */
-/*   Updated: 2017/11/14 00:06:40 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/24 18:46:54 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@ int			check_var(t_list *env_list, char *env)
 static void	del_env_var(t_data *info, char *env)
 {
 	int		index;
+	t_list	*elem;
 
 	if ((index = check_var(info->env_list, env)) < 0)
 		print_error(5);
 	else
 	{
-		ft_clear_elem(&info->env_list, ft_get_p_elem(info->env_list, index));
+		elem = ft_get_p_elem(info->env_list, index);
+		ft_strdel_var(3, &((t_env*)(elem->data))->env_name,
+	&((t_env*)(elem->data))->env_value, &((t_env*)(elem->data))->env_complete);
+		ft_clear_elem(&info->env_list, elem);
 		ft_putstr_color("Env varaible successfully deleted !\n", C_GREEN);
 	}
 }
