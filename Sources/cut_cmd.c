@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 01:41:41 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 02:55:24 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ static int	clean_cmd(t_data *info)
 	return (0);
 }
 
-static void	add_operand(t_data *info, int *i, int k)
+static void	add_operand(t_data *info, int *i, int j)
 {
 	char	str[3];
 
 	ft_bzero(str, 3);
-	info->tmp_buf = ft_strsub(info->buf_cmd, k, (*i) - k - 1);
+	if (info->tmp_buf)
+		ft_strdel(&info->tmp_buf);
+	info->tmp_buf = ft_strsub(info->buf_cmd, j, (*i) - j - 1);
 	ft_push_array(info->av, info->tmp_buf, info->size_max);
 	ft_strdel(&info->tmp_buf);
 	str[0] = info->buf_cmd[*i];
@@ -97,46 +99,47 @@ static void	add_operand(t_data *info, int *i, int k)
 	(*i)++;
 }
 
-static void	pick_part(t_data *info, int *i)
+static void	pick_part(t_data *info, int *i, int j)
 {
-	int		qu;
+	int		sg_qu;
 	int		db_qu;
-	int		k;
+	char	*tmp;
 
-	ft_init(0, 2, &qu, &db_qu);
-	k = *i;
-	while (1)
+	ft_init(0, 2, &sg_qu, &db_qu);
+	while (info->buf_cmd[*i])
 	{
-		if (info->buf_cmd[*i] == 39 && !db_qu)
-			qu = (qu) ? 0 : 1;
-		else if (info->buf_cmd[*i] == 34 && !qu)
-			db_qu = (db_qu) ? 0 : 1;
-		if ((info->buf_cmd[*i] == ' ' && !db_qu && !qu) || !info->buf_cmd[*i])
-		{
-			info->tmp_buf = ft_strsub(info->buf_cmd, k, (*i) - k);
-			ft_push_array(info->av, info->tmp_buf, info->size_max);
-			ft_strdel(&info->tmp_buf);
-			return ;
-		}
-		else if (!qu && !db_qu && is_operand(&info->buf_cmd[*i]))
-			return (add_operand(info, i, k));
+		if (info->buf_cmd[*i] == '\'')
+			sg_qu = (!sg_qu && !db_qu) ? 1 : 0;
+		else if (info->buf_cmd[*i] == '\"')
+			db_qu = (!db_qu && !sg_qu) ? 1 : 0;
+		if (info->buf_cmd[*i] == ' ' && !db_qu && !sg_qu)
+			break;
+		else if ((info->buf_cmd[*i] == ';' || info->buf_cmd[*i] == '<' ||
+						info->buf_cmd[*i] == '>' || info->buf_cmd[*i] == '&' ||
+								info->buf_cmd[*i] == '|') && !db_qu && !sg_qu)
+			return (add_operand(info, i, j));
 		else
 			(*i)++;
 	}
+	tmp = ft_strsub(info->buf_cmd, j, (*i) - j);
+	ft_push_array(info->av, tmp, info->size_max);
+	ft_strdel(&tmp);
 }
 
 int			cut_cmd(t_data *info)
 {
 	int		i;
+	int		j;
 
-	i = 0;
+	ft_init(0, 2, &i, &j);
 	if (!info->buf_cmd[0])
 		return (0);
 	while (info->buf_cmd[i])
 	{
 		while (info->buf_cmd[i] && info->buf_cmd[i] == ' ')
 			i++;
-		pick_part(info, &i);
+		j = i;
+		pick_part(info, &i, j);
 	}
 	eval_quote(info, 0);
 	add_cmd_to_history(info);

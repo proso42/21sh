@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:04:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 01:42:03 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 02:41:52 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ static void	loop(char *str, char **tmp, int *i, t_data *info)
 		}
 		else
 		{
-			if (str[*i] == '\'' && !db_quote)
-				sg_quote = (sg_quote) ? 0 : 1;
-			else if (str[*i] == '\"' && !sg_quote)
-				db_quote = (db_quote) ? 0 : 1;
+			if (str[*i] == '\'')
+				sg_quote = (!sg_quote && !db_quote) ? 1 : 0;
+			else if (str[*i] == '\"')
+				db_quote = (!db_quote && !sg_quote) ? 1 : 0;
 			ft_strncat(*tmp, &str[*i], 1);
 			(*i)++;
 		}
