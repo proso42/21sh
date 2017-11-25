@@ -6,40 +6,48 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 02:55:24 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 03:21:17 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 #include <string.h>
 
+static void	intern_loop(char *tmp, char *tmp2)
+{
+	int		sg_quote;
+	int		db_quote;
+	int		k;
+	int		i;
+
+	ft_init(0, 4, &i, &k, &sg_quote, &db_quote);
+	while (tmp[i])
+	{
+		if (tmp[i] == '\'' && !db_quote)
+			sg_quote = (sg_quote) ? 0 : 1;
+		else if (tmp[i] == '\"' && !sg_quote)
+			db_quote = (db_quote) ? 0 : 1;
+		if (tmp[i] == '\'' && db_quote)
+			tmp2[k++] = tmp[i];
+		else if (tmp[i] == '\"' && sg_quote)
+			tmp2[k++] = tmp[i];
+		else if (tmp[i] != '\'' && tmp[i] != '\"')
+			tmp2[k++] = tmp[i];
+		i++;
+	}
+}
+
 static void	remove_useless_symbol(t_data *info, int j)
 {
 	char	*tmp;
-	int		sg_quote;
-	int		db_quote;
-	int		i;
-	int		k;
+	char	*tmp2;
 
-	ft_init(0, 4, &i, &k, &sg_quote, &db_quote);
-	tmp = ft_strnew(info->size_max);
-	while (info->av[j][i])
-	{
-		if (info->av[j][i] == '\'' && !db_quote)
-			sg_quote = (sg_quote) ? 0 : 1;
-		else if (info->av[j][i] == '\"' && !sg_quote)
-			db_quote = (db_quote) ? 0 : 1;
-		if (info->av[j][i] == '\'' && db_quote)
-			tmp[k++] = info->av[j][i];
-		else if (info->av[j][i] == '\"' && sg_quote)
-			tmp[k++] = info->av[j][i];
-		else if (info->av[j][i] != '\'' && info->av[j][i] != '\"')
-			tmp[k++] = info->av[j][i];
-		i++;
-	}
-	ft_bzero(info->av[j], ft_strlen(info->av[j]));
-	ft_strlcpy(info->av[j], tmp, info->size_max);
-	ft_strdel(&tmp);
+	tmp = ft_strdup(info->av[j]);
+	tmp2 = ft_strnew(ft_strlen(tmp));
+	intern_loop(tmp, tmp2);
+	ft_strdel_var(2, &info->av[j], &tmp);
+	*(&info->av[j]) = ft_strdup(tmp2);
+	ft_strdel(&tmp2);
 }
 
 static int	clean_cmd(t_data *info)
