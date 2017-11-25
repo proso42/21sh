@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:07:42 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 18:54:01 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 00:23:34 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ static int	replace_tild(t_data *info, char *path)
 {
 	t_list	*home;
 	char	*tild;
-	char	tmp[1024];
+	char	tmp[info->size_max];
 
 	home = ft_get_p_elem(info->env_list, check_var(info->env_list, "HOME"));
 	if (!home)
 		return (0);
 	tild = ((t_env*)(home->data))->env_value;
-	ft_bzero(tmp, 1024);
-	ft_strlcpy(tmp, path + 1, 1024);
-	ft_bzero(path, 1024);
-	ft_strlcpy(path, tild, 1024);
-	ft_strlcpy(path + ft_strlen(tild), tmp, 1024);
+	ft_bzero(tmp, info->size_max);
+	ft_strlcpy(tmp, path + 1, info->size_max);
+	ft_bzero(path, info->size_max);
+	ft_strlcpy(path, tild, info->size_max);
+	ft_strlcpy(path + ft_strlen(tild), tmp, info->size_max);
 	return (1);
 }
 
@@ -39,22 +39,22 @@ static int	replace_minus(t_data *info, char *path)
 	if (!o_pwd)
 		return (0);
 	minus = ((t_env*)(o_pwd->data))->env_value;
-	ft_bzero(path, 1024);
-	ft_strlcpy(path, minus, 1024);
+	ft_bzero(path, info->size_max);
+	ft_strlcpy(path, minus, info->size_max);
 	return (1);
 }
 
 static int	change_current_dir(t_data *info, char *new_pwd)
 {
-	char	old_pwd[1024];
-	char	pwd[1024];
+	char	old_pwd[info->size_max];
+	char	pwd[info->size_max];
 	char	**arg;
 
-	getcwd(old_pwd, 1024);
+	getcwd(old_pwd, info->size_max);
 	arg = ft_set_array(3, "setenv", "OLDPWD", old_pwd);
 	builtin_setenv(info, arg);
 	chdir(new_pwd);
-	getcwd(pwd, 1024);
+	getcwd(pwd, info->size_max);
 	ft_del_tab(arg);
 	arg = ft_set_array(3, "setenv", "PWD", pwd);
 	builtin_setenv(info, arg);
@@ -64,12 +64,12 @@ static int	change_current_dir(t_data *info, char *new_pwd)
 
 static int	change_to_home(t_data *info)
 {
-	char	old_pwd[1024];
+	char	old_pwd[info->size_max];
 	t_list	*pwd;
 	char	*home;
 	char	**arg;
 
-	getcwd(old_pwd, 1024);
+	getcwd(old_pwd, info->size_max);
 	arg = ft_set_array(3, "setenv", "OLDPWD", old_pwd);
 	builtin_setenv(info, arg);
 	pwd = ft_get_p_elem(info->env_list, check_var(info->env_list, "HOME"));
@@ -89,9 +89,9 @@ static int	change_to_home(t_data *info)
 
 int			builtin_cd(t_data *info, char *path)
 {
-	char	tmp[1024];
+	char	tmp[info->size_max];
 
-	ft_bzero(tmp, 1024);
+	ft_bzero(tmp, info->size_max);
 	if (!path)
 		return (change_to_home(info));
 	if (path[0] == '~')
@@ -105,7 +105,7 @@ int			builtin_cd(t_data *info, char *path)
 			return (print_error(7));
 	}
 	else
-		ft_strlcpy(tmp, path, 1024);
+		ft_strlcpy(tmp, path, info->size_max);
 	if ((check_path_error(tmp, 1, 1)) < 0)
 		return (-1);
 	change_current_dir(info, tmp);

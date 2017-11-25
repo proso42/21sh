@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:15:19 by proso             #+#    #+#             */
-/*   Updated: 2017/11/22 03:06:25 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 00:20:07 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			history_search(t_data *info)
 {
 	info->hist->nb_line = 0;
 	info->hist->pos_list = -1;
-	ft_bzero(info->hist->search, 1024);
+	ft_bzero(info->hist->search, info->size_max);
 	info->hist->match_list = NULL;
 	if (!info->history_list || !info->history_list->data)
 		return (print_error(EMPTY_HIST));

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 00:54:45 by proso             #+#    #+#             */
-/*   Updated: 2017/11/22 03:13:32 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 00:18:37 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	event_tab_history(t_data *info)
 	if (info->hist->pos_list < 0)
 		return ;
 	ft_strlcpy(info->hist->search, ft_get_elem(info->hist->match_list,
-												info->hist->pos_list), 1024);
+										info->hist->pos_list), info->size_max);
 	term_tgoto(info, 0, 0);
 	clear_history_lines(info);
 	term_tgoto(info, 0, 0);
@@ -34,7 +34,7 @@ int				event_enter_history(t_data *info)
 	term_action(info, "te");
 	del_line(info);
 	info->buf_i = 0;
-	ft_bzero(info->buf_cmd, 1024);
+	ft_bzero(info->buf_cmd, info->size_max);
 	if (info->prompt_size >= info->sz.ws_col)
 		info->curs_x = (info->prompt_size - info->sz.ws_col);
 	else
@@ -44,7 +44,7 @@ int				event_enter_history(t_data *info)
 		s = ft_get_elem(info->hist->match_list, info->hist->pos_list);
 	else
 		s = info->hist->search;
-	ft_strlcpy(info->buf_cmd, s, 1024);
+	ft_strlcpy(info->buf_cmd, s, info->size_max);
 	info->buf_i = ft_strlen(info->buf_cmd);
 	write_buf(info);
 	info->searching = 0;
@@ -56,7 +56,7 @@ int				event_enter_history(t_data *info)
 void			event_letter_history(t_data *info)
 {
 	ft_remove_list(&info->hist->match_list);
-	if ((int)ft_strlen(info->hist->search) >= 1024 ||
+	if ((int)ft_strlen(info->hist->search) >= info->size_max ||
 					(int)ft_strlen(info->hist->search) + 9 >= info->sz.ws_col)
 		return ;
 	ft_strcat(info->hist->search, info->hist->key);

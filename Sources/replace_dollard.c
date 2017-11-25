@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:04:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 23:58:32 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 01:42:03 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*analyse_dollard(t_data *info, char *arg, int *i)
 	return ((dol) ? ft_strdup(dol) : NULL);
 }
 
-static void	loop(char *str, char *tmp, int *i, t_data *info)
+static void	loop(char *str, char **tmp, int *i, t_data *info)
 {
 	char	*env_var;
 	int		sg_quote;
@@ -68,10 +68,7 @@ static void	loop(char *str, char *tmp, int *i, t_data *info)
 		{
 			env_var = analyse_dollard(info, str, i);
 			if (env_var)
-			{
-				ft_strlcat(tmp, env_var, 1024);
-				ft_strdel(&env_var);
-			}
+				*tmp = ft_strjoinfree(*tmp, env_var, 3);
 		}
 		else
 		{
@@ -79,12 +76,13 @@ static void	loop(char *str, char *tmp, int *i, t_data *info)
 				sg_quote = (sg_quote) ? 0 : 1;
 			else if (str[*i] == '\"' && !sg_quote)
 				db_quote = (db_quote) ? 0 : 1;
-			tmp[ft_strlen(tmp)] = str[(*i)++];
+			ft_strncat(*tmp, &str[*i], 1);
+			(*i)++;
 		}
 	}
 }
 
-void		replace_dollard(t_data *info, char *str)
+void		replace_dollard(t_data *info, char **str)
 {
 	int		i;
 	char	*tmp;
@@ -92,10 +90,11 @@ void		replace_dollard(t_data *info, char *str)
 
 	i = 0;
 	env_var = NULL;
-	tmp = ft_strnew(1024);
-	loop(str, tmp, &i, info);
-	ft_bzero(str, ft_strlen(str));
-	ft_strlcpy(str, tmp, 1024);
-	if (!str[0])
-		str[0] = -1;
+	tmp = ft_strnew(info->size_max);
+	loop(*str, &tmp, &i, info);
+	ft_strdel(str);
+	*str = ft_strdup(tmp);
+	ft_strdel(&tmp);
+	if (!*str[0])
+		*str[0] = -1;
 }

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 04:54:03 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 00:24:08 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ void		print_prompt(t_data *info)
 {
 	char	*str;
 
-	str = ft_strnew(1024);
+	str = ft_strnew(info->size_max);
 	if (!info->quote)
 	{
-		getcwd(str, 1024);
+		getcwd(str, info->size_max);
 		if (!str[0])
 			ft_strcpy(str, "21sh");
-		ft_strlcat(str, " $> ", 1024);
+		ft_strlcat(str, " $> ", info->size_max);
 		ft_printf("{blue}{bold}%s{res}", str);
 	}
 	if (info->quote == 1)
-		ft_strlcpy(str, "quote> ", 1024);
+		ft_strlcpy(str, "quote> ", info->size_max);
 	else if (info->quote == 2)
-		ft_strlcpy(str, "dquote> ", 1024);
+		ft_strlcpy(str, "dquote> ", info->size_max);
 	if (info->quote)
 		ft_putstr(str);
 	info->prompt_size = ft_strlen(str);
@@ -87,9 +87,10 @@ int			main(void)
 	//		print_av(&info);		// À RETIRER
 			print_prompt(&info);
 			ft_strdel(&info.buf_cmd);
-			info.buf_cmd = ft_strnew(1024);
+			info.size_max = 1024;
+			info.buf_cmd = ft_strnew(info.size_max);
 			ft_del_tab(info.av);
-			info.av = ft_new_array(1024);
+			info.av = ft_new_array(info.size_max);
 			info.buf_i = 0;
 			btree_remove_all(&info.root, del);
 			ft_remove_list(&info.lexem_list);

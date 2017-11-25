@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 04:46:13 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 01:40:42 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct	s_data
 	char			*cpy;
 	char			**av;
 	pid_t			pid;
+	int				size_max;
 	int				buf_i;
 	int				curs_x;
 	int				curs_y;
@@ -147,7 +148,7 @@ int				past_mode(t_data *info);
 void			print_correct_history(t_data *info);
 int				print_error(int err);
 void			print_prompt(t_data *info);
-void			replace_dollard(t_data *info, char *str);
+void			replace_dollard(t_data *info, char **str);
 int				start_with_operand(char *str);
 void			term_action(t_data *info, char *action);
 void			term_tgoto(t_data *info, int x, int y);

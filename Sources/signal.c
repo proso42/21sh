@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/17 22:40:17 by proso             #+#    #+#             */
-/*   Updated: 2017/11/16 00:22:09 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 00:24:59 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,11 @@ static void		kill_process(int sig)
 	if (info->quote)
 	{
 		ioctl(0, TIOCSTI, "");
-		ft_bzero(info->av, 10000);
-		ft_bzero(info->buf_cmd, 1024);
+		info->size_max = 1024;
+		ft_strdel(&info->buf_cmd);
+		info->buf_cmd = ft_strnew(info->size_max);
+		ft_del_tab(info->av);
+		info->av = ft_new_array(info->size_max);
 		info->buf_i = 0;
 		info->curs_x = 0;
 		info->curs_y = 0;

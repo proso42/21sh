@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/25 08:27:04 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 02:06:13 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 00:40:33 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ void					ft_putnbr_endl(int n);
 void					ft_putstr(char *s);
 void					ft_putstr_fd(char *s, int fd);
 void					ft_putstr_color(char *str, int color);
+char					*ft_realloc(char *str, int size);
 int						ft_round(double x);
 char					**ft_set_array(int nb, ...);
 void					ft_str_down(char *str);

@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 05:19:02 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 01:41:41 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	remove_useless_symbol(t_data *info, int j)
 	int		k;
 
 	ft_init(0, 4, &i, &k, &sg_quote, &db_quote);
-	tmp = ft_strnew(1024);
+	tmp = ft_strnew(info->size_max);
 	while (info->av[j][i])
 	{
 		if (info->av[j][i] == '\'' && !db_quote)
@@ -38,7 +38,7 @@ static void	remove_useless_symbol(t_data *info, int j)
 		i++;
 	}
 	ft_bzero(info->av[j], ft_strlen(info->av[j]));
-	ft_strlcpy(info->av[j], tmp, 1024);
+	ft_strlcpy(info->av[j], tmp, info->size_max);
 	ft_strdel(&tmp);
 }
 
@@ -50,7 +50,7 @@ static int	clean_cmd(t_data *info)
 	while (info->av[j] && info->av[j][0])
 	{
 		if (ft_strchr(info->av[j], '$'))
-			replace_dollard(info, info->av[j]);
+			replace_dollard(info, &info->av[j]);
 		j++;
 	}
 	j = 0;
@@ -76,7 +76,7 @@ static void	add_operand(t_data *info, int *i, int k)
 
 	ft_bzero(str, 3);
 	info->tmp_buf = ft_strsub(info->buf_cmd, k, (*i) - k - 1);
-	ft_push_array(info->av, info->tmp_buf, 1024);
+	ft_push_array(info->av, info->tmp_buf, info->size_max);
 	ft_strdel(&info->tmp_buf);
 	str[0] = info->buf_cmd[*i];
 	str[1] = info->buf_cmd[*i + 1];
@@ -92,7 +92,7 @@ static void	add_operand(t_data *info, int *i, int k)
 															|| str[0] == '&')
 	{
 		str[1] = '\0';
-		ft_push_array(info->av, str, 1024);
+		ft_push_array(info->av, str, info->size_max);
 	}
 	(*i)++;
 }
@@ -114,7 +114,7 @@ static void	pick_part(t_data *info, int *i)
 		if ((info->buf_cmd[*i] == ' ' && !db_qu && !qu) || !info->buf_cmd[*i])
 		{
 			info->tmp_buf = ft_strsub(info->buf_cmd, k, (*i) - k);
-			ft_push_array(info->av, info->tmp_buf, 1024);
+			ft_push_array(info->av, info->tmp_buf, info->size_max);
 			ft_strdel(&info->tmp_buf);
 			return ;
 		}

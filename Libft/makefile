@@ -31,6 +31,7 @@ SRC = btree_apply_infix.c \
 	  ft_init.c \
 	  ft_inc.c \
 	  ft_is_whitespace.c \
+	  ft_realloc.c \
 	  ft_recursive_factorial.c \
 	  ft_recursive_power.c \
 	  ft_replace.c \

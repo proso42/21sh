@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 16:14:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/10 00:41:33 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 00:18:05 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ char		*get_env_var(t_data *info, char *str)
 static void	update_pwd(t_data *info)
 {
 	int		i;
-	char	str[1024];
+	char	str[info->size_max];
 	char	**arg;
 
 	if ((i = check_var(info->env_list, "PWD")) < 0)
 	{
-		arg = ft_set_array(3, "setenv", "PWD", getcwd(str, 1024));
+		arg = ft_set_array(3, "setenv", "PWD", getcwd(str, info->size_max));
 		builtin_setenv(info, arg);
 		ft_del_tab(arg);
 	}

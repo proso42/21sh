@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 13:44:57 by proso             #+#    #+#             */
-/*   Updated: 2017/11/04 02:30:00 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 01:41:28 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	recursive_quote(t_data *info, int j)
 {
 	int		ret;
 
-	ft_bzero(info->buf_cmd, 1024);
+	ft_bzero(info->buf_cmd, info->size_max);
 	info->buf_i = 0;
 	term_action(info, "do");
 	print_prompt(info);
@@ -25,8 +25,8 @@ static void	recursive_quote(t_data *info, int j)
 		if ((ret = get_stdin(info)) == 18)
 		{
 			info->av[j][ft_strlen(info->av[j])] = '\n';
-			ft_strcat(info->av[j], info->buf_cmd);
-			ft_bzero(info->buf_cmd, 1024);
+			info->av[j] = ft_strjoinfree(info->av[j], info->buf_cmd, 1);
+			ft_bzero(info->buf_cmd, info->size_max);
 			info->buf_i = 0;
 			info->quote = 0;
 		}

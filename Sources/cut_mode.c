@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/26 12:32:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 00:37:56 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 00:17:29 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static void		update_cmd(int min, int max, t_data *info)
 	int		i;
 	int		j;
 	int		k;
-	char	tmp[1024];
-	char	new_cmd[1024];
+	char	tmp[info->size_max];
+	char	new_cmd[info->size_max];
 
 	ft_init(0, 3, &i, &j, &k);
-	ft_bzero(tmp, 1024);
-	ft_bzero(new_cmd, 1024);
+	ft_bzero(tmp, info->size_max);
+	ft_bzero(new_cmd, info->size_max);
 	while (i < (int)ft_strlen(info->buf_cmd))
 	{
 		if (i >= min && i <= max)
@@ -51,10 +51,10 @@ static void		update_cmd(int min, int max, t_data *info)
 	end(info);
 	del_line(info);
 	home(info, 1);
-	info->cpy = ft_strnew(1024);
-	ft_strlcpy(info->cpy, tmp, 1024);
-	ft_bzero(info->buf_cmd, 1024);
-	ft_strlcpy(info->buf_cmd, new_cmd, 1024);
+	info->cpy = ft_strnew(info->size_max);
+	ft_strlcpy(info->cpy, tmp, info->size_max);
+	ft_bzero(info->buf_cmd, info->size_max);
+	ft_strlcpy(info->buf_cmd, new_cmd, info->size_max);
 }
 
 static void		get_arrow(t_data *info)
