@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 23:16:26 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 05:07:52 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 03:36:06 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int				check_path_error(char *path, int allow_print, int type)
 			ft_strdel(&tmp);
 			return (print_path_error(p_e_d, path, allow_print, type));
 		}
-		tmp[i++] = '/';
+		if (path[i])
+			tmp[i++] = '/';
 	}
 	ft_strdel(&tmp);
 	return (1);
