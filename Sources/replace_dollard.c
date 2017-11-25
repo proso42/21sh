@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:04:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 03:08:41 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 03:53:00 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void		replace_dollard(t_data *info, char **str)
 	tmp = ft_strnew(info->size_max);
 	loop(*str, &tmp, &i, info);
 	ft_strdel(str);
-	*str = ft_strdup(tmp);
+	*str = (tmp[0]) ? ft_strdup(tmp): ft_strnew(1);
 	ft_strdel(&tmp);
 	if (!*str[0])
 		*str[0] = -1;
