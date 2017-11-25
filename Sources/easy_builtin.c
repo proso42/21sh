@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 13:04:11 by proso             #+#    #+#             */
-/*   Updated: 2017/11/13 00:30:45 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 03:58:54 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ int	builtin_echo(char **arg)
 	i = 1;
 	while (arg[i] && arg[i][0])
 	{
-		ft_printf("%s\n", arg[i]);
+		ft_printf("%s", arg[i]);
 		i++;
 		if (arg[i] && arg[i][0])
 			write(0, " ", 1);
 	}
+	write(0, "\n", 1);
 	return (1);
 }
 
