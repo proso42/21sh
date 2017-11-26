@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 01:40:42 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/26 21:44:13 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ typedef struct	s_data
 	struct termios	df_term;
 	struct winsize	sz;
 	char			*buf_cmd;
+	char			*save_buf;
 	char			*tmp_buf;
 	char			*cpy;
-	char			**av;
 	pid_t			pid;
 	int				size_max;
 	int				buf_i;
@@ -98,11 +98,11 @@ char			*check_local_path(char *path);
 int				check_path_error(char *path, int allow_print, int type);
 void			create_min_env_var(t_data *info);
 int				check_var(t_list *env_list, char *env);
+void			clean_lexem(t_data *info);
 void			clear_history_lines(t_data *info);
 void			clear_sc(t_data *info);
 int				cpy_mode(t_data *info);
 int				history_search(t_data *info);
-int				cut_cmd(t_data *info);
 int				cut_mode(t_data *info);
 int				default_terminal(t_data *info, int mode);
 void			del(void *lex);
@@ -111,12 +111,12 @@ void			delete_right(t_data *info);
 void			del_line(t_data *info);
 int				edit_buf(t_data *info, char *key);
 void			end(t_data *info);
+void			end_of_line(t_data *info);
 void			event_cursor_history(t_data *info);
 void			event_delete_history(t_data *info);
 int				event_enter_history(t_data *info);
 void			event_letter_history(t_data *info);
 void			event_tab_history(t_data *info);
-void			eval_quote(t_data *info, int j);
 int				exec_builtin(t_data *info, t_lexem *lex);
 int				exec_single(t_data *info, t_lexem *lex);
 int				exectute(t_data *info, t_lexem *lex);
@@ -124,6 +124,7 @@ char			*find_cmd(t_data *info, char *path);
 char			*get_env_var(t_data *info, char *str);
 int				get_history(t_data *info, char *key);
 void			get_match_data(t_data *info, char *search);
+int				get_operand(char *str, int i);
 int				get_stdin(t_data *info);
 void			go_good_place(t_data *info);
 void			home(t_data *info, int mode);
@@ -133,9 +134,8 @@ void			init_signal(t_data *info);
 int				init_terminal(t_data *info);
 int				is_builtin(t_lexem *lex);
 int				is_directory(char *path);
-int				is_operand(char *c);
+int				is_operand(char c);
 int				lexer(t_data *info);
-void			lexer_parser(t_data *info);
 int				line_edition(t_data *info, char *key);
 void			move_down(t_data *info);
 void			move_left(t_data *info);
@@ -143,15 +143,19 @@ void			move_next_word(t_data *info);
 void			move_prev_word(t_data *info);
 void			move_right(t_data *info);
 void			move_up(t_data *info);
+int				only_space(char *str);
 void			parser(t_data *info);
 int				past_mode(t_data *info);
 void			print_correct_history(t_data *info);
 int				print_error(int err);
 void			print_prompt(t_data *info);
+void			remove_useless_symbol(char **str);
 void			replace_dollard(t_data *info, char **str);
+void			replace_tild(t_data *info, char **str);
 int				start_with_operand(char *str);
 void			term_action(t_data *info, char *action);
 void			term_tgoto(t_data *info, int x, int y);
+int				test_quote(t_data *info);
 void			write_buf(t_data *info);
 
 #endif

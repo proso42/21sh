@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 13:04:11 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 03:58:54 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 04:32:22 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,30 @@
 int	builtin_echo(char **arg)
 {
 	int		i;
+	int		j;
+	int		sg_quote;
+	int		db_quote;
 
 	i = 1;
+	j = 0;
 	while (arg[i] && arg[i][0])
 	{
-		ft_printf("%s", arg[i]);
-		i++;
-		if (arg[i] && arg[i][0])
-			write(0, " ", 1);
+		if (arg[i][j] == '\'')
+			sg_quote = (!sg_quote && !db_quote) ? 1 : 0;
+		else if (arg[i][j] == '\"')
+			db_quote = (!db_quote && !sg_quote) ? 1 : 0;
+		if ((arg[i][j] == '\'' && db_quote) || (arg[i][j] == '\"' && sg_quote)
+								|| ((arg[i][j] != '\'') && arg[i][j] != '\"'))
+			write(0, &arg[i][j], 1);
+		if (arg[i][j + 1])
+			j++;
+		else if (arg[i + 1][0])
+		{
+			j = 0;
+			i++;
+		}
+		else
+			break ;
 	}
 	write(0, "\n", 1);
 	return (1);

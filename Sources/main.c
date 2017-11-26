@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 12:56:00 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 00:24:08 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/26 22:18:49 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,22 @@ static void	init(t_data *info)
 	print_entry(info);
 }
 
+static void	new_prompt(t_data *info, int ret)
+{
+	print_prompt(info);
+	ft_strdel(&info->buf_cmd);
+	info->size_max = 1024;
+	info->buf_cmd = ft_strnew(info->size_max);
+	info->buf_i = 0;
+	btree_remove_all(&info->root, del);
+	ft_remove_list(&info->lexem_list);
+	if (ret != 2 && ret != 54)
+	{
+		info->num_history = -1;
+		info->pid = -2;
+	}
+}
+
 int			main(void)
 {
 	t_data	info;
@@ -83,22 +99,13 @@ int			main(void)
 		{
 			end(&info);
 			term_action(&info, "do");
-			lexer(&info);
-	//		print_av(&info);		// À RETIRER
-			print_prompt(&info);
-			ft_strdel(&info.buf_cmd);
-			info.size_max = 1024;
-			info.buf_cmd = ft_strnew(info.size_max);
-			ft_del_tab(info.av);
-			info.av = ft_new_array(info.size_max);
-			info.buf_i = 0;
-			btree_remove_all(&info.root, del);
-			ft_remove_list(&info.lexem_list);
-		}
-		if (ret != 2 && ret != 54)
-		{
-			info.num_history = -1;
-			info.pid = -2;
+			if (!info.quote)
+			{
+				if (!(start_with_operand(info.buf_cmd)) &&
+								info.buf_cmd[0] && !only_space(info.buf_cmd))
+					lexer(&info);
+			}
+			new_prompt(&info, ret);
 		}
 	}
 	return (0);

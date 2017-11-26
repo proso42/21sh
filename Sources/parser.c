@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:16:31 by proso             #+#    #+#             */
-/*   Updated: 2017/11/14 00:09:37 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/26 22:20:54 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,19 @@ int			is_builtin(t_lexem *lex)
 	return (0);
 }
 
-int			start_with_operand(char *str)
+int		start_with_operand(char *str)
 {
-	int		i;
-
-	i = 0;
-	while (str[i] && !is_operand(&str[i]))
-		i++;
-	if (!str[i])
+	if ((str[0] == '|' || str[0] == '&') && !str[1])
+		ft_printf("{bold}{red}21sh: parse error near `%c'{res}\n", str[0]);
+	else if (str[0] == '|' && str[1] == '|')
+		ft_printf("{bold}{red}21sh: parse error near `||'{res}\n");
+	else if (str[0] == '&' && str[1] == '&')
+		ft_printf("{bold}{red}21sh: parse error near `&&'{res}\n");
+	else if (str[0] == ';' && str[1] == ';')
+		ft_printf("{bold}{red}21sh: parse error near `;;'{res}\n");
+	else if (str[0] == '>' || str[0] == '<')
+		ft_printf("{bold}{red}21sh: parse error near `\\n'{res}\n");
+	else
 		return (0);
 	return (1);
 }

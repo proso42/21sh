@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 13:05:03 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 00:23:20 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 23:49:17 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	set_var(t_data *info)
 	info->size_max = 1024;
 	info->buf_cmd = ft_strnew(info->size_max);
 	info->tmp_buf = NULL;
-	info->av = ft_new_array(info->size_max);
+	info->save_buf = NULL;
 	if (!(info->hist = (t_hist*)malloc(sizeof(t_hist))))
 		print_error(ERR_MALLOC);
 }

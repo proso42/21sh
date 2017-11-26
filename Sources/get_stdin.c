@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 15:37:25 by proso             #+#    #+#             */
-/*   Updated: 2017/11/21 23:27:18 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/26 21:49:28 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ static int	suite(t_data *info, char *key)
 		delete_left(info);
 	else if (key[0] == 12 && !key[1])
 		clear_sc(info);
-	else if (key[0] == 10 && !key[1] && info->quote)
-		return (18);
 	else if (key[0] == -61 && key[1] == -89 && !key[2])
 		cpy_mode(info);
 	else if (key[0] == -30 && key[1] == -119 && key[2] == -120 && !key[3])
@@ -43,6 +41,8 @@ static int	suite(t_data *info, char *key)
 		past_mode(info);
 	else if (key[0] == 18 && !key[1])
 		return (history_search(info));
+	else if (key[0] == 4)
+		end_of_line(info);
 	return (1);
 }
 
@@ -68,8 +68,8 @@ int			get_stdin(t_data *info)
 		end(info);
 	else if (key[0] == 27 && key[1] == 27 && key[2] == 91 && key[3])
 		choice_alt(info, key);
-	else if (key[0] == 10 && !key[1] && !info->quote)
-		return (cut_cmd(info));
+	else if (key[0] == 10 && !key[1])
+		return (test_quote(info));
 	else
 		return (suite(info, key));
 	return (1);

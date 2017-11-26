@@ -6,29 +6,11 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:07:42 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 00:23:34 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/26 00:57:29 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
-
-static int	replace_tild(t_data *info, char *path)
-{
-	t_list	*home;
-	char	*tild;
-	char	tmp[info->size_max];
-
-	home = ft_get_p_elem(info->env_list, check_var(info->env_list, "HOME"));
-	if (!home)
-		return (0);
-	tild = ((t_env*)(home->data))->env_value;
-	ft_bzero(tmp, info->size_max);
-	ft_strlcpy(tmp, path + 1, info->size_max);
-	ft_bzero(path, info->size_max);
-	ft_strlcpy(path, tild, info->size_max);
-	ft_strlcpy(path + ft_strlen(tild), tmp, info->size_max);
-	return (1);
-}
 
 static int	replace_minus(t_data *info, char *path)
 {
@@ -94,12 +76,8 @@ int			builtin_cd(t_data *info, char *path)
 	ft_bzero(tmp, info->size_max);
 	if (!path)
 		return (change_to_home(info));
-	if (path[0] == '~')
-	{
-		if (!replace_tild(info, tmp))
-			return (print_error(6));
-	}
-	else if (!(ft_strcmp(path, "-")))
+
+	if (!(ft_strcmp(path, "-")))
 	{
 		if (!replace_minus(info, tmp))
 			return (print_error(7));

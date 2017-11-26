@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:15:19 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 00:20:07 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/26 22:00:48 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ static int	get_entry(t_data *info)
 		}
 		ft_bzero(info->hist->key, 6);
 		read(0, info->hist->key, 6);
+		if (!info->searching)
+			return (2);
 		if (info->hist->key[0] == 10 && !info->hist->key[1])
 			return (event_enter_history(info));
 		else if (info->hist->key[0] == 9 && info->hist->pos_list > -1)

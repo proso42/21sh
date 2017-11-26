@@ -6,7 +6,7 @@
 #    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/11/24 23:49:38 by proso            ###   ########.fr        #
+#    Updated: 2017/11/26 21:44:28 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,14 @@ SRC = add_to_buf.c \
 	  builtin_unsetenv.c \
 	  check_local_path.c \
 	  check_path_error.c \
+	  clean_lexem.c \
 	  clear_sc.c \
 	  cpy_mode.c\
-	  cut_cmd.c \
 	  cut_mode.c \
 	  delete.c \
 	  easy_builtin.c \
+	  end_of_line.c \
 	  env.c \
-	  eval_quote.c \
 	  events_history.c \
 	  exec_builtin.c \
 	  exec_single.c \
@@ -36,17 +36,21 @@ SRC = add_to_buf.c \
 	  is_directory.c \
 	  lexer.c \
 	  line_edition.c \
-	  main.c\
+	  main.c \
+	  operand.c \
 	  parser.c \
 	  past_mode.c \
 	  pointer_on_func.c \
 	  print_error.c \
+	  remove_useless_symbol.c \
 	  replace_dollard.c \
+	  replace_tild.c \
 	  signal.c \
 	  spc_move_curs.c \
 	  spc_move_curs2.c \
 	  switch_terminal.c \
-	  term_action.c
+	  term_action.c \
+	  test_quote.c
 
 CC = gcc
 

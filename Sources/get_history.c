@@ -6,49 +6,24 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/18 15:58:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 00:18:55 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/26 02:41:45 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 
-static void	push_history(t_data *info)
-{
-	char *str;
-
-	if (info->buf_cmd[0])
-	{
-		str = ft_strdup(info->buf_cmd);
-		ft_push_back(&info->history_list, str);
-	}
-}
-
 void		add_cmd_to_history(t_data *info)
 {
 	int		i;
-	int		j;
+	char	*str;
 
-	ft_init(0, 2, &i, &j);
-	if (info->buf_cmd[0])
-		push_history(info);
-	else if (info->av[0][0])
-	{
-		while (info->av[i][0] && info->av[i][j] != '\n')
-		{
-			while (info->av[i][j] && info->av[i][j] != '\n')
-				j++;
-			if (!info->av[i][j])
-			{
-				ft_strcat(info->buf_cmd, info->av[i]);
-				info->buf_cmd[ft_strlen(info->buf_cmd)] = ' ';
-			}
-			else
-				ft_strncat(info->buf_cmd, info->av[i], j);
-			i++;
-			j = 0;
-		}
-		push_history(info);
-	}
+	i = 0;
+	if (only_space(info->buf_cmd))
+		return ;
+	while (info->buf_cmd[i] && info->buf_cmd[i] != '\n')
+		i++;
+	str = ft_strsub(info->buf_cmd, 0, i);
+	ft_push_back(&info->history_list, str);
 }
 
 static void	show_history(t_data *info, int max_history_list)

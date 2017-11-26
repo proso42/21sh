@@ -6,14 +6,14 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:14:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 03:51:38 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/25 21:41:47 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
-#include <string.h>
 
-static void	intern_loop(char *tmp, char *tmp2)
+/*
+/*static void	intern_loop(char *tmp, char *tmp2)
 {
 	int		sg_quote;
 	int		db_quote;
@@ -61,7 +61,7 @@ static int	clean_cmd(t_data *info)
 			replace_dollard(info, &info->av[j]);
 		j++;
 	}
-	j = 0;
+	/*j = 0;
 	while (info->av[j] && info->av[j][0])
 	{
 		if (ft_strchr(info->av[j], '\'') || ft_strchr(info->av[j], '\"'))
@@ -113,13 +113,14 @@ static void	pick_part(t_data *info, int *i, int j)
 	int		db_qu;
 	char	*tmp;
 
-	ft_init(0, 2, &sg_qu, &db_qu);
+	if (info->buf_cmd[*i] == '\'')
+		sg_qu = 1;
+	else if (info->buf_cmd[*i] == '\"')
+		db_qu = 1;
+	else
+		ft_init(0, 2, &sg_qu, &db_qu);
 	while (info->buf_cmd[*i])
 	{
-		if (info->buf_cmd[*i] == '\'')
-			sg_qu = (!sg_qu && !db_qu) ? 1 : 0;
-		else if (info->buf_cmd[*i] == '\"')
-			db_qu = (!db_qu && !sg_qu) ? 1 : 0;
 		if (info->buf_cmd[*i] == ' ' && !db_qu && !sg_qu)
 			break;
 		else if ((info->buf_cmd[*i] == ';' || info->buf_cmd[*i] == '<' ||
@@ -128,11 +129,15 @@ static void	pick_part(t_data *info, int *i, int j)
 			return (add_operand(info, i, j));
 		else
 			(*i)++;
+		if (info->buf_cmd[*i] == '\'')
+			sg_qu = (!sg_qu && !db_qu) ? 1 : 0;
+		else if (info->buf_cmd[*i] == '\"')
+			db_qu = (!db_qu && !sg_qu) ? 1 : 0;
 	}
 	tmp = ft_strsub(info->buf_cmd, j, (*i) - j);
 	ft_push_array(info->av, tmp, info->size_max);
 	ft_strdel(&tmp);
-}
+}*/
 
 int			cut_cmd(t_data *info)
 {
@@ -149,7 +154,6 @@ int			cut_cmd(t_data *info)
 		j = i;
 		pick_part(info, &i, j);
 	}
-	eval_quote(info, 0);
 	add_cmd_to_history(info);
 	if (clean_cmd(info))
 		return (1);
