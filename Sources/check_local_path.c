@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/12 01:44:43 by proso             #+#    #+#             */
-/*   Updated: 2017/11/12 02:40:37 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/27 00:38:16 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,5 @@ char	*check_local_path(char *path)
 		return (NULL);
 	if (ok)
 		path[i] = '/';
-	return (path);
+	return (ft_strdup(path));
 }

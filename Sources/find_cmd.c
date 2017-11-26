@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/11 23:55:07 by proso             #+#    #+#             */
-/*   Updated: 2017/11/16 00:42:50 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/27 00:38:21 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,12 @@ char	*check_absolute_path(char *path)
 
 char	*find_cmd(t_data *info, char *path)
 {
-	char	*rep;
-
 	if (!path)
 		return (NULL);
 	else if (path[0] == '/')
-		rep = check_absolute_path(path);
+		return (check_absolute_path(path));
 	else if (path[0] == '.')
-		rep = check_local_path(path);
+		return (check_local_path(path));
 	else
-		rep = check_relative_path(info, path);
-	return (rep);
+		return (check_relative_path(info, path));
 }
