@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 21:43:31 by proso             #+#    #+#             */
-/*   Updated: 2017/11/26 21:53:22 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/27 01:37:14 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	end_of_line(t_data *info)
 {
 	if (!info->buf_cmd[0] && !info->quote)
-		exit(-1);
+		default_terminal(info, -1);
 	else if (!info->buf_cmd[0] && info->quote)
 	{
 		term_action(info, "do");

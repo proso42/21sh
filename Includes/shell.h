@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/27 00:36:35 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/27 01:40:24 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				add_to_buf(t_data *info, char *key);
 int				builtin_cd(t_data *info, char *path);
 int				builtin_echo(char ** arg);
 int				builtin_env(t_data *info, char** arg);
-int				builtin_exit(char ** arg);
+int				builtin_exit(t_data *info, char ** arg);
 int				builtin_setenv(t_data *info, char ** arg);
 int				builtin_unsetenv(t_data *info, char ** arg);
 char			*check_local_path(char *path);

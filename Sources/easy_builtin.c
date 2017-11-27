@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 13:04:11 by proso             #+#    #+#             */
-/*   Updated: 2017/11/27 01:31:09 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/27 01:40:55 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	builtin_echo(char **arg)
 	return (1);
 }
 
-int	builtin_exit(char **arg)
+int	builtin_exit(t_data *info, char **arg)
 {
 	int		ret;
 	int		i;
@@ -40,7 +40,7 @@ int	builtin_exit(char **arg)
 		return (0);
 	}
 	else if (!(arg[1]))
-		exit(0);
+		default_terminal(info, 0);
 	else
 		ret = ft_atoi(arg[1]);
 	while (arg[1][i])
@@ -48,11 +48,11 @@ int	builtin_exit(char **arg)
 		if (!ft_isdigit(arg[1][i]))
 		{
 			print_error(10);
-			exit(255);
+			default_terminal(info, 255);
 		}
 		i++;
 	}
-	exit(ret);
+	default_terminal(info, ret);
 	return (1);
 }
 

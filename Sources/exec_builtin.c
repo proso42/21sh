@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:12:25 by proso             #+#    #+#             */
-/*   Updated: 2017/11/13 00:34:49 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/27 01:40:40 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int	exec_builtin(t_data *info, t_lexem *lex)
 	else if (!(ft_strcmp(lex->cmd[0], "echo")))
 		return (builtin_echo(lex->cmd));
 	else if (!(ft_strcmp(lex->cmd[0], "exit")))
-		return (builtin_exit(lex->cmd));
+		return (builtin_exit(info, lex->cmd));
 	return (1);
 }
