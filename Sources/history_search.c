@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:15:19 by proso             #+#    #+#             */
-/*   Updated: 2017/11/26 23:20:54 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/27 01:06:25 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,25 @@ void	get_match_data(t_data *info, char *search)
 void	print_correct_history(t_data *info)
 {
 	t_list	*current;
+	char	*tmp;
 	int		size;
 
 	info->hist->nb_line = 0;
-	size = (int)ft_strlen(info->hist->search);
+	size = info->sz.ws_col;
 	term_action(info, "do");
 	current = info->hist->match_list;
 	while (current)
 	{
+		if ((int)ft_strlen(current->data) >= size - 1)
+		{
+			tmp = ft_strdup(current->data);
+			tmp[size] = '\0';
+			tmp[size - 1] = '.';
+			tmp[size - 2] = '.';
+			tmp[size - 3] = '.';
+			ft_strcpy(current->data, tmp);
+			ft_strdel(&tmp);
+		}
 		ft_putendl(current->data);
 		info->hist->nb_line++;
 		current = current->next;
@@ -46,12 +57,15 @@ void	print_correct_history(t_data *info)
 
 void	clear_history_lines(t_data *info)
 {
+	int		nb;
+
+	nb = ft_list_size(info->hist->match_list);
 	term_action(info, "vi");
 	term_action(info, "do");
-	while (info->hist->nb_line > 0)
+	while (nb > 0)
 	{
 		term_action(info, "dl");
-		info->hist->nb_line--;
+		nb--;
 	}
 	term_tgoto(info, 0, 0);
 }
