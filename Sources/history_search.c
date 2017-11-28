@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:15:19 by proso             #+#    #+#             */
-/*   Updated: 2017/11/27 01:06:25 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/28 23:45:44 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	clear_history_lines(t_data *info)
 	nb = ft_list_size(info->hist->match_list);
 	term_action(info, "vi");
 	term_action(info, "do");
-	while (nb > 0)
+	while (nb >= 0)
 	{
 		term_action(info, "dl");
 		nb--;

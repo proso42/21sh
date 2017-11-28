@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 17:04:23 by proso             #+#    #+#             */
-/*   Updated: 2017/11/26 21:04:47 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/27 03:17:20 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	loop(char *str, char **tmp, int *i, t_data *info)
 		if (str[*i] == '$' && !sg_quote)
 		{
 			env_var = analyse_dollard(info, str, i);
-			if (env_var)
+			if (env_var && env_var[0])
 				*tmp = ft_strjoinfree(*tmp, env_var, 3);
 		}
 		else
@@ -95,8 +95,6 @@ void		replace_dollard(t_data *info, char **str)
 	tmp = ft_strnew(info->size_max);
 	loop(*str, &tmp, &i, info);
 	ft_strdel(str);
-	*str = (tmp[0]) ? ft_strdup(tmp): ft_strnew(1);
+	*str = (tmp[0]) ? ft_strdup(tmp): ft_strnew(0);
 	ft_strdel(&tmp);
-	if (!*str[0])
-		*str[0] = -1;
 }

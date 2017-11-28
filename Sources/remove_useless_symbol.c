@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 00:53:11 by proso             #+#    #+#             */
-/*   Updated: 2017/11/26 01:32:02 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/28 23:13:03 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	remove_useless_symbol(char **str)
 	char	*tmp;
 	char	*tmp2;
 
-	if (!ft_strchr(*str, '\'') || !ft_strchr(*str, '\"'))
+	if (!ft_strchr(*str, '\'') && !ft_strchr(*str, '\"'))
 		return ;
 	tmp = ft_strdup(*str);
 	tmp2 = ft_strnew(ft_strlen(tmp));

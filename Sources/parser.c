@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:16:31 by proso             #+#    #+#             */
-/*   Updated: 2017/11/26 22:20:54 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/28 23:33:19 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ static int	choice_direction(void *info, void *lex)
 
 int			is_builtin(t_lexem *lex)
 {
-	if (!ft_strcmp(lex->cmd[0], "exit"))
+	if (!lex->cmd || !lex->cmd[0])
+		return (0);
+	else if (!ft_strcmp(lex->cmd[0], "exit"))
 		return (1);
 	else if (!ft_strcmp(lex->cmd[0], "cd"))
 		return (1);
@@ -47,6 +49,8 @@ int		start_with_operand(char *str)
 		ft_printf("{bold}{red}21sh: parse error near `&&'{res}\n");
 	else if (str[0] == ';' && str[1] == ';')
 		ft_printf("{bold}{red}21sh: parse error near `;;'{res}\n");
+	else if (str[0] == ';')
+		ft_printf("{bold}{red}21sh: parse error near `;'{res}\n");
 	else if (str[0] == '>' || str[0] == '<')
 		ft_printf("{bold}{red}21sh: parse error near `\\n'{res}\n");
 	else

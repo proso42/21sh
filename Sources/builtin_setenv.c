@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/13 14:55:14 by proso             #+#    #+#             */
-/*   Updated: 2017/11/24 18:51:50 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/28 22:51:27 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ static int	check_nb_arg(char **arg)
 	else if (arg[1] && arg[2] && arg[3])
 	{
 		print_error(9);
+		return (0);
+	}
+	else if (!arg[1][0] || !arg[2][0])
+	{
+		ft_printf("{red}{bold}Invalid argument !{res}\n");
 		return (0);
 	}
 	return (1);
