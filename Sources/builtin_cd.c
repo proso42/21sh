@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:07:42 by proso             #+#    #+#             */
-/*   Updated: 2017/11/26 00:57:29 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/29 00:36:25 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,21 +71,25 @@ static int	change_to_home(t_data *info)
 
 int			builtin_cd(t_data *info, char *path)
 {
-	char	tmp[info->size_max];
+	char	*tmp;
 
-	ft_bzero(tmp, info->size_max);
 	if (!path)
 		return (change_to_home(info));
-
+	tmp = ft_strdup(path);
 	if (!(ft_strcmp(path, "-")))
 	{
 		if (!replace_minus(info, tmp))
+		{
+			ft_strdel(&tmp);
 			return (print_error(7));
+		}
 	}
-	else
-		ft_strlcpy(tmp, path, info->size_max);
 	if ((check_path_error(tmp, 1, 1)) < 0)
+	{
+		ft_strdel(&tmp);
 		return (-1);
+	}
 	change_current_dir(info, tmp);
+	ft_strdel(&tmp);
 	return (1);
 }
