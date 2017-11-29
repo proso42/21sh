@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 18:02:58 by proso             #+#    #+#             */
-/*   Updated: 2017/11/25 00:17:53 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/29 23:48:20 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ void	del_line(t_data *info)
 	end(info);
 	while (i >= 0)
 	{
-		term_action(info, "dc");
 		move_left(info);
+		term_action(info, "dc");
+		term_action(info, "dc");
 		i--;
 	}
 	info->buf_i = save;

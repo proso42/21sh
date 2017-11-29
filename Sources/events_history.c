@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 00:54:45 by proso             #+#    #+#             */
-/*   Updated: 2017/11/29 01:59:40 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/29 23:07:45 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int				event_enter_history(t_data *info)
 
 	term_action(info, "te");
 	del_line(info);
-	info->buf_i = 0;
 	ft_bzero(info->buf_cmd, info->size_max);
 	if (info->prompt_size >= info->sz.ws_col)
 		info->curs_x = (info->prompt_size - info->sz.ws_col);
