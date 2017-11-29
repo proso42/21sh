@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/28 23:15:16 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/29 01:54:23 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct	s_hist
 	char		key[6];
 	int			nb_line;
 	int			pos_list;
+	int			too_long;
 	t_list		*match_list;
 }				t_hist;
 

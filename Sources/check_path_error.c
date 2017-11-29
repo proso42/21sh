@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 23:16:26 by proso             #+#    #+#             */
-/*   Updated: 2017/11/29 00:35:00 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/29 01:17:04 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int		print_path_error(char p_e_d[3], char *path, int print, int type)
 	}
 	else if (p_e_d[2] == 'B' && print && type)
 		ft_printf("{bold}{red}Not a directory: %s{res}\n", path);
+	else if (p_e_d[2] == 'B' && print && !type)
+		ft_printf("{bold}{red}21sh: Not a directory: %s{res}\n", path);
 	else if (p_e_d[0] == 'B' && print)
 	{
 		if (!type)
@@ -50,7 +52,6 @@ int				check_path_error(char *path, int allow_print, int type)
 	tmp = ft_strdup(path);
 	ft_memset(p_e_d, 'A', 3);
 	i = (path[0] == '/') ? 1 : 0;
-	ft_printf("{cyan}{bold}%s{res}\n", path);
 	while (path[i])
 	{
 		while (path[i] && path[i] != '/')

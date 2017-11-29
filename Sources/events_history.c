@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 00:54:45 by proso             #+#    #+#             */
-/*   Updated: 2017/11/28 23:44:03 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/29 01:59:40 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,29 @@ void	event_tab_history(t_data *info)
 	size = info->sz.ws_col;
 	if (info->hist->pos_list < 0)
 		return ;
-	ft_strlcpy(info->hist->search, ft_get_elem(info->hist->match_list,
-										info->hist->pos_list), info->size_max);
+	ft_strncpy(info->hist->search, ft_get_elem(info->hist->match_list,
+								info->hist->pos_list), info->sz.ws_col - 10);
 	term_tgoto(info, 0, 0);
 	clear_history_lines(info);
 	term_tgoto(info, 0, 0);
 	ft_remove_list(&info->hist->match_list);
 	get_match_data(info, info->hist->search);
 	print_correct_history(info);
+	info->hist->too_long = 0;
 	term_tgoto(info, 0, 0);
 	if ((int)ft_strlen(info->hist->search) >= size - 10)
 	{
 		tmp = ft_strdup(info->hist->search);
-		tmp[size] = '\0';
-		tmp[size - 1] = '.';
-		tmp[size - 2] = '.';
-		tmp[size - 3] = '.';
-		ft_strcpy(info->hist->search, tmp);
+		tmp[size - 10] = '\0';
+		tmp[size - 11] = '.';
+		tmp[size - 12] = '.';
+		tmp[size - 13] = '.';
+		ft_printf("{bold}{blue}search : {res}%s", tmp);
 		ft_strdel(&tmp);
+		info->hist->too_long = 1;
 	}
-	ft_printf("{bold}{blue}search : {res}%s", info->hist->search);
+	else
+		ft_printf("{bold}{blue}search : {res}%s", info->hist->search);
 }
 
 int				event_enter_history(t_data *info)
@@ -70,10 +73,9 @@ int				event_enter_history(t_data *info)
 
 void			event_letter_history(t_data *info)
 {
-	ft_remove_list(&info->hist->match_list);
-	if ((int)ft_strlen(info->hist->search) >= info->size_max ||
-					(int)ft_strlen(info->hist->search) + 9 >= info->sz.ws_col)
+	if ((int)ft_strlen(info->hist->search) + 9 >= info->sz.ws_col - 1)
 		return ;
+	ft_remove_list(&info->hist->match_list);
 	ft_strcat(info->hist->search, info->hist->key);
 	term_tgoto(info, 0, 0);
 	ft_printf("{bold}{blue}search : {res}%s", info->hist->search);
@@ -88,6 +90,16 @@ void			event_delete_history(t_data *info)
 	int		x;
 
 	x = ft_strlen(info->hist->search);
+	if (info->hist->too_long)
+	{
+		term_action(info, "le");
+		term_action(info, "dc");
+		term_action(info, "le");
+		term_action(info, "dc");
+		term_action(info, "le");
+		term_action(info, "dc");
+		write(0, &info->hist->search[x - 2], 2);
+	}
 	info->hist->search[x - 1] = '\0';
 	term_tgoto(info, 0, 0);
 	clear_history_lines(info);
