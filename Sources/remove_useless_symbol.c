@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 00:53:11 by proso             #+#    #+#             */
-/*   Updated: 2017/11/28 23:13:03 by proso            ###   ########.fr       */
+/*   Updated: 2017/12/01 01:22:57 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	intern_loop(char *tmp, char *tmp2)
 	}
 }
 
-void	remove_useless_symbol(char **str)
+void		remove_useless_symbol(char **str)
 {
 	char	*tmp;
 	char	*tmp2;

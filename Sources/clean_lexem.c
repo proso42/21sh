@@ -6,14 +6,14 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/26 00:07:54 by proso             #+#    #+#             */
-/*   Updated: 2017/11/26 22:52:08 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/30 01:24:30 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 #define DATA ((t_lexem*)current->data)
 
-int	only_space(char *str)
+int		only_space(char *str)
 {
 	int		i;
 

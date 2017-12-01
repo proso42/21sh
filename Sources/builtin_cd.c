@@ -6,13 +6,13 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/16 00:07:42 by proso             #+#    #+#             */
-/*   Updated: 2017/11/29 00:36:25 by proso            ###   ########.fr       */
+/*   Updated: 2017/11/30 23:28:43 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 
-static int	replace_minus(t_data *info, char *path)
+static int	replace_minus(t_data *info, char **path)
 {
 	t_list	*o_pwd;
 	char	*minus;
@@ -21,8 +21,8 @@ static int	replace_minus(t_data *info, char *path)
 	if (!o_pwd)
 		return (0);
 	minus = ((t_env*)(o_pwd->data))->env_value;
-	ft_bzero(path, info->size_max);
-	ft_strlcpy(path, minus, info->size_max);
+	ft_strdel(path);
+	*path = ft_strdup(minus);
 	return (1);
 }
 
@@ -78,7 +78,7 @@ int			builtin_cd(t_data *info, char *path)
 	tmp = ft_strdup(path);
 	if (!(ft_strcmp(path, "-")))
 	{
-		if (!replace_minus(info, tmp))
+		if (!replace_minus(info, &tmp))
 		{
 			ft_strdel(&tmp);
 			return (print_error(7));

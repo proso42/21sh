@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 15:27:24 by proso             #+#    #+#             */
-/*   Updated: 2017/11/16 00:40:46 by proso            ###   ########.fr       */
+/*   Updated: 2017/12/01 01:22:31 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,6 @@ int				print_error(int err)
 	else if (err == ERR_TERM)
 		ft_putstr_color("21sh: Fatal error with tgetstr/tputs function...\n"
 																	, C_RED);
-	else if (err == ERR_INEXISTANT)
-		ft_putstr_color("21sh: No such file or directory\n", C_RED);
-	else if (err == PERMISSION)
-		ft_putstr_color("21sh: Permission denied\n", C_RED);
-	else if (err == ERR_DIRECTORY)
-		ft_putstr_color("21sh: Not a directory\n", C_RED);
 	else if (err == 10)
 		ft_putstr_color("21sh: Numeric argument required\n", C_RED);
 	else if (err == 11)

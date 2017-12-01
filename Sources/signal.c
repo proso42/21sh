@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/17 22:40:17 by proso             #+#    #+#             */
-/*   Updated: 2017/11/26 22:02:58 by proso            ###   ########.fr       */
+/*   Updated: 2017/12/01 00:58:56 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,8 @@ static void		resize_win(int sig)
 	go_good_place(info);
 }
 
-static void		kill_process(int sig)
+static void		kill_line(t_data *info)
 {
-	t_data *info;
-
-	(void)sig;
-	info = get_info(NULL);
-	if (info->searching)
-	{
-		ioctl(0, TIOCSTI, "");
-		term_action(info, "te");
-		info->searching = 0;
-	}
 	info->size_max = 1024;
 	ft_strdel(&info->buf_cmd);
 	info->buf_cmd = ft_strnew(info->size_max);
@@ -56,6 +46,29 @@ static void		kill_process(int sig)
 	info->quote = 0;
 	term_action(info, "do");
 	print_prompt(info);
+}
+
+static void		kill_process(int sig)
+{
+	t_data *info;
+
+	(void)sig;
+	info = get_info(NULL);
+	if (info->searching)
+	{
+		ioctl(0, TIOCSTI, "");
+		term_action(info, "te");
+		info->searching = 0;
+		kill_line(info);
+	}
+	else if (info->pid > 0)
+	{
+		kill(info->pid, 9);
+		info->pid = -2;
+		return ;
+	}
+	else
+		kill_line(info);
 }
 
 void			init_signal(t_data *info)

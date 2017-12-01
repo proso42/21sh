@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/31 11:35:13 by proso             #+#    #+#             */
-/*   Updated: 2017/11/29 23:07:15 by proso            ###   ########.fr       */
+/*   Updated: 2017/12/01 01:21:24 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,11 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/dir.h>
-# include <sys/signal.h>
+# include <signal.h>
 # include "libft.h"
 
 # define ERR_TERM		4
 # define ERR_MALLOC 	6
-# define ERR_INEXISTANT	50
-# define PERMISSION		51
-# define ERR_DIRECTORY	52
 # define EMPTY_HIST		53
 # define AND 			100
 # define OR 			101

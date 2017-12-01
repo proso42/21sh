@@ -6,13 +6,13 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 00:15:19 by proso             #+#    #+#             */
-/*   Updated: 2017/11/29 01:54:42 by proso            ###   ########.fr       */
+/*   Updated: 2017/12/01 01:16:41 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
 
-void	get_match_data(t_data *info, char *search)
+void		get_match_data(t_data *info, char *search)
 {
 	t_list	*current;
 
@@ -20,42 +20,13 @@ void	get_match_data(t_data *info, char *search)
 	while (current)
 	{
 		if (ft_strnstr(current->data, search, (int)ft_strlen(search)) &&
-						!ft_list_find(info->hist->match_list, current ->data))
+						!ft_list_find(info->hist->match_list, current->data))
 			ft_push_back(&info->hist->match_list, ft_strdup(current->data));
 		current = current->next;
 	}
 }
 
-void	print_correct_history(t_data *info)
-{
-	t_list	*current;
-	char	*tmp;
-	int		size;
-
-	info->hist->nb_line = 0;
-	size = info->sz.ws_col;
-	term_action(info, "do");
-	current = info->hist->match_list;
-	while (current)
-	{
-		if ((int)ft_strlen(current->data) >= size - 1)
-		{
-			tmp = ft_strdup(current->data);
-			tmp[size] = '\0';
-			tmp[size - 1] = '.';
-			tmp[size - 2] = '.';
-			tmp[size - 3] = '.';
-			ft_strcpy(current->data, tmp);
-			ft_strdel(&tmp);
-		}
-		ft_putendl(current->data);
-		info->hist->nb_line++;
-		current = current->next;
-	}
-	term_action(info, "ve");
-}
-
-void	clear_history_lines(t_data *info)
+void		clear_history_lines(t_data *info)
 {
 	int		nb;
 
@@ -68,6 +39,17 @@ void	clear_history_lines(t_data *info)
 		nb--;
 	}
 	term_tgoto(info, 0, 0);
+}
+
+static void	suite_get_entry(t_data *info)
+{
+	if (info->hist->key[0] == 127 && !info->hist->key[1] &&
+													info->hist->search[0])
+		event_delete_history(info);
+	else if (info->hist->key[0] == 27 && info->hist->key[1] == 91 &&
+					(info->hist->key[2] == 65 || info->hist->key[2] == 66)
+												&& info->hist->search[0])
+		event_cursor_history(info);
 }
 
 static int	get_entry(t_data *info)
@@ -89,17 +71,11 @@ static int	get_entry(t_data *info)
 			event_tab_history(info);
 		else if (ft_isprint(info->hist->key[0]))
 			event_letter_history(info);
-		else if (info->hist->key[0] == 127 && !info->hist->key[1] &&
-														info->hist->search[0])
-			event_delete_history(info);
-		else if (info->hist->key[0] == 27 && info->hist->key[1] == 91 &&
-						(info->hist->key[2] == 65 || info->hist->key[2] == 66)
-						 						&& info->hist->search[0])
-			event_cursor_history(info);
+		else
+			suite_get_entry(info);
 		if (info->hist->key[0] != 27 || info->hist->key[1] != 91 ||
 							info->hist->key[2] < 65 || info->hist->key[2] > 66)
 			info->hist->pos_list = -1;
-
 	}
 	info->searching = 0;
 	return (2);

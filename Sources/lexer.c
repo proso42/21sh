@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/21 14:40:35 by proso             #+#    #+#             */
-/*   Updated: 2017/11/26 23:17:10 by proso            ###   ########.fr       */
+/*   Updated: 2017/12/01 01:28:59 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ int			lexer(t_data *info)
 		if (!info->buf_cmd[i])
 			break ;
 		pass_no_space(info->buf_cmd, &i, &sg_quote, &db_quote);
-		ft_push_back(&tmp_list, ft_strsub(info->buf_cmd, j, i - j));
+		if (i - j)
+			ft_push_back(&tmp_list, ft_strsub(info->buf_cmd, j, i - j));
 		if (is_operand(info->buf_cmd[i]))
 		{
 			create_new_lexem(info, &i, tmp_list);
@@ -130,20 +131,3 @@ int			lexer(t_data *info)
 	}
 	return (suite_lexer(info, &i, j, &tmp_list));
 }
-
-/*static int	is_builtin(t_data *info, int i)
-{
-	if (!ft_strcmp(info->av[i], "exit"))
-		return (1);
-	else if (!ft_strcmp(info->av[i], "cd"))
-		return (1);
-	else if (!ft_strcmp(info->av[i], "env"))
-		return (1);
-	else if (!ft_strcmp(info->av[i], "setenv"))
-		return (1);
-	else if (!ft_strcmp(info->av[i], "unsetenv"))
-		return (1);
-	else if (!ft_strcmp(info->av[i], "echo"))
-		return (1);
-	return (0);
-}*/

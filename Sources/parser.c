@@ -6,38 +6,12 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 22:16:31 by proso             #+#    #+#             */
-/*   Updated: 2017/11/28 23:33:19 by proso            ###   ########.fr       */
+/*   Updated: 2017/12/01 02:21:54 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/shell.h"
-
-static int	choice_direction(void *info, void *lex)
-{
-	(void)info;
-	if (((t_lexem*)(lex))->op == PIPE)
-		return (0);
-	return (-1);
-}
-
-int			is_builtin(t_lexem *lex)
-{
-	if (!lex->cmd || !lex->cmd[0])
-		return (0);
-	else if (!ft_strcmp(lex->cmd[0], "exit"))
-		return (1);
-	else if (!ft_strcmp(lex->cmd[0], "cd"))
-		return (1);
-	else if (!ft_strcmp(lex->cmd[0], "env"))
-		return (1);
-	else if (!ft_strcmp(lex->cmd[0], "setenv"))
-		return (1);
-	else if (!ft_strcmp(lex->cmd[0], "unsetenv"))
-		return (1);
-	else if (!ft_strcmp(lex->cmd[0], "echo"))
-		return (1);
-	return (0);
-}
+#define DATA ((t_lexem*)(current->data))
 
 int		start_with_operand(char *str)
 {
@@ -58,42 +32,57 @@ int		start_with_operand(char *str)
 	return (1);
 }
 
-static void	bt_iter(t_data *info, t_btree *root, int (f)(t_data *, t_lexem *))
+static t_list	*leave_op(t_list *list, int op)
 {
-	t_btree	*current;
-	int		op;
-	int		ret;
-	int		pass;
+	t_list *current;
 
-	ft_init(0, 2, &pass, &ret);
-	current = root;
-	if (current)
-	{
-		op = ((t_lexem*)(current->item))->op;
-		if (op == SEMICOLON || op == AND)
-			ret = f(info, current->item);
-		else
-			pass = 0;
-		if (current->left)
-			bt_iter(info, current->left, f);
-		if (current->right)
-			bt_iter(info, current->right, f);
-		if (pass != 2 && pass != -2)
-			ret = f(info, current->item);
-	}
+	current = list;
+	while (current && DATA->op == op)
+		current = current->next;
+	return (current) ? current->next : NULL;
 }
 
-void		parser(t_data *info)
+static t_list	*run_and_or(t_data *info, t_list *list)
+{
+	int		and;
+	int		or;
+	int		ret;
+	t_list	*current;
+
+	current = list;
+	and = (DATA->op == AND) ? 1 : 0;
+	or = (DATA->op == OR) ? 1 : 0;
+	ret = exectute(info, DATA);
+	if (!ret && and)
+		return (leave_op(current, AND));
+	else if ((ret && and) || (!ret && or))
+		return (current->next);
+	else
+		return (leave_op(current, OR));
+}
+
+void	parser(t_data *info)
 {
 	t_list	*current;
 
 	current = info->lexem_list;
-	if (!current)
-		return ;
 	while (current)
 	{
-		btree_insert_data(&info->root, current->data, choice_direction);
-		current = current->next;
+		if (DATA->op == SEMICOLON && DATA->cmd)
+		{
+			exectute(info, DATA);
+			current = current->next;
+		}
+		else if ((DATA->op == AND || DATA->op == OR) && DATA->cmd)
+			current = run_and_or(info, current);
+		else if (DATA->op == SEMICOLON && !DATA->cmd)
+			current = current->next;
+		else if (DATA->op == BK && DATA->cmd)
+		{
+			exectute(info, DATA);
+			return ;
+		}
+		else if (DATA->op == BK && !DATA->cmd)
+			return ;
 	}
-	bt_iter(info, info->root, exectute);
 }

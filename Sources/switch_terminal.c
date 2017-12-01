@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/16 13:05:03 by proso             #+#    #+#             */
-/*   Updated: 2017/11/27 01:38:05 by proso            ###   ########.fr       */
+/*   Updated: 2017/12/01 01:24:08 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			default_terminal(t_data *info, int mode)
 	if (mode < 0)
 		exit(-1);
 	else
-		exit (mode);
+		exit(mode);
 	return (1);
 }
 

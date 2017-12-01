@@ -6,7 +6,7 @@
 #    By: proso <proso@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/27 13:41:20 by proso             #+#    #+#              #
-#    Updated: 2017/11/27 00:40:10 by proso            ###   ########.fr        #
+#    Updated: 2017/12/01 01:12:36 by proso            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC = add_to_buf.c \
 	  end_of_line.c \
 	  env.c \
 	  events_history.c \
+	  events_history2.c \
 	  exec_builtin.c \
 	  exec_single.c \
 	  find_cmd.c \

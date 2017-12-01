@@ -6,7 +6,7 @@
 /*   By: proso <proso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 23:16:26 by proso             #+#    #+#             */
-/*   Updated: 2017/11/29 01:17:04 by proso            ###   ########.fr       */
+/*   Updated: 2017/12/01 01:00:05 by proso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ static int		print_path_error(char p_e_d[3], char *path, int print, int type)
 	return ((type) ? -1 : 1);
 }
 
-static void		check_access(char p_e_d[3], char *tmp, struct stat buf)
+static void		check_access(char p_e_d[3], char *tmp)
 {
+	struct stat	buf;
+
+	lstat(tmp, &buf);
 	p_e_d[0] = (access(tmp, X_OK) == -1) ? 'B' : 'A';
 	p_e_d[1] = (access(tmp, F_OK) == -1) ? 'B' : 'A';
 	p_e_d[2] = ((buf.st_mode & S_IFMT) != S_IFDIR) ? 'B' : 'A';
@@ -45,7 +48,6 @@ static void		check_access(char p_e_d[3], char *tmp, struct stat buf)
 int				check_path_error(char *path, int allow_print, int type)
 {
 	int			i;
-	struct stat	buf;
 	char		p_e_d[3];
 	char		*tmp;
 
@@ -57,9 +59,9 @@ int				check_path_error(char *path, int allow_print, int type)
 		while (path[i] && path[i] != '/')
 			i++;
 		tmp[i] = '\0';
-		lstat(tmp, &buf);
-		check_access(p_e_d, tmp, buf);
-		if (p_e_d[0] == 'B' || p_e_d[1] == 'B' || p_e_d[2] == 'B')
+		check_access(p_e_d, tmp);
+		if (p_e_d[0] == 'B' || p_e_d[1] == 'B' || (p_e_d[2] == 'B' && path[i])
+												|| (p_e_d[2] == 'B' && type))
 		{
 			ft_strdel(&tmp);
 			return (print_path_error(p_e_d, path, allow_print, type));
